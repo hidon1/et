@@ -1,0 +1,2916 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>אתרוגי מרוקו - ארבעת המינים המהודרים</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Serif+Hebrew:wght@300;400;600;700;900&family=Heebo:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --gold: #C8922A;
+            --gold-light: #F0C050;
+            --gold-pale: #FBF0D0;
+            --green-deep: #1A3A1A;
+            --green-mid: #2D5A1B;
+            --green-leaf: #4A7C2F;
+            --green-light: #7DB356;
+            --cream: #FDFAF2;
+            --parchment: #F5EDD5;
+            --brown-dark: #3A2005;
+            --brown-mid: #6B3D0E;
+            --text-dark: #1C1208;
+            --text-mid: #4A3520;
+            --shadow-gold: rgba(200, 146, 42, 0.25);
+            --shadow-green: rgba(26, 58, 26, 0.2);
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Heebo', sans-serif;
+            background: var(--cream);
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* ===== LOADER ===== */
+        #loader {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: var(--green-deep);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 20px;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+
+        #loader.hide {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-etrog {
+            font-size: 64px;
+            animation: loaderBounce 1s ease-in-out infinite;
+        }
+
+        .loader-text {
+            color: var(--gold-light);
+            font-family: 'Noto Serif Hebrew', serif;
+            font-size: 1.4rem;
+            letter-spacing: 0.05em;
+        }
+
+        @keyframes loaderBounce {
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(-5deg);
+            }
+
+            50% {
+                transform: translateY(-18px) rotate(5deg);
+            }
+        }
+
+        /* ===== SCROLLBAR ===== */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--green-deep);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--gold);
+            border-radius: 4px;
+        }
+
+        /* ===== HEADER / NAV ===== */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(26, 58, 26, 0.97);
+            backdrop-filter: blur(12px);
+            border-bottom: 2px solid var(--gold);
+            padding: 12px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: padding 0.3s;
+        }
+
+        header.shrink {
+            padding: 8px 40px;
+        }
+
+        .logo-wrap {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 54px;
+            height: 54px;
+            background: radial-gradient(circle at 40% 35%, #F5D060, #C8922A 60%, #7B4A0A);
+            border-radius: 45% 55% 60% 40% / 50% 40% 60% 50%;
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            box-shadow: 0 4px 18px var(--shadow-gold), inset 0 -3px 8px rgba(0, 0, 0, 0.2);
+            animation: etrogFloat 4s ease-in-out infinite;
+            flex-shrink: 0;
+        }
+
+        .logo-icon::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 12px;
+            background: var(--green-leaf);
+            border-radius: 2px;
+        }
+
+        .logo-icon::after {
+            content: '🌿';
+            position: absolute;
+            top: -18px;
+            left: 54%;
+            font-size: 14px;
+        }
+
+        @keyframes etrogFloat {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-5px);
+            }
+        }
+
+        .logo-text {
+            color: var(--gold-light);
+        }
+
+        .logo-text h1 {
+            font-family: 'Noto Serif Hebrew', serif;
+            font-size: 1.35rem;
+            font-weight: 700;
+            line-height: 1.1;
+        }
+
+        .logo-text span {
+            font-size: 0.72rem;
+            color: var(--gold);
+            letter-spacing: 0.12em;
+            font-weight: 400;
+        }
+
+        nav {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--gold-pale);
+            text-decoration: none;
+            font-size: 0.88rem;
+            padding: 7px 14px;
+            border-radius: 20px;
+            transition: all 0.25s;
+            font-weight: 500;
+        }
+
+        nav a:hover,
+        nav a.active {
+            background: var(--gold);
+            color: var(--green-deep);
+        }
+
+        .cart-btn {
+            background: var(--gold);
+            color: var(--green-deep) !important;
+            font-weight: 700 !important;
+            border-radius: 20px !important;
+            position: relative;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            background: #e03030;
+            color: #fff;
+            font-size: 0.68rem;
+            font-weight: 700;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            display: none;
+        }
+
+        .cart-count.show {
+            display: flex;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(160deg, var(--green-deep) 0%, #0F2B0F 40%, #1E1000 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 80px;
+        }
+
+        .hero-bg-leaves {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .leaf {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.08;
+            animation: leafDrift linear infinite;
+        }
+
+        @keyframes leafDrift {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 0.08;
+            }
+
+            90% {
+                opacity: 0.08;
+            }
+
+            100% {
+                transform: translateY(-120px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .hero-glow {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 50% 60%, rgba(200, 146, 42, 0.12) 0%, transparent 65%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 780px;
+            padding: 40px 20px;
+        }
+
+        .hero-eyebrow {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            color: var(--green-deep);
+            font-size: 0.78rem;
+            font-weight: 700;
+            padding: 5px 18px;
+            border-radius: 20px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+            animation: fadeDown 0.8s ease both;
+        }
+
+        .hero-title {
+            font-family: 'Noto Serif Hebrew', serif;
+            color: var(--cream);
+            font-size: clamp(2.4rem, 6vw, 4.2rem);
+            font-weight: 900;
+            line-height: 1.15;
+            margin-bottom: 16px;
+            animation: fadeDown 0.9s 0.1s ease both;
+        }
+
+        .hero-title .gold {
+            color: var(--gold-light);
+        }
+
+        .hero-subtitle {
+            color: rgba(253, 250, 242, 0.75);
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 36px;
+            animation: fadeDown 1s 0.2s ease both;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeDown 1s 0.35s ease both;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--gold), #E0A830);
+            color: var(--green-deep);
+            font-weight: 700;
+            font-size: 1.05rem;
+            padding: 14px 36px;
+            border-radius: 30px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 6px 28px var(--shadow-gold);
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 36px var(--shadow-gold);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--gold);
+            color: var(--gold-light);
+            font-weight: 600;
+            font-size: 1rem;
+            padding: 13px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(200, 146, 42, 0.15);
+        }
+
+        .hero-scroll {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            color: rgba(253, 250, 242, 0.4);
+            font-size: 0.75rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .hero-scroll::after {
+            content: '↓';
+            font-size: 1.2rem;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 0.4;
+            }
+
+            50% {
+                opacity: 0.9;
+            }
+        }
+
+        @keyframes fadeDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* big floating etrog in hero */
+        .hero-etrog-art {
+            position: absolute;
+            right: 6%;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+            z-index: 1;
+            animation: etrogFloat 5s ease-in-out infinite;
+            opacity: 0.18;
+        }
+
+        .hero-etrog-art svg {
+            width: 220px;
+            height: 280px;
+        }
+
+        /* ===== SECTION COMMONS ===== */
+        section {
+            padding: 90px 40px;
+        }
+
+        .section-label {
+            display: inline-block;
+            color: var(--gold);
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            border-bottom: 2px solid var(--gold);
+            padding-bottom: 4px;
+            margin-bottom: 14px;
+        }
+
+        .section-title {
+            font-family: 'Noto Serif Hebrew', serif;
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 800;
+            line-height: 1.2;
+            color: var(--green-deep);
+            margin-bottom: 14px;
+        }
+
+        .section-title.light {
+            color: var(--cream);
+        }
+
+        .section-desc {
+            font-size: 1.05rem;
+            color: var(--text-mid);
+            line-height: 1.75;
+            max-width: 620px;
+        }
+
+        .section-desc.light {
+            color: rgba(253, 250, 242, 0.75);
+        }
+
+        /* ===== REVEAL ANIMATION ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(36px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: none;
+        }
+
+        /* ===== SIDEBAR TAGS ===== */
+        .shop-layout {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 36px;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        .sidebar {
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+
+        .sidebar-title {
+            font-family: 'Noto Serif Hebrew', serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--green-deep);
+            margin-bottom: 14px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--gold);
+        }
+
+        .tag-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .tag-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            border-radius: 12px;
+            border: 2px solid transparent;
+            background: var(--parchment);
+            color: var(--text-mid);
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.22s;
+            font-family: 'Heebo', sans-serif;
+            text-align: right;
+            width: 100%;
+        }
+
+        .tag-btn .tag-icon {
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .tag-btn:hover {
+            border-color: var(--gold);
+            background: var(--gold-pale);
+            color: var(--green-deep);
+            transform: translateX(-3px);
+        }
+
+        .tag-btn.active {
+            background: var(--gold);
+            border-color: var(--gold);
+            color: var(--green-deep);
+            font-weight: 700;
+            transform: translateX(-4px);
+            box-shadow: 4px 0 0 var(--green-deep);
+        }
+
+        /* ===== PRODUCTS GRID ===== */
+        #shop {
+            background: var(--parchment);
+        }
+
+        .products-header {
+            margin-bottom: 40px;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+            gap: 28px;
+        }
+
+        .product-card {
+            background: var(--cream);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.07);
+            transition: transform 0.28s, box-shadow 0.28s;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 44px rgba(0, 0, 0, 0.13), 0 0 0 2px var(--gold);
+        }
+
+        .product-card.hidden {
+            display: none;
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            z-index: 3;
+            background: linear-gradient(135deg, var(--gold), #E0A830);
+            color: var(--green-deep);
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 12px;
+            letter-spacing: 0.06em;
+        }
+
+        .product-badge.green {
+            background: linear-gradient(135deg, var(--green-leaf), var(--green-mid));
+            color: #fff;
+        }
+
+        .product-badge.red {
+            background: linear-gradient(135deg, #d0393a, #a02020);
+            color: #fff;
+        }
+
+        /* IMAGE SLIDER */
+        .img-slider {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 4/3;
+            overflow: hidden;
+            background: var(--parchment);
+        }
+
+        .img-slider img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 0.7s ease;
+        }
+
+        /* =====================================================
+   HOW TO REPLACE PRODUCT IMAGES:
+   Each .img-slider contains <img> tags with src="...".
+   Simply replace the URL in src="" with your own image path.
+   e.g. src="images/etrog-premium.jpg"
+   The slider automatically cycles through all images in the slider.
+   ===================================================== */
+        .img-slider img.active {
+            opacity: 1;
+        }
+
+        .slider-dots {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 6px;
+        }
+
+        .dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .dot.active {
+            background: var(--gold);
+            transform: scale(1.3);
+        }
+
+        .slider-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(26, 58, 26, 0.7);
+            color: #fff;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            opacity: 0;
+            transition: opacity 0.2s;
+            z-index: 4;
+        }
+
+        .img-slider:hover .slider-arrow {
+            opacity: 1;
+        }
+
+        .slider-prev {
+            right: 8px;
+        }
+
+        .slider-next {
+            left: 8px;
+        }
+
+        .product-body {
+            padding: 18px 20px 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .product-name {
+            font-family: 'Noto Serif Hebrew', serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--green-deep);
+            line-height: 1.3;
+        }
+
+        .product-meta {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .hiddur-badge {
+            font-size: 0.72rem;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 10px;
+            background: var(--gold-pale);
+            color: var(--brown-dark);
+            border: 1px solid var(--gold);
+        }
+
+        .stars {
+            color: var(--gold);
+            font-size: 0.85rem;
+            letter-spacing: -1px;
+        }
+
+        .product-desc {
+            font-size: 0.84rem;
+            color: var(--text-mid);
+            line-height: 1.6;
+        }
+
+        .product-price {
+            font-family: 'Noto Serif Hebrew', serif;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--green-deep);
+            margin-top: auto;
+        }
+
+        .product-price span {
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: var(--text-mid);
+            margin-right: 4px;
+        }
+
+        .product-price .old-price {
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: #999;
+            text-decoration: line-through;
+            margin-right: 8px;
+        }
+
+        .add-cart-btn {
+            width: 100%;
+            padding: 12px;
+            background: var(--green-deep);
+            color: var(--gold-light);
+            border: none;
+            border-radius: 12px;
+            font-family: 'Heebo', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.15s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .add-cart-btn:hover {
+            background: var(--green-mid);
+            transform: scale(1.02);
+        }
+
+        .add-cart-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* ===== INFO BANNER ===== */
+        .info-banner {
+            background: var(--green-deep);
+            padding: 18px 40px;
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            flex-wrap: wrap;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--gold-pale);
+            font-size: 0.88rem;
+        }
+
+        .info-item .icon {
+            font-size: 1.4rem;
+        }
+
+        /* ===== ABOUT ARBA MINIM ===== */
+        #arba-minim {
+            background: var(--green-deep);
+            position: relative;
+            overflow: hidden;
+        }
+
+        #arba-minim::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23C8922A' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+
+        #arba-minim .inner {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .arba-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 28px;
+            margin-top: 52px;
+        }
+
+        .min-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(200, 146, 42, 0.3);
+            border-radius: 20px;
+            padding: 28px 24px;
+            text-align: center;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .min-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .min-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--gold);
+        }
+
+        .min-card:hover::after {
+            opacity: 1;
+        }
+
+        .min-emoji {
+            font-size: 3.2rem;
+            margin-bottom: 14px;
+            display: block;
+        }
+
+        .min-name {
+            font-family: 'Noto Serif Hebrew', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--gold-light);
+            margin-bottom: 8px;
+        }
+
+        .min-hebrew {
+            font-size: 0.8rem;
+            color: var(--gold);
+            margin-bottom: 12px;
+        }
+
+        .min-desc {
+            font-size: 0.88rem;
+            color: rgba(253, 250, 242, 0.7);
+            line-height: 1.65;
+        }
+
+        /* ===== MOROCCO SECTION ===== */
+        #morocco {
+            background: linear-gradient(160deg, #1A1000 0%, #2D1800 50%, #1A3A1A 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        #morocco::before {
+            content: '✦';
+            position: absolute;
+            font-size: 600px;
+            opacity: 0.015;
+            color: var(--gold);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
+
+        .morocco-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 70px;
+            align-items: center;
+        }
+
+        .morocco-text .badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            color: var(--green-deep);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 5px 16px;
+            border-radius: 20px;
+            letter-spacing: 0.14em;
+            margin-bottom: 22px;
+        }
+
+        .morocco-text p {
+            color: rgba(253, 250, 242, 0.8);
+            font-size: 0.97rem;
+            line-height: 1.8;
+            margin-bottom: 16px;
+        }
+
+        .morocco-features {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-top: 28px;
+        }
+
+        .feat-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 14px 16px;
+            background: rgba(200, 146, 42, 0.08);
+            border-radius: 12px;
+            border-right: 3px solid var(--gold);
+        }
+
+        .feat-icon {
+            font-size: 1.4rem;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .feat-text strong {
+            display: block;
+            color: var(--gold-light);
+            font-size: 0.9rem;
+            margin-bottom: 3px;
+        }
+
+        .feat-text span {
+            color: rgba(253, 250, 242, 0.65);
+            font-size: 0.83rem;
+        }
+
+        .morocco-visual {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .morocco-orb {
+            width: 340px;
+            height: 340px;
+            background: radial-gradient(circle at 38% 32%, #F5D060, #C8922A 50%, #7B4A0A 80%, #3A2005);
+            border-radius: 43% 57% 61% 39% / 52% 41% 59% 48%;
+            box-shadow: 0 0 80px rgba(200, 146, 42, 0.3), inset 0 -20px 40px rgba(0, 0, 0, 0.3);
+            animation: morphOrb 8s ease-in-out infinite;
+            position: relative;
+        }
+
+        .morocco-orb::before {
+            content: '✡';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3rem;
+            color: rgba(253, 250, 242, 0.15);
+        }
+
+        @keyframes morphOrb {
+
+            0%,
+            100% {
+                border-radius: 43% 57% 61% 39% / 52% 41% 59% 48%;
+            }
+
+            33% {
+                border-radius: 55% 45% 38% 62% / 40% 58% 42% 60%;
+            }
+
+            66% {
+                border-radius: 38% 62% 55% 45% / 60% 38% 62% 40%;
+            }
+        }
+
+        .orb-ring {
+            position: absolute;
+            border: 1px solid rgba(200, 146, 42, 0.2);
+            border-radius: 50%;
+            animation: orbRing 6s linear infinite;
+        }
+
+        .orb-ring:nth-child(1) {
+            width: 380px;
+            height: 380px;
+            animation-duration: 10s;
+        }
+
+        .orb-ring:nth-child(2) {
+            width: 440px;
+            height: 440px;
+            animation-duration: 14s;
+            animation-direction: reverse;
+        }
+
+        .orb-ring:nth-child(3) {
+            width: 500px;
+            height: 500px;
+            animation-duration: 18s;
+        }
+
+        @keyframes orbRing {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* ===== GALLERY ===== */
+        #gallery {
+            background: var(--parchment);
+        }
+
+        #gallery .inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            grid-template-rows: 240px 240px;
+            gap: 16px;
+            margin-top: 44px;
+        }
+
+        .gallery-item {
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .gallery-item:first-child {
+            grid-row: 1 / 3;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.08);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(26, 58, 26, 0.7), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding-bottom: 18px;
+            color: var(--gold-light);
+            font-family: 'Noto Serif Hebrew', serif;
+            font-size: 1.05rem;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        /* ===== TESTIMONIALS ===== */
+        #testimonials {
+            background: var(--cream);
+        }
+
+        #testimonials .inner {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-top: 44px;
+        }
+
+        .test-card {
+            background: var(--parchment);
+            border-radius: 18px;
+            padding: 24px 22px;
+            border: 1px solid rgba(200, 146, 42, 0.2);
+            position: relative;
+            transition: transform 0.25s, box-shadow 0.25s;
+        }
+
+        .test-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .test-card::before {
+            content: '❝';
+            font-size: 3rem;
+            color: rgba(200, 146, 42, 0.2);
+            position: absolute;
+            top: 10px;
+            left: 16px;
+            line-height: 1;
+            font-family: serif;
+        }
+
+        .test-text {
+            font-size: 0.92rem;
+            line-height: 1.7;
+            color: var(--text-mid);
+            margin-bottom: 16px;
+            margin-top: 8px;
+        }
+
+        .test-author {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .test-avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--gold), var(--green-leaf));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .test-name {
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .test-city {
+            font-size: 0.78rem;
+            color: #888;
+        }
+
+        /* ===== CONTACT ===== */
+        #contact {
+            background: var(--green-deep);
+            position: relative;
+            overflow: hidden;
+        }
+
+        #contact::after {
+            content: '';
+            position: absolute;
+            bottom: -100px;
+            right: -100px;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(200, 146, 42, 0.1), transparent);
+            pointer-events: none;
+        }
+
+        .contact-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        .contact-info .contact-items {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            margin-top: 28px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: rgba(253, 250, 242, 0.85);
+            font-size: 0.93rem;
+        }
+
+        .contact-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: rgba(200, 146, 42, 0.15);
+            border: 1px solid rgba(200, 146, 42, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.82rem;
+            color: var(--gold);
+            font-weight: 600;
+            margin-bottom: 6px;
+            letter-spacing: 0.08em;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(200, 146, 42, 0.3);
+            border-radius: 10px;
+            color: var(--cream);
+            font-family: 'Heebo', sans-serif;
+            font-size: 0.92rem;
+            transition: border-color 0.2s, background 0.2s;
+            outline: none;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: var(--gold);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 110px;
+        }
+
+        .form-submit {
+            padding: 13px 32px;
+            background: linear-gradient(135deg, var(--gold), #E0A830);
+            color: var(--green-deep);
+            border: none;
+            border-radius: 12px;
+            font-family: 'Heebo', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            align-self: flex-start;
+        }
+
+        .form-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px var(--shadow-gold);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: #0A1A0A;
+            padding: 40px 40px 24px;
+            color: rgba(253, 250, 242, 0.5);
+            font-size: 0.82rem;
+            border-top: 1px solid rgba(200, 146, 42, 0.2);
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            margin-bottom: 16px;
+        }
+
+        .footer-logo {
+            color: var(--gold-light);
+            font-family: 'Noto Serif Hebrew', serif;
+            font-size: 1.1rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .footer-links a {
+            color: rgba(253, 250, 242, 0.5);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--gold);
+        }
+
+        .footer-copy {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        /* ===== CART PANEL ===== */
+        #cart-panel {
+            position: fixed;
+            top: 0;
+            left: -420px;
+            width: 400px;
+            height: 100vh;
+            background: var(--cream);
+            z-index: 2000;
+            box-shadow: 10px 0 60px rgba(0, 0, 0, 0.3);
+            transition: left 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        #cart-panel.open {
+            left: 0;
+        }
+
+        .cart-header {
+            background: var(--green-deep);
+            padding: 20px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: var(--gold-light);
+        }
+
+        .cart-header h3 {
+            font-family: 'Noto Serif Hebrew', serif;
+            font-size: 1.2rem;
+        }
+
+        .cart-close {
+            background: none;
+            border: none;
+            color: var(--gold-light);
+            font-size: 1.4rem;
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .cart-items {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .cart-empty {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            gap: 12px;
+            color: var(--text-mid);
+            text-align: center;
+        }
+
+        .cart-empty .big-icon {
+            font-size: 4rem;
+            opacity: 0.3;
+        }
+
+        .cart-item-row {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            padding: 12px;
+            background: var(--parchment);
+            border-radius: 12px;
+            border: 1px solid rgba(200, 146, 42, 0.2);
+        }
+
+        .cart-item-row img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .cart-item-info {
+            flex: 1;
+        }
+
+        .cart-item-name {
+            font-weight: 700;
+            font-size: 0.88rem;
+            color: var(--green-deep);
+        }
+
+        .cart-item-price {
+            font-size: 0.82rem;
+            color: var(--gold);
+            font-weight: 600;
+            margin-top: 2px;
+        }
+
+        .cart-item-qty {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 6px;
+        }
+
+        .qty-btn {
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            border: 1px solid var(--gold);
+            background: transparent;
+            color: var(--green-deep);
+            cursor: pointer;
+            font-size: 0.9rem;
+            line-height: 1;
+            transition: background 0.15s;
+        }
+
+        .qty-btn:hover {
+            background: var(--gold);
+        }
+
+        .qty-num {
+            font-weight: 700;
+            font-size: 0.88rem;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        .cart-remove {
+            background: none;
+            border: none;
+            color: #bbb;
+            cursor: pointer;
+            font-size: 1.1rem;
+            line-height: 1;
+            transition: color 0.2s;
+            align-self: flex-start;
+        }
+
+        .cart-remove:hover {
+            color: #d03030;
+        }
+
+        .cart-footer {
+            padding: 20px 24px;
+            border-top: 2px solid var(--gold-pale);
+            background: var(--parchment);
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+        }
+
+        .cart-total strong {
+            font-family: 'Noto Serif Hebrew', serif;
+            font-size: 1.05rem;
+        }
+
+        .cart-total .total-amount {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--green-deep);
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, var(--green-deep), var(--green-mid));
+            color: var(--gold-light);
+            border: none;
+            border-radius: 12px;
+            font-family: 'Heebo', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: opacity 0.2s, transform 0.15s;
+            margin-bottom: 10px;
+        }
+
+        .checkout-btn:hover {
+            opacity: 0.9;
+            transform: scale(1.01);
+        }
+
+        .secure-badge {
+            text-align: center;
+            font-size: 0.75rem;
+            color: #888;
+        }
+
+        /* ===== CHECKOUT MODAL ===== */
+        #checkout-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 3000;
+            background: rgba(10, 26, 10, 0.85);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+
+        #checkout-modal.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .checkout-box {
+            background: var(--cream);
+            border-radius: 24px;
+            padding: 36px;
+            width: min(520px, 95vw);
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+        }
+
+        .checkout-box h3 {
+            font-family: 'Noto Serif Hebrew', serif;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--green-deep);
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .checkout-fields {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .checkout-fields input,
+        .checkout-fields select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1.5px solid rgba(200, 146, 42, 0.3);
+            border-radius: 10px;
+            font-family: 'Heebo', sans-serif;
+            font-size: 0.93rem;
+            color: var(--text-dark);
+            background: var(--parchment);
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .checkout-fields input:focus,
+        .checkout-fields select:focus {
+            border-color: var(--gold);
+        }
+
+        .checkout-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .payment-section {
+            margin-top: 20px;
+        }
+
+        .payment-section h4 {
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--green-deep);
+            margin-bottom: 12px;
+            border-bottom: 1px solid var(--gold-pale);
+            padding-bottom: 8px;
+        }
+
+        .card-field {
+            background: var(--parchment);
+            border: 1.5px solid rgba(200, 146, 42, 0.3);
+            border-radius: 10px;
+            padding: 14px 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            color: #aaa;
+            cursor: text;
+        }
+
+        .card-icons {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .card-icon {
+            width: 40px;
+            height: 26px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            background: var(--parchment);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text-mid);
+        }
+
+        .checkout-total {
+            margin: 20px 0;
+            background: var(--parchment);
+            border-radius: 12px;
+            padding: 16px;
+        }
+
+        .checkout-total-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.88rem;
+            padding: 4px 0;
+            color: var(--text-mid);
+        }
+
+        .checkout-total-row.total {
+            font-weight: 800;
+            font-size: 1.1rem;
+            color: var(--green-deep);
+            border-top: 1px dashed var(--gold);
+            margin-top: 8px;
+            padding-top: 10px;
+        }
+
+        .checkout-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .checkout-cancel {
+            padding: 12px 24px;
+            border-radius: 12px;
+            border: 2px solid var(--gold);
+            background: transparent;
+            color: var(--green-deep);
+            font-family: 'Heebo', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .checkout-cancel:hover {
+            background: var(--gold-pale);
+        }
+
+        .checkout-pay {
+            flex: 1;
+            padding: 13px;
+            background: linear-gradient(135deg, var(--gold), #E0A830);
+            color: var(--green-deep);
+            border: none;
+            border-radius: 12px;
+            font-family: 'Heebo', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+
+        .checkout-pay:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 20px var(--shadow-gold);
+        }
+
+        /* ===== SUCCESS MODAL ===== */
+        #success-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 4000;
+            background: rgba(10, 26, 10, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+
+        #success-modal.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .success-box {
+            background: var(--cream);
+            border-radius: 24px;
+            padding: 48px 36px;
+            text-align: center;
+            width: min(400px, 90vw);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+        }
+
+        .success-icon {
+            font-size: 5rem;
+            margin-bottom: 16px;
+            animation: successPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+        }
+
+        @keyframes successPop {
+            from {
+                transform: scale(0);
+            }
+
+            to {
+                transform: scale(1);
+            }
+        }
+
+        .success-box h3 {
+            font-family: 'Noto Serif Hebrew', serif;
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--green-deep);
+            margin-bottom: 10px;
+        }
+
+        .success-box p {
+            color: var(--text-mid);
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .success-close {
+            padding: 12px 32px;
+            border-radius: 12px;
+            background: var(--green-deep);
+            color: var(--gold-light);
+            border: none;
+            font-family: 'Heebo', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        /* ===== TOAST ===== */
+        #toast {
+            position: fixed;
+            bottom: 100px;
+            right: 24px;
+            z-index: 5000;
+            background: var(--green-deep);
+            color: var(--gold-light);
+            padding: 12px 22px;
+            border-radius: 14px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: 1px solid var(--gold);
+            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.25);
+            transform: translateY(20px);
+            opacity: 0;
+            pointer-events: none;
+            transition: transform 0.3s, opacity 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        #toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* ===== WHATSAPP ===== */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            z-index: 999;
+            width: 60px;
+            height: 60px;
+            background: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 24px rgba(37, 211, 102, 0.45);
+            text-decoration: none;
+            animation: waPulse 2.5s ease-in-out infinite;
+            transition: transform 0.2s;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            animation: none;
+        }
+
+        .whatsapp-float svg {
+            width: 32px;
+            height: 32px;
+            fill: #fff;
+        }
+
+        @keyframes waPulse {
+
+            0%,
+            100% {
+                box-shadow: 0 6px 24px rgba(37, 211, 102, 0.45);
+            }
+
+            50% {
+                box-shadow: 0 6px 40px rgba(37, 211, 102, 0.7);
+                transform: scale(1.05);
+            }
+        }
+
+        .whatsapp-tooltip {
+            position: absolute;
+            bottom: 70px;
+            right: 0;
+            background: var(--green-deep);
+            color: var(--gold-light);
+            font-size: 0.78rem;
+            font-weight: 600;
+            padding: 6px 12px;
+            border-radius: 10px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+        }
+
+        .whatsapp-float:hover .whatsapp-tooltip {
+            opacity: 1;
+        }
+
+        /* ===== OVERLAY (cart bg) ===== */
+        #overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+
+        #overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 900px) {
+            .shop-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                position: static;
+            }
+
+            .tag-list {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+
+            .tag-btn {
+                width: auto;
+            }
+
+            .morocco-inner {
+                grid-template-columns: 1fr;
+            }
+
+            .morocco-visual {
+                display: none;
+            }
+
+            .contact-inner {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: auto;
+            }
+
+            .gallery-item:first-child {
+                grid-row: auto;
+            }
+
+            nav {
+                display: none;
+            }
+        }
+
+        @media (max-width: 600px) {
+            section {
+                padding: 60px 20px;
+            }
+
+            header {
+                padding: 10px 16px;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- LOADER -->
+    <div id="loader">
+        <div class="loader-etrog">🍋</div>
+        <div class="loader-text">אתרוגי מרוקו</div>
+    </div>
+
+    <!-- OVERLAY -->
+    <div id="overlay" onclick="closeCart()"></div>
+
+    <!-- TOAST -->
+    <div id="toast">✅ <span id="toast-msg"></span></div>
+
+    <!-- WHATSAPP -->
+    <a href="https://wa.me/972500000000" class="whatsapp-float" target="_blank" title="צור קשר בוואטסאפ">
+        <!-- Replace the phone number above: https://wa.me/972XXXXXXXXX -->
+        <div class="whatsapp-tooltip">📲 צור קשר עכשיו</div>
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+        </svg>
+    </a>
+
+    <!-- CART PANEL -->
+    <div id="cart-panel">
+        <div class="cart-header">
+            <h3>🛒 סל הקניות שלי</h3>
+            <button class="cart-close" onclick="closeCart()">✕</button>
+        </div>
+        <div class="cart-items" id="cart-items-list">
+            <div class="cart-empty">
+                <div class="big-icon">🍋</div>
+                <p>הסל ריק עדיין<br><small>הוסף מוצרים מהחנות</small></p>
+            </div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <strong>סה"כ לתשלום:</strong>
+                <span class="total-amount" id="cart-total-price">₪0</span>
+            </div>
+            <button class="checkout-btn" onclick="openCheckout()">לתשלום מאובטח 🔒</button>
+            <div class="secure-badge">🔐 SSL מוצפן | ויזה / מאסטרקארד / ביט</div>
+        </div>
+    </div>
+
+    <!-- CHECKOUT MODAL -->
+    <div id="checkout-modal">
+        <div class="checkout-box">
+            <h3>🔐 השלמת הזמנה</h3>
+            <div class="checkout-fields">
+                <div class="checkout-row">
+                    <input type="text" placeholder="שם פרטי" />
+                    <input type="text" placeholder="שם משפחה" />
+                </div>
+                <input type="tel" placeholder="📱 טלפון" />
+                <input type="email" placeholder="📧 אימייל" />
+                <input type="text" placeholder="📍 כתובת למשלוח" />
+                <div class="checkout-row">
+                    <input type="text" placeholder="עיר" />
+                    <input type="text" placeholder="מיקוד" />
+                </div>
+            </div>
+            <div class="payment-section">
+                <h4>💳 פרטי כרטיס אשראי</h4>
+                <div class="card-field">💳 מספר כרטיס</div>
+                <div class="checkout-row" style="margin-top:10px;">
+                    <div class="card-field">📅 תוקף</div>
+                    <div class="card-field">🔒 CVV</div>
+                </div>
+                <div class="card-icons">
+                    <div class="card-icon">VISA</div>
+                    <div class="card-icon">MC</div>
+                    <div class="card-icon">BIT</div>
+                    <div class="card-icon">PAY</div>
+                </div>
+            </div>
+            <div class="checkout-total" id="checkout-summary">
+                <div class="checkout-total-row"><span>סכום המוצרים</span><span id="co-sub">₪0</span></div>
+                <div class="checkout-total-row"><span>משלוח</span><span>חינם 🎁</span></div>
+                <div class="checkout-total-row total"><span>סה"כ</span><span id="co-total">₪0</span></div>
+            </div>
+            <div class="checkout-actions">
+                <button class="checkout-cancel" onclick="closeCheckout()">ביטול</button>
+                <button class="checkout-pay" onclick="completeOrder()">שלם עכשיו 🍋</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SUCCESS MODAL -->
+    <div id="success-modal">
+        <div class="success-box">
+            <div class="success-icon">✅</div>
+            <h3>ההזמנה התקבלה!</h3>
+            <p>תודה על הזמנתך.<br>נציג יחזור אליך בקרוב לאישור ותיאום משלוח.<br>חג סוכות שמח! 🍋🌿🌴🌿</p>
+            <button class="success-close" onclick="closeSuccess()">סגור</button>
+        </div>
+    </div>
+
+    <!-- HEADER -->
+    <header id="main-header">
+        <a href="#" class="logo-wrap">
+            <div class="logo-icon"></div>
+            <div class="logo-text">
+                <h1>אתרוגי מרוקו</h1>
+                <span>ארבעת המינים המהודרים</span>
+            </div>
+        </a>
+        <nav>
+            <a href="#shop">🛍️ חנות</a>
+            <a href="#arba-minim">📖 ארבעת המינים</a>
+            <a href="#morocco">🍋 אתרוגי מרוקו</a>
+            <a href="#gallery">🖼️ גלריה</a>
+            <a href="#contact">📞 צור קשר</a>
+            <a href="#" class="cart-btn" onclick="openCart(event)">🛒 סל
+                <span class="cart-count" id="cart-count">0</span>
+            </a>
+        </nav>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero" id="home">
+        <div class="hero-bg-leaves" id="leaves-container"></div>
+        <div class="hero-glow"></div>
+        <div class="hero-content">
+            <div class="hero-eyebrow">✡ חג סוכות תשפ"ה ✡</div>
+            <h1 class="hero-title">
+                ארבעת המינים<br>
+                <span class="gold">המהודרים ביותר</span><br>
+      מישיר מרוקו
+            </h1>
+            <p class="hero-subtitle">
+                אתרוגים יפים ונקיים, לולבים גבוהים ומהודרים, הדסים ריחניים וערבות טריות —
+                הכל בסטים מוכנים ומהודרים לסוכות שמח
+            </p>
+            <div class="hero-cta">
+                <a href="#shop" class="btn-primary">🛍️ לחנות המהודרת</a>
+                <a href="#arba-minim" class="btn-secondary">📖 קרא עוד</a>
+            </div>
+        </div>
+        <div class="hero-scroll">גלול למטה</div>
+        <div class="hero-etrog-art">
+            <svg viewBox="0 0 200 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <ellipse cx="100" cy="140" rx="70" ry="90" fill="url(#etrogGrad)" opacity="0.9" />
+                <ellipse cx="100" cy="90" rx="40" ry="50" fill="url(#etrogGrad2)" opacity="0.7" />
+                <rect x="97" y="35" width="6" height="40" rx="3" fill="#4A7C2F" opacity="0.8" />
+                <path d="M100 35 Q115 20 125 25 Q120 35 100 35Z" fill="#4A7C2F" opacity="0.8" />
+                <defs>
+                    <radialGradient id="etrogGrad" cx="35%" cy="30%">
+                        <stop offset="0%" stop-color="#F5D060" />
+                        <stop offset="50%" stop-color="#C8922A" />
+                        <stop offset="100%" stop-color="#7B4A0A" />
+                    </radialGradient>
+                    <radialGradient id="etrogGrad2" cx="40%" cy="35%">
+                        <stop offset="0%" stop-color="#F8E080" />
+                        <stop offset="100%" stop-color="#C8922A" />
+                    </radialGradient>
+                </defs>
+            </svg>
+        </div>
+    </section>
+
+    <!-- INFO BANNER -->
+    <div class="info-banner">
+        <div class="info-item"><span class="icon">🚚</span> משלוח מהיר בכל הארץ</div>
+        <div class="info-item"><span class="icon">✅</span> מהודר ומבודק בדקדוק</div>
+        <div class="info-item"><span class="icon">🔒</span> תשלום מאובטח</div>
+        <div class="info-item"><span class="icon">📞</span> שירות אישי בוואטסאפ</div>
+        <div class="info-item"><span class="icon">🌿</span> ישיר מהמגדל</div>
+    </div>
+
+    <!-- SHOP SECTION -->
+    <section id="shop">
+        <div class="shop-layout">
+            <!-- SIDEBAR -->
+            <aside class="sidebar reveal">
+                <div class="sidebar-title">🗂️ סינון לפי קטגוריה</div>
+                <div class="tag-list">
+                    <button class="tag-btn active" onclick="filterProducts('all', this)">
+          <span class="tag-icon">🌟</span> כל המוצרים
+        </button>
+                    <button class="tag-btn" onclick="filterProducts('set', this)">
+          <span class="tag-icon">🎁</span> סטים שלמים
+        </button>
+                    <button class="tag-btn" onclick="filterProducts('etrog', this)">
+          <span class="tag-icon">🍋</span> אתרוג בלבד
+        </button>
+                    <button class="tag-btn" onclick="filterProducts('lulav', this)">
+          <span class="tag-icon">🌴</span> לולב בלבד
+        </button>
+                    <button class="tag-btn" onclick="filterProducts('hadas', this)">
+          <span class="tag-icon">🌿</span> הדסים בלבד
+        </button>
+                    <button class="tag-btn" onclick="filterProducts('arava', this)">
+          <span class="tag-icon">🍃</span> ערבות בלבד
+        </button>
+                    <button class="tag-btn" onclick="filterProducts('mehudar', this)">
+          <span class="tag-icon">👑</span> מהודר מאוד
+        </button>
+                    <button class="tag-btn" onclick="filterProducts('morocco', this)">
+          <span class="tag-icon">⭐</span> מרוקו מיוחד
+        </button>
+                </div>
+            </aside>
+
+            <!-- PRODUCTS -->
+            <div>
+                <div class="products-header reveal">
+                    <div class="section-label">החנות שלנו</div>
+                    <h2 class="section-title">ארבעת המינים לסוכות תשפ"ה</h2>
+                    <p class="section-desc">כל המוצרים נבדקים בקפידה. אחריות על הכשרות.</p>
+                </div>
+                <div class="products-grid" id="products-grid">
+
+                    <!-- PRODUCT 1 -->
+                    <!-- data-category: set=סט שלם, etrog, lulav, hadas, arava, mehudar, morocco -->
+                    <div class="product-card reveal" data-category="set mehudar">
+                        <div class="product-badge">⭐ מומלץ</div>
+                        <div class="img-slider">
+                            <!-- REPLACE IMAGES: Change the src="" URLs below to your own product images -->
+                            <img src="https://images.unsplash.com/photo-1615485290382-441e4d049cb5?w=400&h=300&fit=crop" class="active" alt="סט מהודר">
+                            <img src="https://images.unsplash.com/photo-1601000938258-8bcce67e57de?w=400&h=300&fit=crop" alt="סט מהודר 2">
+                            <img src="https://images.unsplash.com/photo-1627484326800-4eef37b2b200?w=400&h=300&fit=crop" alt="סט מהודר 3">
+                            <div class="slider-dots">
+                                <span class="dot active"></span>
+                                <span class="dot"></span>
+                                <span class="dot"></span>
+                            </div>
+                            <button class="slider-arrow slider-next" onclick="slideImg(this,-1)">‹</button>
+                            <button class="slider-arrow slider-prev" onclick="slideImg(this,1)">›</button>
+                        </div>
+                        <div class="product-body">
+                            <div class="product-name">סט מהודר — אתרוג + לולב + הדסים + ערבות</div>
+                            <div class="product-meta">
+                                <span class="hiddur-badge">הידור: מהודר מאוד</span>
+                                <span class="stars">★★★★★</span>
+                            </div>
+                            <p class="product-desc">הסט השלם הכולל אתרוג מהודר, לולב גבוה ישר, 3 הדסים כפותים ו-2 ערבות.
+                                מאוגד בקישוט יפה.</p>
+                            <div class="product-price"><span class="old-price">₪280</span>₪220</div>
+                            <button class="add-cart-btn" onclick="addToCart(this, 'סט מהודר שלם', 220, 'https://images.unsplash.com/photo-1615485290382-441e4d049cb5?w=80&h=80&fit=crop')">
+              🛒 הוסף לסל
+            </button>
+                        </div>
+                    </div>
+
+                    <!-- PRODUCT 2 -->
+                    <div class="product-card reveal" data-category="morocco mehudar">
+                        <div class="product-badge red">🌟 מרוקו</div>
+                        <div class="img-slider">
+                            <img src="https://images.unsplash.com/photo-1562051144-50a81ba2dbec?w=400&h=300&fit=crop" class="active" alt="אתרוג מרוקו">
+                            <img src="https://images.unsplash.com/photo-1610832958506-aa56368176cf?w=400&h=300&fit=crop" alt="אתרוג מרוקו 2">
+                            <div class="slider-dots"><span class="dot active"></span><span class="dot"></span></div>
+                            <button class="slider-arrow slider-next" onclick="slideImg(this,-1)">‹</button>
+                            <button class="slider-arrow slider-prev" onclick="slideImg(this,1)">›</button>
+                        </div>
+                        <div class="product-body">
+                            <div class="product-name">אתרוג מרוקאי — הידור עליון</div>
+                            <div class="product-meta">
+                                <span class="hiddur-badge">הידור: עליון</span>
+                                <span class="stars">★★★★★</span>
+                            </div>
+                            <p class="product-desc">אתרוג מרוקאי נדיר ויפהפה, פיטם שלם, קליפה נקייה בלי כתמים, ריח עז
+                                ומוחרף. מהיבוא המיוחד.</p>
+                            <div class="product-price">₪180</div>
+                            <button class="add-cart-btn" onclick="addToCart(this,'אתרוג מרוקאי עליון', 180, 'https://images.unsplash.com/photo-1562051144-50a81ba2dbec?w=80&h=80&fit=crop')">
+              🛒 הוסף לסל
+            </button>
+                        </div>
+                    </div>
+
+                    <!-- PRODUCT 3 -->
+                    <div class="product-card reveal" data-category="lulav">
+                        <div class="product-badge green">🌴 לולב</div>
+                        <div class="img-slider">
+                            <img src="https://images.unsplash.com/photo-1567234669003-dce7a7a88821?w=400&h=300&fit=crop" class="active" alt="לולב מהודר">
+                            <img src="https://images.unsplash.com/photo-1525498128493-380d1990a112?w=400&h=300&fit=crop" alt="לולב 2">
+                            <div class="slider-dots"><span class="dot active"></span><span class="dot"></span></div>
+                            <button class="slider-arrow slider-next" onclick="slideImg(this,-1)">‹</button>
+                            <button class="slider-arrow slider-prev" onclick="slideImg(this,1)">›</button>
+                        </div>
+                        <div class="product-body">
+                            <div class="product-name">לולב מצרי — גבוה וישר</div>
+                            <div class="product-meta">
+                                <span class="hiddur-badge">הידור: מהודר</span>
+                                <span class="stars">★★★★☆</span>
+                            </div>
+                            <p class="product-desc">לולב גבוה 80 ס"מ, עלה שדרה סגור, ישר ומהודר. כשר למהדרין. מגיע
+                                בעטיפת הגנה.</p>
+                            <div class="product-price">₪55</div>
+                            <button class="add-cart-btn" onclick="addToCart(this,'לולב מצרי מהודר', 55, 'https://images.unsplash.com/photo-1567234669003-dce7a7a88821?w=80&h=80&fit=crop')">
+              🛒 הוסף לסל
+            </button>
+                        </div>
+                    </div>
+
+                    <!-- PRODUCT 4 -->
+                    <div class="product-card reveal" data-category="etrog">
+                        <div class="img-slider">
+                            <img src="https://images.unsplash.com/photo-1548013146-72479768bada?w=400&h=300&fit=crop" class="active" alt="אתרוג ישראלי">
+                            <img src="https://images.unsplash.com/photo-1590005354167-6da97870c757?w=400&h=300&fit=crop" alt="אתרוג 2">
+                            <div class="slider-dots"><span class="dot active"></span><span class="dot"></span></div>
+                            <button class="slider-arrow slider-next" onclick="slideImg(this,-1)">‹</button>
+                            <button class="slider-arrow slider-prev" onclick="slideImg(this,1)">›</button>
+                        </div>
+                        <div class="product-body">
+                            <div class="product-name">אתרוג ישראלי — כפר חסידים</div>
+                            <div class="product-meta">
+                                <span class="hiddur-badge">הידור: מהודר</span>
+                                <span class="stars">★★★★☆</span>
+                            </div>
+                            <p class="product-desc">אתרוג מכפר חסידים, מגדל מיוחד ידוע, פיטם שלם, קליפה צהובה נאה
+                                ורירית. מושלם לקיום המצווה.</p>
+                            <div class="product-price">₪95</div>
+                            <button class="add-cart-btn" onclick="addToCart(this,'אתרוג כפר חסידים', 95, 'https://images.unsplash.com/photo-1548013146-72479768bada?w=80&h=80&fit=crop')">
+              🛒 הוסף לסל
+            </button>
+                        </div>
+                    </div>
+
+                    <!-- PRODUCT 5 -->
+                    <div class="product-card reveal" data-category="set">
+                        <div class="img-slider">
+                            <img src="https://images.unsplash.com/photo-1490474418585-ba9bad8fd0ea?w=400&h=300&fit=crop" class="active" alt="סט בסיסי">
+                            <img src="https://images.unsplash.com/photo-1566598428717-d09ad9e9eb6a?w=400&h=300&fit=crop" alt="סט 2">
+                            <div class="slider-dots"><span class="dot active"></span><span class="dot"></span></div>
+                            <button class="slider-arrow slider-next" onclick="slideImg(this,-1)">‹</button>
+                            <button class="slider-arrow slider-prev" onclick="slideImg(this,1)">›</button>
+                        </div>
+                        <div class="product-body">
+                            <div class="product-name">סט בסיסי — כשר ומהודר</div>
+                            <div class="product-meta">
+                                <span class="hiddur-badge">הידור: מהודר</span>
+                                <span class="stars">★★★★☆</span>
+                            </div>
+                            <p class="product-desc">סט שלם ומהודר לקיום המצווה בהידור, מתאים למשפחות שמחפשות איכות במחיר
+                                הוגן.</p>
+                            <div class="product-price">₪149</div>
+                            <button class="add-cart-btn" onclick="addToCart(this,'סט בסיסי כשר', 149, 'https://images.unsplash.com/photo-1490474418585-ba9bad8fd0ea?w=80&h=80&fit=crop')">
+              🛒 הוסף לסל
+            </button>
+                        </div>
+                    </div>
+
+                    <!-- PRODUCT 6 -->
+                    <div class="product-card reveal" data-category="hadas">
+                        <div class="product-badge green">🌿 הדסים</div>
+                        <div class="img-slider">
+                            <img src="https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?w=400&h=300&fit=crop" class="active" alt="הדסים">
+                            <img src="https://images.unsplash.com/photo-1502810190503-8303352d0dd1?w=400&h=300&fit=crop" alt="הדסים 2">
+                            <div class="slider-dots"><span class="dot active"></span><span class="dot"></span></div>
+                            <button class="slider-arrow slider-next" onclick="slideImg(this,-1)">‹</button>
+                            <button class="slider-arrow slider-prev" onclick="slideImg(this,1)">›</button>
+                        </div>
+                        <div class="product-body">
+                            <div class="product-name">3 הדסים כפותים — ריחניים</div>
+                            <div class="product-meta">
+                                <span class="hiddur-badge">הידור: מהודר</span>
+                                <span class="stars">★★★★★</span>
+                            </div>
+                            <p class="product-desc">שלושה הדסים כפותים טריים, ריחניים בצורה יוצאת דופן. נקיים ממחלות.
+                                נחתכים יום לפני החג.</p>
+                            <div class="product-price">₪28</div>
+                            <button class="add-cart-btn" onclick="addToCart(this,'3 הדסים כפותים', 28, 'https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?w=80&h=80&fit=crop')">
+              🛒 הוסף לסל
+            </button>
+                        </div>
+                    </div>
+
+                    <!-- PRODUCT 7 -->
+                    <div class="product-card reveal" data-category="set morocco mehudar">
+                        <div class="product-badge">👑 פרמיום</div>
+                        <div class="img-slider">
+                            <img src="https://images.unsplash.com/photo-1542838309-be7ae0081a52?w=400&h=300&fit=crop" class="active" alt="סט פרמיום">
+                            <img src="https://images.unsplash.com/photo-1563699088-3b4da5e42c99?w=400&h=300&fit=crop" alt="סט פרמיום 2">
+                            <img src="https://images.unsplash.com/photo-1616169201999-849dc42e5e27?w=400&h=300&fit=crop" alt="סט פרמיום 3">
+                            <div class="slider-dots">
+                                <span class="dot active"></span><span class="dot"></span><span class="dot"></span></div>
+                            <button class="slider-arrow slider-next" onclick="slideImg(this,-1)">‹</button>
+                            <button class="slider-arrow slider-prev" onclick="slideImg(this,1)">›</button>
+                        </div>
+                        <div class="product-body">
+                            <div class="product-name">סט פרמיום — אתרוג מרוקו + לולב + הדסים + ערבות + קופסא</div>
+                            <div class="product-meta">
+                                <span class="hiddur-badge">הידור: עליון</span>
+                                <span class="stars">★★★★★</span>
+                            </div>
+                            <p class="product-desc">הסט היוקרתי ביותר: אתרוג מרוקאי נדיר, לולב מצרי גבוה 90 ס"מ, הדסים
+                                כפותים, ערבות טריות + קופסת אתרוג מהודרת עץ.</p>
+                            <div class="product-price"><span class="old-price">₪420</span>₪350</div>
+                            <button class="add-cart-btn" onclick="addToCart(this,'סט פרמיום מלא + קופסא', 350, 'https://images.unsplash.com/photo-1542838309-be7ae0081a52?w=80&h=80&fit=crop')">
+              🛒 הוסף לסל
+            </button>
+                        </div>
+                    </div>
+
+                    <!-- PRODUCT 8 -->
+                    <div class="product-card reveal" data-category="arava">
+                        <div class="img-slider">
+                            <img src="https://images.unsplash.com/photo-1585559700398-1385b3a8aeb6?w=400&h=300&fit=crop" class="active" alt="ערבות">
+                            <img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=400&h=300&fit=crop" alt="ערבות 2">
+                            <div class="slider-dots"><span class="dot active"></span><span class="dot"></span></div>
+                            <button class="slider-arrow slider-next" onclick="slideImg(this,-1)">‹</button>
+                            <button class="slider-arrow slider-prev" onclick="slideImg(this,1)">›</button>
+                        </div>
+                        <div class="product-body">
+                            <div class="product-name">2 ערבות — טריות וכשרות</div>
+                            <div class="product-meta">
+                                <span class="hiddur-badge">הידור: מהודר</span>
+                                <span class="stars">★★★★☆</span>
+                            </div>
+                            <p class="product-desc">שתי ערבות נחל טריות, עלים ישרים ולחים, ללא כתמים. כשרות ומהודרות.
+                                נחתכות סמוך לחג.</p>
+                            <div class="product-price">₪18</div>
+                            <button class="add-cart-btn" onclick="addToCart(this,'2 ערבות טריות', 18, 'https://images.unsplash.com/photo-1585559700398-1385b3a8aeb6?w=80&h=80&fit=crop')">
+              🛒 הוסף לסל
+            </button>
+                        </div>
+                    </div>
+
+                </div><!-- /products-grid -->
+            </div>
+        </div><!-- /shop-layout -->
+    </section>
+
+    <!-- ARBA MINIM INFO -->
+    <section id="arba-minim">
+        <div class="inner">
+            <div class="reveal" style="text-align:center;">
+                <div class="section-label" style="color:var(--gold)">📖 על המצווה</div>
+                <h2 class="section-title light">ארבעת המינים</h2>
+                <p class="section-desc light" style="margin:0 auto;">
+                    "וּלְקַחְתֶּם לָכֶם בַּיּוֹם הָרִאשׁוֹן פְּרִי עֵץ הָדָר כַּפֹּת תְּמָרִים וַעֲנַף עֵץ עָבֹת
+                    וְעַרְבֵי נָחַל"
+                    <br><em style="font-size:0.85rem;opacity:0.7;">(ויקרא כ"ג, מ')</em>
+                </p>
+            </div>
+            <div class="arba-grid">
+                <div class="min-card reveal">
+                    <span class="min-emoji">🍋</span>
+                    <div class="min-name">אֶתְרוֹג</div>
+                    <div class="min-hebrew">פְּרִי עֵץ הָדָר</div>
+                    <p class="min-desc">פרי ההדר היפה, בעל טעם וריח. מסמל את אנשי ישראל שיש בהם תורה ומעשים טובים כאחד.
+                    </p>
+                </div>
+                <div class="min-card reveal">
+                    <span class="min-emoji">🌴</span>
+                    <div class="min-name">לוּלָב</div>
+                    <div class="min-hebrew">כַּפֹּת תְּמָרִים</div>
+                    <p class="min-desc">ענף תמר צעיר, יש לו טעם (פרי התמר) אך אין לו ריח. מסמל את מי שיש בו תורה אך
+                        מעשים חסרים.</p>
+                </div>
+                <div class="min-card reveal">
+                    <span class="min-emoji">🌿</span>
+                    <div class="min-name">הֲדַסִּים</div>
+                    <div class="min-hebrew">עֲנַף עֵץ עָבֹת</div>
+                    <p class="min-desc">ענף ריחני ועבות, אין לו טעם. מסמל את מי שיש בו מעשים טובים אך לא תורה.</p>
+                </div>
+                <div class="min-card reveal">
+                    <span class="min-emoji">🍃</span>
+                    <div class="min-name">עֲרָבוֹת</div>
+                    <div class="min-hebrew">עַרְבֵי נָחַל</div>
+                    <p class="min-desc">ערבה ללא טעם וללא ריח. מסמל את מי שאין לו לא תורה ולא מעשים — ועם כל זה נכלל
+                        בצרור עם ישראל.</p>
+                </div>
+            </div>
+            <div class="reveal" style="text-align:center;margin-top:52px;">
+                <p style="color:rgba(253,250,242,0.75);font-size:1rem;line-height:1.8;max-width:680px;margin:0 auto;">
+                    כשאוחזים את ארבעתם יחדיו ומנענעים — מתאחדים כל חלקי עם ישראל: התלמיד חכם, בעל המעשים,
+                    ואפילו מי שנראה חסר — כולם יחד, צרור אחד, לפני אלוהינו.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- MOROCCO SECTION -->
+    <section id="morocco">
+        <div class="morocco-inner reveal">
+            <div class="morocco-text">
+                <div class="badge">🌟 ייחודי ונדיר</div>
+                <div class="section-label" style="color:var(--gold)">מקור מיוחד</div>
+                <h2 class="section-title light">אתרוגי מרוקו</h2>
+                <p>האתרוג המרוקאי נחשב לאחד המהודרים ביותר בעולם היהודי. שורשיו עמוקים בקהילות יהדות מרוקו ומגיע מגנים
+                    מיוחדים שמסורתם נמשכת מדורי דורות.</p>
+                <p>הפרי ידוע בפיטמו השלם, קליפתו הצהובה-זהובה הנקייה, ריחו החריף והמיוחד, וצורתו הסגלגלה היפהפייה. מוחזק
+                    כ"מהודר מן המהודר" אצל גדולי ישראל.</p>
+                <div class="morocco-features">
+                    <div class="feat-item">
+                        <span class="feat-icon">🎯</span>
+                        <div class="feat-text">
+                            <strong>פיטם שלם ומהודר</strong>
+                            <span>פיטם בריא, לא סדוק, עומד בשיא יופיו</span>
+                        </div>
+                    </div>
+                    <div class="feat-item">
+                        <span class="feat-icon">✨</span>
+                        <div class="feat-text">
+                            <strong>קליפה נקייה</strong>
+                            <span>ללא כתמים, ללא מום, עור חלק ונעים</span>
+                        </div>
+                    </div>
+                    <div class="feat-item">
+                        <span class="feat-icon">🌸</span>
+                        <div class="feat-text">
+                            <strong>ריח עז ומיוחד</strong>
+                            <span>בושם טבעי חזק שמלווה את כל ימי החג</span>
+                        </div>
+                    </div>
+                    <div class="feat-item">
+                        <span class="feat-icon">📜</span>
+                        <div class="feat-text">
+                            <strong>מסורת דורות</strong>
+                            <span>מגדלים מהמשפחה לדור אחר דור במרוקו</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="morocco-visual">
+                <div class="orb-ring"></div>
+                <div class="orb-ring"></div>
+                <div class="orb-ring"></div>
+                <div class="morocco-orb"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section id="gallery">
+        <div class="inner">
+            <div class="reveal">
+                <div class="section-label">📸 גלריה</div>
+                <h2 class="section-title">מראות מהחנות</h2>
+                <p class="section-desc">תמונות מהמוצרים, מהגידול, ומהכנת ארבעת המינים</p>
+            </div>
+            <div class="gallery-grid reveal">
+                <!-- GALLERY IMAGES: Replace src="" with your own images -->
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1615485290382-441e4d049cb5?w=800&h=600&fit=crop" alt="גלריה 1">
+                    <div class="gallery-overlay">ארבעת המינים המהודרים</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1562051144-50a81ba2dbec?w=400&h=240&fit=crop" alt="גלריה 2">
+                    <div class="gallery-overlay">אתרוג מרוקאי</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1567234669003-dce7a7a88821?w=400&h=240&fit=crop" alt="גלריה 3">
+                    <div class="gallery-overlay">לולב מהודר</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?w=400&h=240&fit=crop" alt="גלריה 4">
+                    <div class="gallery-overlay">הדסים ריחניים</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1548013146-72479768bada?w=400&h=240&fit=crop" alt="גלריה 5">
+                    <div class="gallery-overlay">בדיקת אתרוגים</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section id="testimonials">
+        <div class="inner">
+            <div class="reveal" style="text-align:center;">
+                <div class="section-label">❤️ לקוחות מספרים</div>
+                <h2 class="section-title">מה אומרים הלקוחות</h2>
+            </div>
+            <div class="test-grid">
+                <div class="test-card reveal">
+                    <p class="test-text">קניתי אצלם כבר שלוש שנים. האתרוג המרוקאי פשוט לא מתאפשר להשיג במקום אחר. שירות
+                        אישי מדהים ומשלוח מהיר.</p>
+                    <div class="test-author">
+                        <div class="test-avatar">מ</div>
+                        <div>
+                            <div class="test-name">משה לוי</div>
+                            <div class="test-city">ירושלים</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="test-card reveal">
+                    <p class="test-text">הסט הפרמיום שקיבלתי היה פשוט מרהיב. האתרוג עם פיטם שלם ומהודר, הלולב ישר
+                        ועוצמתי. ממליץ בחום רב!</p>
+                    <div class="test-author">
+                        <div class="test-avatar">א</div>
+                        <div>
+                            <div class="test-name">אברהם כהן</div>
+                            <div class="test-city">בני ברק</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="test-card reveal">
+                    <p class="test-text">קיבלתי תוך יומיים, הכל עטוף יפה עם הוראות לשימור. הדסים נשארו טריים כל ימי חול
+                        המועד. תודה רבה!</p>
+                    <div class="test-author">
+                        <div class="test-avatar">ד</div>
+                        <div>
+                            <div class="test-name">דוד פרץ</div>
+                            <div class="test-city">נתניה</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+        <div class="contact-inner">
+            <div class="reveal">
+                <div class="section-label" style="color:var(--gold)">📞 יצירת קשר</div>
+                <h2 class="section-title light">דברו איתנו</h2>
+                <p class="section-desc light">נשמח לעזור בבחירה, לענות על שאלות הלכתיות, ולתאם משלוח.</p>
+                <div class="contact-items">
+                    <div class="contact-item">
+                        <div class="contact-icon">📱</div>
+                        <div>
+                            <strong style="color:var(--gold-light);display:block;">וואטסאפ / טלפון</strong>
+                            <!-- Replace with your phone number -->
+                            050-000-0000
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📧</div>
+                        <div>
+                            <strong style="color:var(--gold-light);display:block;">אימייל</strong>
+                            <!-- Replace with your email -->
+                            info@etrogim.co.il
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">🕐</div>
+                        <div>
+                            <strong style="color:var(--gold-light);display:block;">שעות פעילות</strong>
+                            ראשון–חמישי 9:00–20:00 | שישי 9:00–13:00
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📦</div>
+                        <div>
+                            <strong style="color:var(--gold-light);display:block;">משלוחים</strong>
+                            משלוח בכל הארץ | איסוף עצמי זמין
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <form class="contact-form reveal" onsubmit="sendContact(event)">
+                <div class="form-group">
+                    <label>שם מלא</label>
+                    <input type="text" placeholder="שמך..." required>
+                </div>
+                <div class="form-group">
+                    <label>טלפון</label>
+                    <input type="tel" placeholder="05X-XXXXXXX" required>
+                </div>
+                <div class="form-group">
+                    <label>הודעה</label>
+                    <textarea placeholder="כתוב הודעה..."></textarea>
+                </div>
+                <button type="submit" class="form-submit">📤 שלח הודעה</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-logo">🍋 אתרוגי מרוקו</div>
+            <div class="footer-links">
+                <a href="#shop">חנות</a>
+                <a href="#arba-minim">ארבעת המינים</a>
+                <a href="#gallery">גלריה</a>
+                <a href="#contact">צור קשר</a>
+            </div>
+        </div>
+        <div class="footer-copy">
+            © 2025 אתרוגי מרוקו — ארבעת המינים המהודרים | חג סוכות שמח 🍋🌿🌴🍃
+        </div>
+    </footer>
+
+    <script>
+        // ===========================
+//   LOADER
+// ===========================
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('loader').classList.add('hide');
+  }, 1400);
+});
+
+// ===========================
+//   LEAVES ANIMATION
+// ===========================
+const leavesContainer = document.getElementById('leaves-container');
+const leafSymbols = ['🍋','🌿','🌴','🍃','✡','🍃','🌿'];
+function createLeaf() {
+  const leaf = document.createElement('div');
+  leaf.className = 'leaf';
+  leaf.textContent = leafSymbols[Math.floor(Math.random() * leafSymbols.length)];
+  leaf.style.left = Math.random() * 100 + 'vw';
+  leaf.style.fontSize = (1.2 + Math.random() * 2) + 'rem';
+  const dur = 8 + Math.random() * 12;
+  leaf.style.animationDuration = dur + 's';
+  leaf.style.animationDelay = Math.random() * 6 + 's';
+  leavesContainer.appendChild(leaf);
+  setTimeout(() => leaf.remove(), (dur + 6) * 1000);
+}
+setInterval(createLeaf, 1200);
+for (let i = 0; i < 8; i++) createLeaf();
+
+// ===========================
+//   HEADER SHRINK
+// ===========================
+window.addEventListener('scroll', () => {
+  document.getElementById('main-header').classList.toggle('shrink', window.scrollY > 80);
+});
+
+// ===========================
+//   REVEAL ON SCROLL
+// ===========================
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 80);
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ===========================
+//   IMAGE SLIDER
+// ===========================
+function slideImg(btn, dir) {
+  const slider = btn.closest('.img-slider');
+  const imgs = slider.querySelectorAll('img');
+  const dots = slider.querySelectorAll('.dot');
+  let current = [...imgs].findIndex(i => i.classList.contains('active'));
+  imgs[current].classList.remove('active');
+  dots[current].classList.remove('active');
+  current = (current + dir + imgs.length) % imgs.length;
+  imgs[current].classList.add('active');
+  dots[current].classList.add('active');
+}
+
+// Auto-slide every 3.5s
+document.querySelectorAll('.img-slider').forEach(slider => {
+  setInterval(() => {
+    const imgs = slider.querySelectorAll('img');
+    if (imgs.length < 2) return;
+    let cur = [...imgs].findIndex(i => i.classList.contains('active'));
+    const dots = slider.querySelectorAll('.dot');
+    imgs[cur].classList.remove('active');
+    if (dots[cur]) dots[cur].classList.remove('active');
+    cur = (cur + 1) % imgs.length;
+    imgs[cur].classList.add('active');
+    if (dots[cur]) dots[cur].classList.add('active');
+  }, 3500 + Math.random() * 1000);
+});
+
+// ===========================
+//   FILTER PRODUCTS
+// ===========================
+function filterProducts(cat, btn) {
+  document.querySelectorAll('.tag-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.product-card').forEach(card => {
+    if (cat === 'all') {
+      card.classList.remove('hidden');
+    } else {
+      const cats = card.dataset.category || '';
+      card.classList.toggle('hidden', !cats.includes(cat));
+    }
+  });
+}
+
+// ===========================
+//   CART STATE
+// ===========================
+let cart = [];
+
+function addToCart(btn, name, price, img) {
+  const existing = cart.find(i => i.name === name);
+  if (existing) {
+    existing.qty++;
+  } else {
+    cart.push({ name, price, img, qty: 1 });
+  }
+  updateCartUI();
+  showToast('נוסף לסל: ' + name);
+
+  // button animation
+  btn.textContent = '✅ נוסף!';
+  btn.style.background = 'var(--green-leaf)';
+  setTimeout(() => {
+    btn.innerHTML = '🛒 הוסף לסל';
+    btn.style.background = '';
+  }, 1400);
+}
+
+function updateCartUI() {
+  const count = cart.reduce((s, i) => s + i.qty, 0);
+  const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+  const countEl = document.getElementById('cart-count');
+  countEl.textContent = count;
+  countEl.classList.toggle('show', count > 0);
+
+  document.getElementById('cart-total-price').textContent = '₪' + total.toLocaleString('he-IL');
+  document.getElementById('co-sub').textContent = '₪' + total.toLocaleString('he-IL');
+  document.getElementById('co-total').textContent = '₪' + total.toLocaleString('he-IL');
+
+  const listEl = document.getElementById('cart-items-list');
+  if (cart.length === 0) {
+    listEl.innerHTML = `<div class="cart-empty"><div class="big-icon">🍋</div><p>הסל ריק עדיין<br><small>הוסף מוצרים מהחנות</small></p></div>`;
+    return;
+  }
+  listEl.innerHTML = cart.map((item, idx) => `
+    <div class="cart-item-row">
+      <img src="${item.img}" alt="${item.name}">
+      <div class="cart-item-info">
+        <div class="cart-item-name">${item.name}</div>
+        <div class="cart-item-price">₪${item.price}</div>
+        <div class="cart-item-qty">
+          <button class="qty-btn" onclick="changeQty(${idx},-1)">−</button>
+          <span class="qty-num">${item.qty}</span>
+          <button class="qty-btn" onclick="changeQty(${idx},1)">+</button>
+        </div>
+      </div>
+      <button class="cart-remove" onclick="removeItem(${idx})">🗑</button>
+    </div>
+  `).join('');
+}
+
+function changeQty(idx, delta) {
+  cart[idx].qty += delta;
+  if (cart[idx].qty <= 0) cart.splice(idx, 1);
+  updateCartUI();
+}
+function removeItem(idx) {
+  cart.splice(idx, 1);
+  updateCartUI();
+}
+
+// ===========================
+//   CART OPEN/CLOSE
+// ===========================
+function openCart(e) {
+  e.preventDefault();
+  document.getElementById('cart-panel').classList.add('open');
+  document.getElementById('overlay').classList.add('show');
+}
+function closeCart() {
+  document.getElementById('cart-panel').classList.remove('open');
+  document.getElementById('overlay').classList.remove('show');
+}
+
+// ===========================
+//   CHECKOUT
+// ===========================
+function openCheckout() {
+  if (cart.length === 0) { showToast('הסל ריק!'); return; }
+  closeCart();
+  document.getElementById('checkout-modal').classList.add('open');
+}
+function closeCheckout() {
+  document.getElementById('checkout-modal').classList.remove('open');
+}
+function completeOrder() {
+  closeCheckout();
+  cart = [];
+  updateCartUI();
+  document.getElementById('success-modal').classList.add('open');
+}
+function closeSuccess() {
+  document.getElementById('success-modal').classList.remove('open');
+}
+
+// ===========================
+//   CONTACT FORM
+// ===========================
+function sendContact(e) {
+  e.preventDefault();
+  showToast('✅ ההודעה נשלחה! נחזור אליך בקרוב');
+  e.target.reset();
+}
+
+// ===========================
+//   TOAST
+// ===========================
+let toastTimer;
+function showToast(msg) {
+  const toast = document.getElementById('toast');
+  document.getElementById('toast-msg').textContent = msg;
+  toast.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove('show'), 2800);
+}
+
+// ===========================
+//   KEYBOARD ESC
+// ===========================
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    closeCart();
+    closeCheckout();
+    closeSuccess();
+  }
+});
+    </script>
+</body>
+
+</html>
