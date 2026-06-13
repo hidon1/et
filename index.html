@@ -58,6 +58,21 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        @keyframes pulseGlow {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 0 rgba(220, 38, 38, 0.25), 0 14px 30px rgba(0,0,0,0.22); }
+            50% { transform: scale(1.08); box-shadow: 0 0 30px rgba(220, 38, 38, 0.75), 0 18px 38px rgba(0,0,0,0.28); }
+        }
+
+        @keyframes softFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 200% center; }
+            100% { background-position: -200% center; }
+        }
+
         .animate-fade {
             animation: fadeInUp 0.8s ease forwards;
         }
@@ -186,6 +201,32 @@
             font-size: 1.5rem;
             margin-bottom: 30px;
             font-weight: 300;
+        }
+
+        .hero-purchase-badge {
+            position: absolute;
+            top: 125px;
+            left: clamp(18px, 7vw, 115px);
+            width: 118px;
+            height: 118px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 25%, #ff8a8a, #dc2626 52%, #991b1b 100%);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            text-decoration: none;
+            font-size: 1.4rem;
+            font-weight: 800;
+            border: 3px solid rgba(255,255,255,0.85);
+            z-index: 3;
+            animation: pulseGlow 1.35s ease-in-out infinite, softFloat 3.2s ease-in-out infinite;
+        }
+
+        .hero-purchase-badge i {
+            font-size: 1.65rem;
         }
 
         .btn-group {
@@ -324,20 +365,21 @@
         /* קניות וסינונים */
         .shop-layout {
             display: grid;
-            grid-template-columns: 280px 1fr;
-            gap: 30px;
+            grid-template-columns: 150px 1fr;
+            gap: 22px;
             align-items: start;
             margin-bottom: 60px;
         }
 
         /* מסנן צדדי מעוצב */
         .filter-sidebar {
-            background-color: var(--accent-bg);
-            padding: 25px;
-            border-radius: 12px;
+            background: rgba(249, 246, 240, 0.86);
+            padding: 14px 10px;
+            border-radius: 28px;
             box-shadow: var(--shadow-elegant);
             position: sticky;
             top: 100px;
+            border: 1px solid rgba(212,175,55,0.22);
         }
 
         .filter-group {
@@ -355,18 +397,19 @@
 
         .tag-cloud {
             display: flex;
-            flex-wrap: wrap;
+            flex-direction: column;
             gap: 8px;
         }
 
         .tag-btn {
             background-color: white;
             border: 1px solid var(--gray-light);
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 0.9rem;
+            padding: 8px 10px;
+            border-radius: 999px;
+            font-size: 0.88rem;
             cursor: pointer;
             transition: var(--transition-smooth);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
         }
 
         .tag-btn:hover, .tag-btn.active {
@@ -398,6 +441,10 @@
         .product-card:hover {
             transform: translateY(-8px);
             box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+
+        .product-card.reveal {
+            animation: fadeInUp 0.55s ease both;
         }
 
         .product-badge {
@@ -542,6 +589,49 @@
         .add-to-cart-btn:hover {
             background-color: var(--gold);
             color: var(--primary-dark);
+            transform: translateY(-2px) scale(1.05);
+        }
+
+        .add-to-cart-btn.icon-only {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            padding: 0;
+            justify-content: center;
+            font-size: 1.05rem;
+        }
+
+        .success-window {
+            text-align: center;
+            background: linear-gradient(145deg, #ffffff, #fffaf0);
+            overflow: hidden;
+        }
+
+        .success-icon {
+            width: 92px;
+            height: 92px;
+            margin: 0 auto 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--primary-light), var(--primary-dark));
+            color: var(--gold);
+            font-size: 2.6rem;
+            border: 4px solid var(--gold-light);
+            animation: pulseGlow 1.8s ease-in-out infinite;
+        }
+
+        .success-order-number {
+            display: inline-block;
+            margin: 12px 0 18px;
+            padding: 10px 18px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, var(--gold-light), #fff, var(--gold-light));
+            background-size: 200% auto;
+            color: var(--primary-dark);
+            font-weight: 800;
+            animation: shimmer 2.4s linear infinite;
         }
 
         /* מודאלים חלקים (סל קניות ותקנון) שאינם רצים באתר עצמו */
@@ -975,6 +1065,7 @@
 
     <!-- אזור פתיחה Hero -->
     <section class="hero">
+        <a href="#shop-section" class="hero-purchase-badge" aria-label="מעבר לרכישה"><i class="fa-solid fa-bag-shopping"></i><span>לרכישה</span></a>
         <div class="container hero-content animate-fade">
             <h1>שוק ארבעת המינים</h1>
             <p>סטים מהודרים ויחידים מובחרים לחג הסוכות ברמת כשרות והידור ללא פשרות</p>
@@ -1037,25 +1128,6 @@
                     </div>
                 </div>
 
-                <div class="filter-group">
-                    <h4>רמת הידור</h4>
-                    <div class="tag-cloud">
-                        <button class="tag-btn active" onclick="filterLevel('all', this)">הכל</button>
-                        <button class="tag-btn" onclick="filterLevel('רגיל', this)">רגיל</button>
-                        <button class="tag-btn" onclick="filterLevel('מהודר', this)">מהודר</button>
-                        <button class="tag-btn" onclick="filterLevel('פרימיום', this)">פרימיום</button>
-                    </div>
-                </div>
-
-                <div class="filter-group">
-                    <h4>זן אתרוג</h4>
-                    <div class="tag-cloud">
-                        <button class="tag-btn active" onclick="filterVariety('all', this)">הכל</button>
-                        <button class="tag-btn" onclick="filterVariety('מרוקאי', this)">מרוקאי</button>
-                        <button class="tag-btn" onclick="filterVariety('תימני', this)">תימני</button>
-                        <button class="tag-btn" onclick="filterVariety('סטנדרט', this)">רגיל / קליבר</button>
-                    </div>
-                </div>
             </aside>
 
             <!-- גריד מוצרים דינמי -->
@@ -1222,6 +1294,19 @@
         </div>
     </div>
 
+
+    <!-- מודאל הצלחת הזמנה מעוצב -->
+    <div class="modal-overlay" id="successModal" style="z-index: 2600;">
+        <div class="modal-window success-window" style="max-width: 520px;">
+            <button class="close-modal" onclick="closeSuccessModal()"><i class="fa-solid fa-xmark"></i></button>
+            <div class="success-icon"><i class="fa-solid fa-circle-check"></i></div>
+            <h2 class="cart-title" style="border: none; margin-bottom: 8px;">ההזמנה נקלטה בהצלחה!</h2>
+            <p>תודה רבה, ההזמנה שלך התקבלה במערכת ונציג יחזור אליך בהקדם להשלמת הפרטים.</p>
+            <div class="success-order-number" id="successOrderNumber">מספר הזמנה: ---</div>
+            <button class="btn-submit-order" onclick="closeSuccessModal()">מעולה, תודה</button>
+        </div>
+    </div>
+
     <!-- מודאל תקנון ותנאי רכישה -->
     <div class="modal-overlay" id="termsModal" style="z-index: 2500;">
         <div class="modal-window" style="max-width: 500px;">
@@ -1253,7 +1338,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-analytics.js";
-        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyBG8ZiYOdVdI45AsKnMcbX6QaVlkU4dXhM",
@@ -1279,12 +1364,25 @@
                 return null;
             }
         };
+
+        // האזנה מיידית לעדכוני מוצרים מ-Firebase ללא polling וללא המתנה של כמה שניות.
+        window.listenToProductsFromFirebase = function(onProductsUpdate) {
+            const productsQuery = query(collection(db, "products"), orderBy("id"));
+            return onSnapshot(productsQuery, (snapshot) => {
+                const firebaseProducts = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                if (firebaseProducts.length) {
+                    onProductsUpdate(firebaseProducts);
+                }
+            }, (error) => {
+                console.error("שגיאה בהאזנה בזמן אמת ל-Firebase: ", error);
+            });
+        };
     </script>
 
     <!-- לוגיקת האתר והסל (Vanilla JS) -->
     <script>
         // בסיס נתונים למוצרים - סטים מלאים ופריטים בנפרד
-        const products = [
+        let products = [
             { id: 1, type: 'סט', name: 'סט מהודר רגיל', desc: 'סט שלם הכולל אתרוג יפה, לולב ישר, 3 הדסים ו-2 ערבות. כשר ומפוקח.', price: 120, badge: 'מומלץ', level: 'מהודר', variety: 'סטנדרט', icon: 'fa-box' },
             { id: 2, type: 'סט', name: 'סט מהודר מן המהודר', desc: 'סט מובחר עם רמת נקיון גבוהה של האתרוג ולולב קנרי מהודר במיוחד.', price: 190, badge: 'הכי נמכר', level: 'מהודר', variety: 'סטנדרט', icon: 'fa-star' },
             { id: 3, type: 'סט', name: 'סט פרימיום VIP', desc: 'פסגת ההידור. אתרוג מושלם ללא שום רבב, גידול סימטרי מרהיב לחובבי הידור.', price: 350, badge: 'מוגבל במלאי', level: 'פרימיום', variety: 'סטנדרט', icon: 'fa-crown' },
@@ -1312,6 +1410,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             renderProducts();
             updateCartUI();
+            startFirebaseRealtimeUpdates();
         });
 
         // תפריט מובייל
@@ -1334,6 +1433,37 @@
         }
         function closeTermsModal() {
             document.getElementById('termsModal').classList.remove('active');
+        }
+
+        function openSuccessModal(orderId) {
+            document.getElementById('successOrderNumber').innerText = `מספר הזמנה: ${orderId}`;
+            document.getElementById('successModal').classList.add('active');
+        }
+
+        function closeSuccessModal() {
+            document.getElementById('successModal').classList.remove('active');
+        }
+
+        function normalizeFirebaseProduct(product) {
+            return {
+                id: Number(product.id) || product.id,
+                type: product.type || 'סט',
+                name: product.name || 'מוצר חדש',
+                desc: product.desc || product.description || '',
+                price: Number(product.price) || 0,
+                badge: product.badge || 'חדש',
+                level: product.level || 'מהודר',
+                variety: product.variety || 'סטנדרט',
+                icon: product.icon || 'fa-leaf'
+            };
+        }
+
+        function startFirebaseRealtimeUpdates() {
+            if (!window.listenToProductsFromFirebase) return;
+            window.listenToProductsFromFirebase((firebaseProducts) => {
+                products = firebaseProducts.map(normalizeFirebaseProduct);
+                renderProducts();
+            });
         }
 
         // אקורדיון שאלות נפוצות
@@ -1388,7 +1518,7 @@
 
             filtered.forEach(p => {
                 const card = document.createElement('div');
-                card.className = 'product-card';
+                card.className = 'product-card reveal';
                 card.innerHTML = `
                     <div class="product-badge">${p.badge}</div>
                     <div class="product-img-container">
@@ -1409,8 +1539,8 @@
                                     <span class="qty-val" id="qty-${p.id}">1</span>
                                     <button class="qty-btn" onclick="changeProductQty(${p.id}, 1, this)">+</button>
                                 </div>
-                                <button class="add-to-cart-btn" onclick="addToCart(${p.id})">
-                                    <i class="fa-solid fa-cart-plus"></i> הוסף לניהול סל
+                                <button class="add-to-cart-btn icon-only" onclick="addToCart(${p.id})" title="הוספה לסל" aria-label="הוספה לסל">
+                                    <i class="fa-solid fa-cart-plus"></i>
                                 </button>
                             </div>
                         </div>
@@ -1559,30 +1689,8 @@
                 await window.saveOrderToFirebase(orderData);
             }
 
-            // 2. יצירת טקסט מעוצב עבור וואטסאפ של בעל העסק
-            let whatsappText = `*הזמנה חדשה מאתר שוק ארבעת המינים*\n`;
-            whatsappText += `*מספר הזמנה:* ${orderId}\n`;
-            whatsappText += `*שם לקוח:* ${name}\n`;
-            whatsappText += `*טלפון:* ${phone}\n`;
-            whatsappText += `*עיר:* ${city}\n`;
-            if(address) whatsappText += `*כתובת:* ${address}\n`;
-            whatsappText += `*אופן קבלה:* ${shipping}\n`;
-            if(notes) whatsappText += `*הערות:* ${notes}\n\n`;
-            whatsappText += `*--- פירוט פריטים ---*\n`;
-            
-            cart.forEach(i => {
-                whatsappText += `- ${i.name} | כמות: ${i.qty} | מחיר: ₪${i.price * i.qty}\n`;
-            });
-            
-            whatsappText += `\n*סך הכל לתשלום:* ₪${total}`;
-
-            // קידוד הטקסט לקישור וואטסאפ
-            const encodedText = encodeURIComponent(whatsappText);
-            const businessPhone = "972500000000"; // שנה למספר הוואטסאפ האמיתי של העסק
-            const whatsappUrl = `https://wa.me/${businessPhone}?text=${encodedText}`;
-
-            // הצגת הודעת הצלחה חגיגית למשתמש
-            alert(`אשריך! ההזמנה התקבלה בהצלחה!\nמספר ההזמנה שלך הוא: ${orderId}\nמיד תועבר לוואטסאפ לאישור סופי מול הנציג.`);
+            // 2. הצגת הודעת הצלחה מעוצבת ללא פתיחת קישור וואטסאפ.
+            openSuccessModal(orderId);
             
             // איפוס הסל והטופס
             cart = [];
@@ -1590,9 +1698,6 @@
             updateCartUI();
             closeCartModal();
             document.getElementById('checkoutForm').reset();
-
-            // פתיחת הוואטסאפ
-            window.open(whatsappUrl, '_blank');
         }
 
         // טופס צור קשר רגיל
