@@ -1893,7 +1893,7 @@
             if (!button) return;
             button.disabled = isLoading;
             button.innerHTML = isLoading
-                ? 'שומר את ההזמנה ב-Firebase... <i class="fa-solid fa-circle-notch submit-spinner"></i>'
+                ? 'שולח הזמנה... <i class="fa-solid fa-circle-notch submit-spinner"></i>'
                 : 'שליחת הזמנה ואישור <i class="fa-solid fa-paper-plane"></i>';
         }
 
@@ -1936,32 +1936,33 @@
                 date: new Date().toISOString()
             };
 
-            try {
-                if (!window.saveOrderToFirebase) {
-                    throw new Error('Firebase אינו זמין כרגע.');
-                }
-
-                const firebaseDocId = await window.saveOrderToFirebase(orderData);
-                if (!firebaseDocId) {
-                    throw new Error('שמירת ההזמנה ב-Firebase לא הושלמה.');
-                }
-
-                // הצגת הודעת הצלחה רק לאחר אישור שמירה מלא מ-Firebase, ללא פתיחת וואטסאפ.
-                closeCheckoutPage();
-                openSuccessModal(orderId);
-
-                // איפוס הסל והטופס
-                cart = [];
-                saveCart();
-                updateCartUI();
-                document.getElementById('checkoutForm').reset();
-            } catch (error) {
-                console.error(error);
+            if (!window.saveOrderToFirebase) {
+                console.error('Firebase אינו זמין כרגע.');
                 alert('לא הצלחנו לשמור את ההזמנה כרגע. נסה שוב בעוד רגע.');
-            } finally {
                 isSubmittingOrder = false;
                 setCheckoutLoading(false);
+                return;
             }
+
+            // שמירה מיידית ברקע: לא ממתינים לאישור Firebase כדי לא לעכב את חלון ההצלחה.
+            window.saveOrderToFirebase(orderData).then((firebaseDocId) => {
+                if (!firebaseDocId) {
+                    console.error('שמירת ההזמנה ב-Firebase לא הושלמה.');
+                }
+            }).catch((error) => {
+                console.error('שגיאה בשמירת ההזמנה ב-Firebase:', error);
+            });
+
+            closeCheckoutPage();
+            openSuccessModal(orderId);
+
+            // איפוס הסל והטופס מיד לאחר שליחת ההזמנה לשמירה ברקע.
+            cart = [];
+            saveCart();
+            updateCartUI();
+            document.getElementById('checkoutForm').reset();
+            isSubmittingOrder = false;
+            setCheckoutLoading(false);
         }
 
         // טופס צור קשר רגיל
