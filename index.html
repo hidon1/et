@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>שוק ארבעת המינים | סטים מהודרים ויחידים מובחרים</title>
-    
+
     <!-- פונטים ואייקונים מהודרים -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -36,10 +36,25 @@
         }
 
         body {
-            background-color: #ffffff;
             color: var(--text-dark);
             overflow-x: hidden;
             line-height: 1.6;
+            background:
+                linear-gradient(rgba(255,255,255,0.78), rgba(255,255,255,0.78)),
+                radial-gradient(circle at 12% 18%, rgba(212,175,55,0.18), transparent 28%),
+                url('1.jpeg') center top / cover fixed;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background-image:
+                radial-gradient(circle at 16% 24%, rgba(243, 229, 171, 0.55) 0 38px, transparent 40px),
+                radial-gradient(circle at 84% 36%, rgba(212, 175, 55, 0.25) 0 26px, transparent 28px),
+                radial-gradient(circle at 28% 78%, rgba(45, 106, 79, 0.12) 0 42px, transparent 44px);
+            z-index: -1;
         }
 
         h1, h2, h3, .brand-logo {
@@ -71,6 +86,16 @@
         @keyframes shimmer {
             0% { background-position: 200% center; }
             100% { background-position: -200% center; }
+        }
+
+        @keyframes imageSwapHint {
+            0%, 44% { opacity: 1; transform: scale(1); }
+            50%, 94% { opacity: 0; transform: scale(1.08); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes spinWait {
+            to { transform: rotate(360deg); }
         }
 
         .animate-fade {
@@ -325,8 +350,9 @@
 
         /* אזור יתרונות ואמינות */
         .features {
-            background-color: var(--accent-bg);
+            background-color: rgba(249, 246, 240, 0.88);
             padding: 5px 0 50px 0;
+            backdrop-filter: blur(2px);
         }
 
         .features-grid {
@@ -369,6 +395,25 @@
             gap: 22px;
             align-items: start;
             margin-bottom: 60px;
+            position: relative;
+            padding: 22px;
+            border-radius: 30px;
+            overflow: hidden;
+            background:
+                linear-gradient(rgba(255,255,255,0.50), rgba(255,255,255,0.50)),
+                url('1.jpeg') center center / cover;
+            box-shadow: 0 24px 55px rgba(27, 67, 50, 0.13);
+        }
+
+        .shop-layout::before {
+            content: '🍋';
+            position: absolute;
+            inset-inline-end: 24px;
+            top: 14px;
+            font-size: clamp(4rem, 10vw, 9rem);
+            opacity: 0.18;
+            filter: blur(0.2px);
+            pointer-events: none;
         }
 
         /* מסנן צדדי מעוצב */
@@ -427,11 +472,11 @@
 
         /* כרטיסיית מוצר יוקרתית */
         .product-card {
-            background: white;
-            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.94);
+            border-radius: 18px;
             box-shadow: var(--shadow-elegant);
             overflow: hidden;
-            transition: var(--transition-smooth);
+            transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.25, 1), box-shadow 0.35s ease, border-color 0.35s ease;
             position: relative;
             display: flex;
             flex-direction: column;
@@ -439,8 +484,9 @@
         }
 
         .product-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            transform: translateY(-10px) scale(1.035);
+            box-shadow: 0 22px 46px rgba(27, 67, 50, 0.18);
+            border-color: rgba(212,175,55,0.45);
         }
 
         .product-card.reveal {
@@ -468,15 +514,41 @@
             overflow: hidden;
         }
 
-        .product-img-container img {
+        .product-img-container img,
+        .product-hover-image {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: var(--transition-smooth);
+            transition: opacity 0.45s ease, transform 0.45s ease;
         }
 
-        .product-card:hover .product-img-container img {
-            transform: scale(1.06);
+        .product-hover-image {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            background-size: cover;
+            background-position: center;
+            transform: scale(1.08);
+        }
+
+        .product-card:hover .product-hover-image {
+            opacity: 1;
+            transform: scale(1.02);
+            animation: imageSwapHint 2.8s ease-in-out infinite alternate;
+        }
+
+        .product-hover-image.alt {
+            background-position: center bottom;
+            filter: saturate(1.08) contrast(1.02);
+        }
+
+        .product-card:hover .product-hover-image.alt {
+            animation: imageSwapHint 2.8s ease-in-out 1.4s infinite alternate-reverse;
+        }
+
+        .product-card:hover .placeholder-art {
+            opacity: 0;
+            transform: scale(1.08);
         }
 
         /* פלייסחולדרים יפים במקום תמונות לא צנועות */
@@ -487,9 +559,10 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, var(--primary-dark), var(--primary-light));
+            background: linear-gradient(135deg, rgba(27,67,50,0.94), rgba(45,106,79,0.88)), url('1.jpeg') center / cover;
             color: var(--gold);
             font-size: 3rem;
+            transition: opacity 0.45s ease, transform 0.45s ease;
         }
 
         .placeholder-art span {
@@ -855,9 +928,20 @@
             transition: var(--transition-smooth);
         }
 
-        .btn-submit-order:hover {
+        .btn-submit-order:hover:not(:disabled) {
             background-color: var(--primary-dark);
             color: white;
+        }
+
+        .btn-submit-order:disabled {
+            cursor: wait;
+            opacity: 0.78;
+            background: linear-gradient(90deg, var(--gold-light), var(--gold));
+        }
+
+        .btn-submit-order .submit-spinner {
+            display: inline-block;
+            animation: spinWait 0.9s linear infinite;
         }
 
         /* גלריה יפה */
@@ -1236,7 +1320,7 @@
         <div class="modal-window">
             <button class="close-modal" onclick="closeCartModal()"><i class="fa-solid fa-xmark"></i></button>
             <h2 class="cart-title"><i class="fa-solid fa-shopping-cart"></i> סל הקניות שלך</h2>
-            
+
             <div id="cartItemsList" class="cart-items-list">
                 <!-- פריטי הסל ירוססו כאן -->
             </div>
@@ -1289,7 +1373,7 @@
                     <label for="termsAgreement">אני מאשר ומסכים ל<button type="button" class="terms-link" onclick="openTermsModal()">תנאי הרכישה והתקנון</button> של האתר.</label>
                 </div>
 
-                <button type="submit" class="btn-submit-order">שליחת הזמנה ואישור <i class="fa-solid fa-paper-plane"></i></button>
+                <button type="submit" class="btn-submit-order" id="submitOrderBtn">שליחת הזמנה ואישור <i class="fa-solid fa-paper-plane"></i></button>
             </form>
         </div>
     </div>
@@ -1389,7 +1473,7 @@
             { id: 4, type: 'סט', name: 'סט אתרוג מרוקאי מהודר', desc: 'סט מושלם המבוסס על אתרוג מזן מרוקאי אותנטי בעל מראה ייחודי.', price: 240, badge: 'יוקרתי', level: 'מהודר', variety: 'מרוקאי', icon: 'fa-gem' },
             { id: 5, type: 'סט', name: 'סט אתרוג תימני ענק', desc: 'סט מפואר הכולל אתרוג תימני מקורי, עב בשר ובעל ריח נפלא כמסורת אבות.', price: 290, badge: 'מסורתי', level: 'מהודר', variety: 'תימני', icon: 'fa-scroll' },
             { id: 6, type: 'סט', name: 'סט חינוכי לילדים ונוער', desc: 'סט קל משקל, כשר לברכה, מותאם במיוחד לאחיזה נוחה של ילדים.', price: 60, badge: 'מחיר מיוחד', level: 'רגיל', variety: 'סטנדרט', icon: 'fa-child' },
-            
+
             { id: 7, type: 'אתרוג', name: 'אתרוג סטנדרט כשר', desc: 'אתרוג יחיד כשר לברכה ללא פיטם או עם פיטם טבעי.', price: 50, badge: 'נפרד', level: 'רגיל', variety: 'סטנדרט', icon: 'fa-lemon' },
             { id: 8, type: 'אתרוג', name: 'אתרוג מרוקאי יחיד', desc: 'אתרוג מרוקאי נקי ומובחר לקנייה בנפרד.', price: 130, badge: 'מובחר', level: 'מהודר', variety: 'מרוקאי', icon: 'fa-lemon' },
             { id: 9, type: 'אתרוג', name: 'אתרוג תימני יחיד', desc: 'אתרוג תימני מקורי רחב ידיים ומפואר.', price: 160, badge: 'מפואר', level: 'פרימיום', variety: 'תימני', icon: 'fa-lemon' },
@@ -1526,6 +1610,8 @@
                             <i class="fa-solid ${p.icon}"></i>
                             <span>${p.name}</span>
                         </div>
+                        <div class="product-hover-image" style="background-image: linear-gradient(rgba(27,67,50,0.16), rgba(212,175,55,0.18)), url('1.jpeg');"></div>
+                        <div class="product-hover-image alt" style="background-image: radial-gradient(circle at 72% 28%, rgba(243,229,171,0.55), transparent 24%), linear-gradient(135deg, rgba(255,255,255,0.16), rgba(27,67,50,0.38)), url('1.jpeg');"></div>
                     </div>
                     <div class="product-info">
                         <h3 class="product-title">${p.name}</h3>
@@ -1562,17 +1648,17 @@
         function addToCart(id) {
             const qty = parseInt(document.getElementById(`qty-${id}`).innerText);
             const product = products.find(p => p.id === id);
-            
+
             const existing = cart.find(item => item.id === id);
             if(existing) {
                 existing.qty += qty;
             } else {
                 cart.push({ ...product, qty: qty });
             }
-            
+
             saveCart();
             updateCartUI();
-            
+
             // אפקט אנימציה זמני על כפתור הסל העליון
             const cBtn = document.querySelector('.cart-icon-btn');
             cBtn.style.transform = 'scale(1.3)';
@@ -1613,9 +1699,9 @@
             const list = document.getElementById('cartItemsList');
             const summaryCount = document.getElementById('summaryCount');
             const summaryTotal = document.getElementById('summaryTotal');
-            
+
             list.innerHTML = '';
-            
+
             if(cart.length === 0) {
                 list.innerHTML = '<p style="text-align:center; color:#777; padding:20px;">סל הקניות שלך ריק כרגע. בחר מוצרים מהחנות.</p>';
                 summaryCount.innerText = '0';
@@ -1654,14 +1740,30 @@
             summaryTotal.innerText = `₪${totalPrice}`;
         }
 
+        let isSubmittingOrder = false;
+
+        function setCheckoutLoading(isLoading) {
+            const button = document.getElementById('submitOrderBtn');
+            if (!button) return;
+            button.disabled = isLoading;
+            button.innerHTML = isLoading
+                ? 'שומר את ההזמנה ב-Firebase... <i class="fa-solid fa-circle-notch submit-spinner"></i>'
+                : 'שליחת הזמנה ואישור <i class="fa-solid fa-paper-plane"></i>';
+        }
+
         // טיפול בשליחת הטופס ויצירת מספר הזמנה
         async function handleCheckout(event) {
             event.preventDefault();
-            
+
+            if (isSubmittingOrder) return;
+
             if(cart.length === 0) {
                 alert('סל הקניות שלך ריק. לא ניתן לבצע הזמנה.');
                 return;
             }
+
+            isSubmittingOrder = true;
+            setCheckoutLoading(true);
 
             const orderId = 'SUKKOT-' + Math.floor(100000 + Math.random() * 900000);
             const name = document.getElementById('custName').value;
@@ -1670,7 +1772,7 @@
             const address = document.getElementById('custAddress').value;
             const notes = document.getElementById('custNotes').value;
             const shipping = document.querySelector('input[name="shippingMethod"]:checked').value;
-            
+
             let total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
             if(shipping === 'משלוח') total += 35;
 
@@ -1684,20 +1786,32 @@
                 date: new Date().toISOString()
             };
 
-            // 1. שמירה ל-Firebase Firestore (במידה והוגדר כראוי)
-            if (window.saveOrderToFirebase) {
-                await window.saveOrderToFirebase(orderData);
-            }
+            try {
+                if (!window.saveOrderToFirebase) {
+                    throw new Error('Firebase אינו זמין כרגע.');
+                }
 
-            // 2. הצגת הודעת הצלחה מעוצבת ללא פתיחת קישור וואטסאפ.
-            openSuccessModal(orderId);
-            
-            // איפוס הסל והטופס
-            cart = [];
-            saveCart();
-            updateCartUI();
-            closeCartModal();
-            document.getElementById('checkoutForm').reset();
+                const firebaseDocId = await window.saveOrderToFirebase(orderData);
+                if (!firebaseDocId) {
+                    throw new Error('שמירת ההזמנה ב-Firebase לא הושלמה.');
+                }
+
+                // הצגת הודעת הצלחה רק לאחר אישור שמירה מלא מ-Firebase, ללא פתיחת וואטסאפ.
+                closeCartModal();
+                openSuccessModal(orderId);
+
+                // איפוס הסל והטופס
+                cart = [];
+                saveCart();
+                updateCartUI();
+                document.getElementById('checkoutForm').reset();
+            } catch (error) {
+                console.error(error);
+                alert('לא הצלחנו לשמור את ההזמנה כרגע. נסה שוב בעוד רגע.');
+            } finally {
+                isSubmittingOrder = false;
+                setCheckoutLoading(false);
+            }
         }
 
         // טופס צור קשר רגיל
