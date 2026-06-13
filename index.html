@@ -748,6 +748,110 @@
             transform: scale(1);
         }
 
+        .cart-drawer-overlay {
+            justify-content: flex-start;
+            align-items: stretch;
+            background-color: rgba(0,0,0,0.45);
+        }
+
+        .cart-drawer {
+            width: min(92vw, 430px);
+            max-height: 100vh;
+            height: 100%;
+            border-radius: 0 18px 18px 0;
+            transform: translateX(-110%);
+            padding: 28px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-overlay.active .cart-drawer {
+            transform: translateX(0);
+        }
+
+        .cart-drawer .cart-items-list {
+            flex: 1;
+            overflow-y: auto;
+            padding-left: 6px;
+        }
+
+        .cart-actions {
+            display: grid;
+            gap: 10px;
+        }
+
+        .btn-secondary {
+            width: 100%;
+            background: #fff;
+            color: var(--primary-dark);
+            border: 1px solid var(--gray-light);
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary-light);
+            color: var(--primary-light);
+        }
+
+        .checkout-window {
+            max-width: 900px;
+        }
+
+        .checkout-method-toggle {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+            margin: 8px 0 22px;
+        }
+
+        .checkout-method-option {
+            border: 1px solid var(--gray-light);
+            border-radius: 14px;
+            padding: 14px;
+            cursor: pointer;
+            background: #fff;
+            transition: var(--transition-smooth);
+            font-weight: 800;
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .checkout-method-option:has(input:checked) {
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.12);
+            background: var(--accent-bg);
+        }
+
+        .checkout-method-option input {
+            accent-color: var(--primary-light);
+        }
+
+        .checkout-fields-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 15px 18px;
+        }
+
+        .checkout-fields-grid .full-row {
+            grid-column: 1 / -1;
+        }
+
+        .delivery-fields {
+            display: none;
+        }
+
+        .checkout-form.delivery-selected .delivery-fields {
+            display: block;
+        }
+
         .close-modal {
             position: absolute;
             top: 20px;
@@ -1118,6 +1222,14 @@
             .nav-menu.mobile-open { display: flex; }
             .hamburger { display: block; }
             .section-title { font-size: 2rem; }
+            .cart-drawer {
+                width: 100%;
+                border-radius: 0;
+            }
+            .checkout-method-toggle,
+            .checkout-fields-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -1316,63 +1428,70 @@
     </section>
 
     <!-- מודאל סל הקניות והטופס (נפתח רק בלחיצה) -->
-    <div class="modal-overlay" id="cartModal">
-        <div class="modal-window">
+    <div class="modal-overlay cart-drawer-overlay" id="cartModal">
+        <div class="modal-window cart-drawer">
             <button class="close-modal" onclick="closeCartModal()"><i class="fa-solid fa-xmark"></i></button>
             <h2 class="cart-title"><i class="fa-solid fa-shopping-cart"></i> סל הקניות שלך</h2>
-
-            <div id="cartItemsList" class="cart-items-list">
-                <!-- פריטי הסל ירוססו כאן -->
-            </div>
-
+            <div id="cartItemsList" class="cart-items-list"></div>
             <div class="cart-summary">
-                <div class="summary-row">
-                    <span>סה"כ פריטים:</span>
-                    <span id="summaryCount">0</span>
-                </div>
-                <div class="summary-row summary-total">
-                    <span>לתשלום כולל:</span>
-                    <span id="summaryTotal">₪0</span>
-                </div>
+                <div class="summary-row"><span>סה"כ פריטים:</span><span id="summaryCount">0</span></div>
+                <div class="summary-row summary-total"><span>לתשלום כולל:</span><span id="summaryTotal">₪0</span></div>
             </div>
+            <div class="cart-actions">
+                <button type="button" class="btn-submit-order" onclick="openCheckoutPage()">עבור לתשלום</button>
+                <button type="button" class="btn-secondary" onclick="closeCartModal()">המשך קנייה</button>
+            </div>
+        </div>
+    </div>
 
-            <!-- טופס רכישה מאובטח -->
-            <form id="checkoutForm" onsubmit="handleCheckout(event)" class="checkout-form">
-                <h3>פרטי משלוח ואיסוף</h3>
-                <div class="form-group">
-                    <label>שם מלא *</label>
-                    <input type="text" id="custName" class="form-control" required placeholder="ישראל ישראלי">
+    <div class="modal-overlay" id="checkoutModal">
+        <div class="modal-window checkout-window">
+            <button class="close-modal" onclick="closeCheckoutPage()"><i class="fa-solid fa-xmark"></i></button>
+            <h2 class="cart-title"><i class="fa-solid fa-credit-card"></i> פרטי תשלום והזמנה</h2>
+            <form id="checkoutForm" onsubmit="handleCheckout(event)" class="checkout-form pickup-selected">
+                <h3>בחר אופן קבלת ההזמנה</h3>
+                <div class="checkout-method-toggle">
+                    <label class="checkout-method-option"><input type="radio" name="shippingMethod" value="איסוף עצמי" checked onchange="toggleCheckoutFields()"> איסוף עצמי</label>
+                    <label class="checkout-method-option"><input type="radio" name="shippingMethod" value="משלוח" onchange="toggleCheckoutFields()"> משלוח (₪35)</label>
                 </div>
-                <div class="form-group">
-                    <label>מספר טלפון (רצוי וואטסאפ) *</label>
-                    <input type="tel" id="custPhone" class="form-control" required placeholder="0501234567">
-                </div>
-                <div class="form-group">
-                    <label>עיר מגורים *</label>
-                    <input type="text" id="custCity" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label>כתובת מלאה (במידה ובחרת משלוח)</label>
-                    <input type="text" id="custAddress" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label>הערות מיוחדות לבדיקה או להזמנה</label>
-                    <input type="text" id="custNotes" class="form-control" placeholder="למשל: מחפש אתרוג בהיר, קוישיקלך סרוג רחב...">
-                </div>
-                <div class="form-group">
-                    <label>אופן קבלת ההזמנה</label>
-                    <div class="radio-group">
-                        <label class="radio-label"><input type="radio" name="shippingMethod" value="איסוף עצמי" checked> איסוף עצמי (ללא עלות)</label>
-                        <label class="radio-label"><input type="radio" name="shippingMethod" value="משלוח"> משלוח ממוזג (₪35)</label>
+                <div class="checkout-fields-grid">
+                    <div class="form-group">
+                        <label>שם הלקוח *</label>
+                        <input type="text" id="custName" class="form-control" required placeholder="שם מלא">
+                    </div>
+                    <div class="form-group">
+                        <label>מספר טלפון *</label>
+                        <input type="tel" id="custPhone" class="form-control" required placeholder="0501234567">
+                    </div>
+                    <div class="form-group full-row">
+                        <label>כתובת אימייל (מייל)</label>
+                        <input type="email" id="custEmail" class="form-control" placeholder="example@domain.com">
+                    </div>
+                    <div class="form-group delivery-fields full-row">
+                        <label>עיר *</label>
+                        <input type="text" id="custCity" class="form-control" placeholder="עיר">
+                    </div>
+                    <div class="form-group delivery-fields">
+                        <label>רחוב *</label>
+                        <input type="text" id="custStreet" class="form-control" placeholder="שם הרחוב">
+                    </div>
+                    <div class="form-group delivery-fields">
+                        <label>מס' בית *</label>
+                        <input type="text" id="custHouse" class="form-control" placeholder="בית">
+                    </div>
+                    <div class="form-group delivery-fields">
+                        <label>מס' דירה</label>
+                        <input type="text" id="custApartment" class="form-control" placeholder="דירה">
+                    </div>
+                    <div class="form-group full-row">
+                        <label>הערות מיוחדות לבדיקה או להזמנה</label>
+                        <input type="text" id="custNotes" class="form-control" placeholder="למשל: מחפש אתרוג בהיר, קוישיקלך סרוג רחב...">
                     </div>
                 </div>
-
-                <!-- אישור תקנון הכרחי -->
                 <div class="terms-container">
                     <input type="checkbox" id="termsAgreement" required>
                     <label for="termsAgreement">אני מאשר ומסכים ל<button type="button" class="terms-link" onclick="openTermsModal()">תנאי הרכישה והתקנון</button> של האתר.</label>
                 </div>
-
                 <button type="submit" class="btn-submit-order" id="submitOrderBtn">שליחת הזמנה ואישור <i class="fa-solid fa-paper-plane"></i></button>
             </form>
         </div>
@@ -1509,6 +1628,33 @@
         }
         function closeCartModal() {
             document.getElementById('cartModal').classList.remove('active');
+        }
+
+        function openCheckoutPage() {
+            if(cart.length === 0) {
+                alert('סל הקניות שלך ריק. בחר מוצרים לפני מעבר לתשלום.');
+                return;
+            }
+            closeCartModal();
+            document.getElementById('checkoutModal').classList.add('active');
+            toggleCheckoutFields();
+        }
+
+        function closeCheckoutPage() {
+            document.getElementById('checkoutModal').classList.remove('active');
+        }
+
+        function toggleCheckoutFields() {
+            const form = document.getElementById('checkoutForm');
+            if (!form) return;
+            const shipping = document.querySelector('input[name="shippingMethod"]:checked')?.value || 'איסוף עצמי';
+            const isDelivery = shipping === 'משלוח';
+            form.classList.toggle('delivery-selected', isDelivery);
+            form.classList.toggle('pickup-selected', !isDelivery);
+            ['custCity', 'custStreet', 'custHouse'].forEach(id => {
+                const field = document.getElementById(id);
+                if (field) field.required = isDelivery;
+            });
         }
 
         // ניהול מודאל תקנון
@@ -1768,8 +1914,12 @@
             const orderId = 'SUKKOT-' + Math.floor(100000 + Math.random() * 900000);
             const name = document.getElementById('custName').value;
             const phone = document.getElementById('custPhone').value;
+            const email = document.getElementById('custEmail').value;
             const city = document.getElementById('custCity').value;
-            const address = document.getElementById('custAddress').value;
+            const street = document.getElementById('custStreet').value;
+            const house = document.getElementById('custHouse').value;
+            const apartment = document.getElementById('custApartment').value;
+            const address = [street, house && `בית ${house}`, apartment && `דירה ${apartment}`].filter(Boolean).join(', ');
             const notes = document.getElementById('custNotes').value;
             const shipping = document.querySelector('input[name="shippingMethod"]:checked').value;
 
@@ -1779,7 +1929,7 @@
             // בניית מבנה נתונים להזמנה
             const orderData = {
                 orderId: orderId,
-                customer: { name, phone, city, address, notes },
+                customer: { name, phone, email, city, street, house, apartment, address, notes },
                 items: cart.map(i => ({ id: i.id, name: i.name, qty: i.qty, price: i.price })),
                 shippingMethod: shipping,
                 totalPrice: total,
@@ -1797,7 +1947,7 @@
                 }
 
                 // הצגת הודעת הצלחה רק לאחר אישור שמירה מלא מ-Firebase, ללא פתיחת וואטסאפ.
-                closeCartModal();
+                closeCheckoutPage();
                 openSuccessModal(orderId);
 
                 // איפוס הסל והטופס
