@@ -8,22 +8,25 @@
     <!-- פונטים ואייקונים מהודרים -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700;800&family=Tinos:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700;800&family=Heebo:wght@300;400;500;700;900&family=Tinos:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         /* משתני עיצוב קבועים - פלטת צבעים יוקרתית */
         :root {
-            --primary-dark: #1b4332;
+            --primary-dark: #123524;
             --primary-light: #2d6a4f;
+            --primary-glow: #52b788;
             --gold: #d4af37;
-            --gold-light: #f3e5ab;
+            --gold-light: #fff1b8;
+            --cream: #fffaf0;
             --accent-bg: #f9f6f0;
-            --text-dark: #222222;
+            --text-dark: #1f2a24;
             --text-light: #ffffff;
             --gray-light: #e0e0e0;
-            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            --shadow-elegant: 0 10px 30px rgba(0,0,0,0.05);
+            --transition-smooth: all 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+            --shadow-elegant: 0 14px 34px rgba(18, 53, 36, 0.10);
+            --shadow-lifted: 0 26px 60px rgba(18, 53, 36, 0.18);
         }
 
         /* עיצוב כללי ונקי */
@@ -31,7 +34,7 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Assistant', sans-serif;
+            font-family: 'Heebo', 'Assistant', sans-serif;
             scroll-behavior: smooth;
         }
 
@@ -40,7 +43,7 @@
             overflow-x: hidden;
             line-height: 1.6;
             background:
-                linear-gradient(rgba(255,255,255,0.78), rgba(255,255,255,0.78)),
+                linear-gradient(135deg, rgba(255,250,240,0.88), rgba(255,255,255,0.72)),
                 radial-gradient(circle at 12% 18%, rgba(212,175,55,0.18), transparent 28%),
                 url('1.jpeg') center top / cover fixed;
         }
@@ -58,7 +61,12 @@
         }
 
         h1, h2, h3, .brand-logo {
-            font-family: 'Tinos', serif;
+            font-family: 'Tinos', 'Heebo', serif;
+            letter-spacing: -0.01em;
+        }
+
+        p, a, button, input, textarea, label, span {
+            font-family: 'Heebo', 'Assistant', sans-serif;
         }
 
         .container {
@@ -98,6 +106,23 @@
             to { transform: rotate(360deg); }
         }
 
+        @keyframes heroGradientFlow {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        @keyframes borderSweep {
+            0% { transform: translateX(105%); opacity: 0; }
+            35% { opacity: 1; }
+            100% { transform: translateX(-105%); opacity: 0; }
+        }
+
+        @keyframes cartPop {
+            0% { transform: scale(1); }
+            45% { transform: scale(1.28) rotate(-8deg); }
+            100% { transform: scale(1); }
+        }
+
         .animate-fade {
             animation: fadeInUp 0.8s ease forwards;
         }
@@ -108,10 +133,10 @@
             top: 0;
             left: 0;
             width: 100%;
-            background-color: rgba(27, 67, 50, 0.96);
+            background: linear-gradient(90deg, rgba(18,53,36,0.97), rgba(27,67,50,0.94), rgba(45,106,79,0.93));
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             z-index: 1000;
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(12px);
         }
 
         .nav-container {
@@ -206,7 +231,9 @@
 
         /* אזור פתיחה יוקרתי - Hero */
         .hero {
-            background: linear-gradient(rgba(27, 67, 50, 0.85), rgba(27, 67, 50, 0.9)), url('https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
+            background: linear-gradient(120deg, rgba(18,53,36,0.92), rgba(45,106,79,0.82), rgba(212,175,55,0.38), rgba(18,53,36,0.9)), url('https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
+            background-size: 220% 220%, cover;
+            animation: heroGradientFlow 12s ease-in-out infinite;
             height: 85vh;
             display: flex;
             align-items: center;
@@ -219,7 +246,8 @@
             font-size: 3.5rem;
             color: var(--gold);
             margin-bottom: 15px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            text-shadow: 0 8px 22px rgba(0,0,0,0.36);
+            animation: fadeInUp 0.9s ease both;
         }
 
         .hero-content p {
@@ -369,11 +397,26 @@
             box-shadow: var(--shadow-elegant);
             transition: var(--transition-smooth);
             border-bottom: 3px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(212,175,55,0.20), transparent);
+            transform: translateX(105%);
         }
 
         .feature-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px);
             border-bottom-color: var(--gold);
+            box-shadow: var(--shadow-lifted);
+        }
+
+        .feature-card:hover::before {
+            animation: borderSweep 0.9s ease;
         }
 
         .feature-card i {
@@ -472,7 +515,7 @@
 
         /* כרטיסיית מוצר יוקרתית */
         .product-card {
-            background: rgba(255, 255, 255, 0.94);
+            background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(255,250,240,0.94));
             border-radius: 18px;
             box-shadow: var(--shadow-elegant);
             overflow: hidden;
@@ -485,7 +528,7 @@
 
         .product-card:hover {
             transform: translateY(-10px) scale(1.035);
-            box-shadow: 0 22px 46px rgba(27, 67, 50, 0.18);
+            box-shadow: var(--shadow-lifted);
             border-color: rgba(212,175,55,0.45);
         }
 
@@ -970,16 +1013,16 @@
         .form-control {
             width: 100%;
             padding: 10px 15px;
-            border: 1px solid var(--gray-light);
-            border-radius: 8px;
+            border: 1px solid rgba(45,106,79,0.18);
+            border-radius: 14px;
             font-size: 1rem;
             outline: none;
             transition: var(--transition-smooth);
         }
 
         .form-control:focus {
-            border-color: var(--primary-light);
-            box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.1);
+            border-color: var(--primary-glow);
+            box-shadow: 0 0 0 4px rgba(82, 183, 136, 0.15), 0 8px 18px rgba(18,53,36,0.08);
         }
 
         .radio-group {
@@ -1807,8 +1850,8 @@
 
             // אפקט אנימציה זמני על כפתור הסל העליון
             const cBtn = document.querySelector('.cart-icon-btn');
-            cBtn.style.transform = 'scale(1.3)';
-            setTimeout(() => cBtn.style.transform = 'scale(1)', 200);
+            cBtn.style.animation = 'cartPop 0.45s ease';
+            setTimeout(() => cBtn.style.animation = '', 460);
         }
 
         function changeCartItemQty(id, change) {
@@ -1912,15 +1955,15 @@
             setCheckoutLoading(true);
 
             const orderId = 'SUKKOT-' + Math.floor(100000 + Math.random() * 900000);
-            const name = document.getElementById('custName').value;
-            const phone = document.getElementById('custPhone').value;
-            const email = document.getElementById('custEmail').value;
-            const city = document.getElementById('custCity').value;
-            const street = document.getElementById('custStreet').value;
-            const house = document.getElementById('custHouse').value;
-            const apartment = document.getElementById('custApartment').value;
-            const address = [street, house && `בית ${house}`, apartment && `דירה ${apartment}`].filter(Boolean).join(', ');
-            const notes = document.getElementById('custNotes').value;
+            const name = document.getElementById('custName').value.trim();
+            const phone = document.getElementById('custPhone').value.trim();
+            const email = document.getElementById('custEmail').value.trim();
+            const city = document.getElementById('custCity').value.trim();
+            const street = document.getElementById('custStreet').value.trim();
+            const houseNumber = document.getElementById('custHouse').value.trim();
+            const apartmentNumber = document.getElementById('custApartment').value.trim();
+            const address = [street, houseNumber && `בית ${houseNumber}`, apartmentNumber && `דירה ${apartmentNumber}`].filter(Boolean).join(', ');
+            const notes = document.getElementById('custNotes').value.trim();
             const shipping = document.querySelector('input[name="shippingMethod"]:checked').value;
 
             let total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
@@ -1929,7 +1972,26 @@
             // בניית מבנה נתונים להזמנה
             const orderData = {
                 orderId: orderId,
-                customer: { name, phone, email, city, street, house, apartment, address, notes },
+                customer: {
+                    name,
+                    phone,
+                    email,
+                    notes,
+                    city,
+                    street,
+                    houseNumber,
+                    apartmentNumber,
+                    house: houseNumber,
+                    apartment: apartmentNumber,
+                    address
+                },
+                deliveryAddress: {
+                    city,
+                    street,
+                    houseNumber,
+                    apartmentNumber,
+                    fullAddress: address
+                },
                 items: cart.map(i => ({ id: i.id, name: i.name, qty: i.qty, price: i.price })),
                 shippingMethod: shipping,
                 totalPrice: total,
