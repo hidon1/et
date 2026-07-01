@@ -45,7 +45,7 @@
             background:
                 linear-gradient(135deg, rgba(255,250,240,0.88), rgba(255,255,255,0.72)),
                 radial-gradient(circle at 12% 18%, rgba(212,175,55,0.18), transparent 28%),
-                url('1.jpeg') center top / cover fixed;
+                url('1.png') center top / cover fixed;
         }
 
         body::before {
@@ -79,6 +79,32 @@
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes logoWordDrop {
+            0% { opacity: 0; transform: translateY(-46px) scale(0.94); }
+            62% { opacity: 1; transform: translateY(7px) scale(1.06); }
+            82% { transform: translateY(-4px) scale(0.99); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        @keyframes leafSpinLand {
+            0% { opacity: 0; transform: translateY(-36px) rotate(-110deg) scale(0.7); }
+            72% { opacity: 1; transform: translateY(4px) rotate(12deg) scale(1.16); }
+            100% { opacity: 1; transform: translateY(0) rotate(0) scale(1); }
+        }
+
+        @keyframes heroTextBounce {
+            0% { opacity: 0; transform: translateY(-60px) scale(0.96); }
+            58% { opacity: 1; transform: translateY(12px) scale(1.04); }
+            78% { transform: translateY(-6px) scale(0.99); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        @keyframes ctaRiseBounce {
+            0% { opacity: 0; transform: translateY(34px) scale(0.92); }
+            68% { opacity: 1; transform: translateY(-7px) scale(1.05); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
         }
 
         @keyframes pulseGlow {
@@ -154,6 +180,30 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            overflow: hidden;
+        }
+
+        .brand-leaf {
+            opacity: 0;
+            animation: leafSpinLand 0.8s cubic-bezier(0.2, 0.9, 0.2, 1.35) 0.08s both;
+        }
+
+        .brand-word {
+            display: inline-block;
+            opacity: 0;
+            animation: logoWordDrop 0.78s cubic-bezier(0.2, 0.95, 0.2, 1.28) both;
+        }
+
+        .brand-word:nth-of-type(1) { animation-delay: 0.18s; }
+        .brand-word:nth-of-type(2) { animation-delay: 0.34s; }
+        .brand-word:nth-of-type(3) { animation-delay: 0.50s; }
+
+        .brand-logo:hover .brand-word {
+            animation: logoWordDrop 0.7s cubic-bezier(0.2, 0.95, 0.2, 1.28) both;
+        }
+
+        .brand-logo:hover .brand-leaf {
+            animation: leafSpinLand 0.72s cubic-bezier(0.2, 0.9, 0.2, 1.35) both;
         }
 
         .nav-menu {
@@ -231,7 +281,7 @@
 
         /* אזור פתיחה יוקרתי - Hero */
         .hero {
-            background: linear-gradient(120deg, rgba(18,53,36,0.92), rgba(45,106,79,0.82), rgba(212,175,55,0.38), rgba(18,53,36,0.9)), url('https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
+            background: linear-gradient(120deg, rgba(18,53,36,0.84), rgba(45,106,79,0.72), rgba(212,175,55,0.30), rgba(18,53,36,0.82)), url('1.png') no-repeat center center/cover;
             background-size: 220% 220%, cover;
             animation: heroGradientFlow 12s ease-in-out infinite;
             height: 85vh;
@@ -247,13 +297,15 @@
             color: var(--gold);
             margin-bottom: 15px;
             text-shadow: 0 8px 22px rgba(0,0,0,0.36);
-            animation: fadeInUp 0.9s ease both;
+            animation: heroTextBounce 1.05s cubic-bezier(0.2, 0.92, 0.22, 1.2) 0.35s both;
         }
 
         .hero-content p {
             font-size: 1.5rem;
             margin-bottom: 30px;
             font-weight: 300;
+            opacity: 0;
+            animation: ctaRiseBounce 0.82s cubic-bezier(0.2, 0.9, 0.2, 1.2) 0.78s both;
         }
 
         .hero-purchase-badge {
@@ -287,6 +339,8 @@
             justify-content: center;
             gap: 20px;
             flex-wrap: wrap;
+            opacity: 0;
+            animation: ctaRiseBounce 0.82s cubic-bezier(0.2, 0.9, 0.2, 1.2) 1s both;
         }
 
         .btn {
@@ -419,8 +473,8 @@
             border-radius: 30px;
             overflow: hidden;
             background:
-                linear-gradient(rgba(255,255,255,0.50), rgba(255,255,255,0.50)),
-                url('1.jpeg') center center / cover;
+                linear-gradient(rgba(255,255,255,0.70), rgba(255,250,240,0.66)),
+                url('2.png') center center / cover;
             box-shadow: 0 24px 55px rgba(27, 67, 50, 0.13);
         }
 
@@ -483,7 +537,9 @@
 
         /* כרטיסיית מוצר יוקרתית */
         .product-card {
-            background: linear-gradient(180deg, rgba(255,255,255,0.99), rgba(255,250,240,0.96));
+            background:
+                linear-gradient(180deg, rgba(255,255,255,0.90), rgba(255,250,240,0.84)),
+                url('2.png') center / cover;
             border-radius: 18px;
             box-shadow: var(--shadow-elegant);
             overflow: hidden;
@@ -501,8 +557,11 @@
         }
 
         .product-card.reveal {
-            animation: fadeInUp 0.55s ease both;
+            animation: ctaRiseBounce 0.65s cubic-bezier(0.2, 0.9, 0.2, 1.2) both;
         }
+
+        .product-card.reveal:nth-child(2) { animation-delay: 0.12s; }
+        .product-card.reveal:nth-child(3) { animation-delay: 0.24s; }
 
         .product-badge {
             position: absolute;
@@ -570,7 +629,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, rgba(27,67,50,0.94), rgba(45,106,79,0.88)), url('1.jpeg') center / cover;
+            background: linear-gradient(135deg, rgba(27,67,50,0.58), rgba(45,106,79,0.48)), url('2.png') center / cover;
             color: var(--gold);
             font-size: 3rem;
             transition: opacity 0.45s ease, transform 0.45s ease;
@@ -1254,7 +1313,7 @@
     <header>
         <div class="container nav-container">
             <a href="#" class="brand-logo">
-                <i class="fa-solid fa-leaf"></i> שוק ארבעת המינים
+                <i class="fa-solid fa-leaf brand-leaf"></i><span class="brand-word">שוק</span><span class="brand-word">ארבעת</span><span class="brand-word">המינים</span>
             </a>
             <ul class="nav-menu" id="navMenu">
                 <li><a href="#" class="active" onclick="toggleMenu()">ראשי</a></li>
@@ -1662,8 +1721,8 @@
                             <i class="fa-solid ${p.icon}"></i>
                             <span>${p.name}</span>
                         </div>
-                        <div class="product-hover-image" style="background-image: linear-gradient(rgba(27,67,50,0.16), rgba(212,175,55,0.18)), url('1.jpeg');"></div>
-                        <div class="product-hover-image alt" style="background-image: radial-gradient(circle at 72% 28%, rgba(243,229,171,0.55), transparent 24%), linear-gradient(135deg, rgba(255,255,255,0.16), rgba(27,67,50,0.38)), url('1.jpeg');"></div>
+                        <div class="product-hover-image" style="background-image: linear-gradient(rgba(27,67,50,0.16), rgba(212,175,55,0.18)), url('2.png');"></div>
+                        <div class="product-hover-image alt" style="background-image: radial-gradient(circle at 72% 28%, rgba(243,229,171,0.55), transparent 24%), linear-gradient(135deg, rgba(255,255,255,0.16), rgba(27,67,50,0.38)), url('2.png');"></div>
                     </div>
                     <div class="product-info">
                         <h3 class="product-title">${p.name}</h3>
