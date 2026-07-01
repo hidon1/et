@@ -850,7 +850,7 @@
             gap: 10px;
         }
 
-        .btn-secondary {
+        .cart-actions .btn-secondary {
             width: 100%;
             background: #fff;
             color: var(--primary-dark);
@@ -863,7 +863,7 @@
             transition: var(--transition-smooth);
         }
 
-        .btn-secondary:hover {
+        .cart-actions .btn-secondary:hover {
             border-color: var(--primary-light);
             color: var(--primary-light);
         }
@@ -1118,6 +1118,116 @@
             animation: spinWait 0.9s linear infinite;
         }
 
+
+
+        .catalog-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin: -18px auto 30px;
+        }
+
+        .catalog-tab {
+            border: 1px solid rgba(45,106,79,0.20);
+            background: rgba(255,255,255,0.86);
+            color: var(--primary-dark);
+            border-radius: 999px;
+            padding: 10px 20px;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 10px 22px rgba(18,53,36,0.08);
+            transition: var(--transition-smooth);
+        }
+
+        .catalog-tab:hover,
+        .catalog-tab.active {
+            background: linear-gradient(135deg, var(--primary-light), var(--primary-dark));
+            color: #fff;
+            border-color: transparent;
+            transform: translateY(-2px);
+        }
+
+        .product-type-ribbon {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            z-index: 2;
+            padding: 4px 11px;
+            border-radius: 999px;
+            background: rgba(18,53,36,0.88);
+            color: #fff;
+            font-size: 0.78rem;
+            font-weight: 800;
+        }
+
+        .terms-highlights {
+            padding: 8px 0 58px;
+            background: linear-gradient(180deg, rgba(255,250,240,0.92), rgba(249,246,240,0.92));
+        }
+
+        .terms-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(220px, 1fr));
+            gap: 22px;
+        }
+
+        .terms-card {
+            background: rgba(255,255,255,0.92);
+            border: 1px solid rgba(212,175,55,0.24);
+            border-radius: 20px;
+            padding: 26px 22px;
+            text-align: center;
+            box-shadow: var(--shadow-elegant);
+            transition: var(--transition-smooth);
+        }
+
+        .terms-card:hover {
+            transform: translateY(-7px);
+            box-shadow: var(--shadow-lifted);
+        }
+
+        .terms-card i {
+            width: 58px;
+            height: 58px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin-bottom: 14px;
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            color: var(--primary-dark);
+            font-size: 1.5rem;
+        }
+
+        .faq-kicker {
+            text-align: center;
+            color: var(--primary-light);
+            margin-bottom: 18px;
+            font-size: 1.35rem;
+        }
+
+        .whatsapp-float {
+            position: fixed;
+            right: 22px;
+            bottom: 22px;
+            width: 62px;
+            height: 62px;
+            border-radius: 50%;
+            background: #25d366;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 16px 32px rgba(37,211,102,0.34);
+            z-index: 1800;
+            text-decoration: none;
+            animation: softFloat 3s ease-in-out infinite;
+        }
+
+        .whatsapp-float:hover { transform: translateY(-4px) scale(1.06); }
+
         /* גלריה יפה */
         .gallery-grid {
             display: grid;
@@ -1299,6 +1409,7 @@
                 width: 100%;
                 border-radius: 0;
             }
+            .terms-grid,
             .checkout-method-toggle,
             .checkout-fields-grid,
             .products-grid {
@@ -1318,6 +1429,8 @@
             <ul class="nav-menu" id="navMenu">
                 <li><a href="#" class="active" onclick="toggleMenu()">ראשי</a></li>
                 <li><a href="#shop-section" onclick="filterCatalog('סט'); toggleMenu()">הסטים שלנו</a></li>
+                <li><a href="#shop-section" onclick="filterCatalog('בודד'); toggleMenu()">ארבעת המינים</a></li>
+                <li><a href="#terms-highlights" onclick="toggleMenu()">התנאים שלנו</a></li>
                 <li><a href="#faq" onclick="toggleMenu()">שאלות נפוצות</a></li>
             </ul>
             <div style="display: flex; align-items: center; gap: 20px;">
@@ -1332,12 +1445,13 @@
 
     <!-- אזור פתיחה Hero -->
     <section class="hero">
-        <a href="#shop-section" class="hero-purchase-badge" aria-label="מעבר לרכישה"><i class="fa-solid fa-bag-shopping"></i><span>לרכישה</span></a>
+        <a href="#shop-section" class="hero-purchase-badge" aria-label="נרתיק מתנה"><i class="fa-solid fa-gift"></i><span>נרתיק<br>מתנה</span></a>
         <div class="container hero-content animate-fade">
             <h1>שוק ארבעת המינים</h1>
-            <p>שלושה סטים ברורים לבחירה, ארוזים בקפידה ומוכנים לחג</p>
+            <p>סטים מהודרים לצד אפשרות לרכישת פריטים בודדים, באריזה חגיגית ומוכנה לחג</p>
             <div class="btn-group">
                 <a href="#shop-section" class="btn btn-primary" onclick="filterCatalog('סט')">לבחירת סט</a>
+                <a href="#shop-section" class="btn btn-secondary" onclick="filterCatalog('בודד')">לפריטים בודדים</a>
             </div>
         </div>
     </section>
@@ -1374,8 +1488,13 @@
 
     <!-- אזור מכירות משולב עם סינון -->
     <section class="container" id="shop-section">
-        <h2 class="section-title">בחרו את הסט המתאים</h2>
-        <p class="section-subtitle">3 אפשרויות בלבד: מהודר, מהודר א׳ ומפואר. משלוח עד הבית: ₪45</p>
+        <h2 class="section-title">הסטים שלנו ולצידם ארבעת המינים</h2>
+        <p class="section-subtitle">בחרו סט מלא באחת משלוש רמות ההידור, או הוסיפו פריטים בודדים: אתרוג, לולב והדסים.</p>
+        <div class="catalog-tabs" aria-label="סינון מוצרים">
+            <button class="catalog-tab active" data-filter="all" onclick="filterCatalog('all', this)">הכול</button>
+            <button class="catalog-tab" data-filter="סט" onclick="filterCatalog('סט', this)">הסטים שלנו</button>
+            <button class="catalog-tab" data-filter="בודד" onclick="filterCatalog('בודד', this)">ארבעת המינים</button>
+        </div>
 
         <div class="shop-layout">
             <!-- גריד מוצרים דינמי -->
@@ -1385,23 +1504,37 @@
         </div>
     </section>
 
+    <!-- התנאים שלנו -->
+    <section class="terms-highlights" id="terms-highlights">
+        <div class="container">
+            <h2 class="section-title">התנאים שלנו</h2>
+            <p class="section-subtitle">שקיפות מלאה לפני ההזמנה, כדי שתדעו בדיוק מה אתם מקבלים.</p>
+            <div class="terms-grid">
+                <div class="terms-card"><i class="fa-solid fa-clipboard-check"></i><h3>בדיקה לפני מסירה</h3><p>כל סט ופריט בודד נארזים לאחר בדיקה ומיון לפי רמת ההידור שנבחרה.</p></div>
+                <div class="terms-card"><i class="fa-solid fa-location-dot"></i><h3>משלוחים באזור המרכז</h3><p>משלוח עד הבית בעלות ₪45 באזור המרכז בלבד, לצד אפשרות תיאום בוואטסאפ.</p></div>
+                <div class="terms-card"><i class="fa-solid fa-box-open"></i><h3>אריזה חגיגית</h3><p>הסטים מגיעים בצורה מסודרת ונקייה, כולל נרתיק מתנה בהתאם לזמינות המלאי.</p></div>
+            </div>
+        </div>
+    </section>
+
     <!-- שאלות נפוצות -->
     <section class="faq-section" id="faq">
         <div class="container">
             <h2 class="section-title">שאלות נפוצות</h2>
             <p class="section-subtitle">כל התשובות לשאלות שלכם לקראת החג</p>
             <div class="faq-container">
+                <h3 class="faq-kicker">עוד שאלות? שאלות נפוצות</h3>
                 <div class="faq-item">
-                    <button class="faq-trigger" onclick="toggleFaq(this)">האם אפשר לבחור אתרוג באופן עצמאי בנקודת החלוקה? <i class="fa-solid fa-chevron-down"></i></button>
-                    <div class="faq-content"><p>בהחלט. ניתן לבצע הזמנה מראש באתר כדי להבטיח את רמת המחיר וההידור, ובמעמד האיסוף תוכלו לבחון מספר אתרוגים מהקטגוריה שהזמנתם ולבחור את האחד שמוצא חן בעיניכם ביותר.</p></div>
+                    <button class="faq-trigger" onclick="toggleFaq(this)">מה ההבדל בין שלושת הסוגים? <i class="fa-solid fa-chevron-down"></i></button>
+                    <div class="faq-content"><p>יש שלוש רמות: <strong>מהודר</strong> - סט איכותי ונקי המתאים לרוב המשפחות; <strong>מהודר א׳</strong> - בחירה מוקפדת יותר עם מראה נאה, אחידות גבוהה ובדיקה מדויקת יותר; <strong>מפואר</strong> - הרמה הגבוהה ביותר באתר, עם פריטים מרשימים במיוחד, מיון קפדני ותחושת הידור חגיגית למי שמחפש את הטוב ביותר.</p></div>
                 </div>
                 <div class="faq-item">
-                    <button class="faq-trigger" onclick="toggleFaq(this)">מה ההבדל המרכזי בין רמת "מהודר" לרמת "פרימיום"? <i class="fa-solid fa-chevron-down"></i></button>
-                    <div class="faq-content"><p>רמת "מהודר" מבטיחה מוצרים נקיים ללא נקודות, בעלי צורה יפה וישרה. רמת "פרימיום" (מן המהודר) מייצגת את אחוז הסחורה הגבוה ביותר - אתרוגים בעלי גידול ("פיטם") מושלם, מבנה "מגדל" סימטרי וחוסר מוחלט של סימנים מכל סוג, למהדרין מן המהדרין.</p></div>
+                    <button class="faq-trigger" onclick="toggleFaq(this)">האם יש משלוחים לכל חלקי הארץ? <i class="fa-solid fa-chevron-down"></i></button>
+                    <div class="faq-content"><p>לא. בשלב זה אנחנו עושים משלוחים באזור המרכז בלבד. תמיד ניתן לדבר איתנו בוואטסאפ ולבדוק יחד אפשרות פתרון נקודתי.</p></div>
                 </div>
                 <div class="faq-item">
-                    <button class="faq-trigger" onclick="toggleFaq(this)">האם יש משלוחים לכל חלקי הארץ ואיך נשמרת הטריות? <i class="fa-solid fa-chevron-down"></i></button>
-                    <div class="faq-content"><p>כן, אנו מבצעים משלוחים ממוזגים לערים המרכזיות. כל פריט, בדגש על הדסים וערבות, נארז בשקיות שומרות לחות ואטומות כדי להבטיח הגעה במצב רענן וטרי לחג.</p></div>
+                    <button class="faq-trigger" onclick="toggleFaq(this)">האם אפשר להזמין גם פריט בודד ולא סט מלא? <i class="fa-solid fa-chevron-down"></i></button>
+                    <div class="faq-content"><p>כן. לצד הסטים המלאים ניתן להזמין אתרוג בנפרד ב-₪60, לולב בנפרד ב-₪50 והדסים בנפרד ב-₪40, לפי הצורך שלכם.</p></div>
                 </div>
             </div>
         </div>
@@ -1419,7 +1552,6 @@
             </div>
             <div class="cart-actions">
                 <button type="button" class="btn-submit-order" onclick="openCheckoutPage()">עבור לתשלום</button>
-                <button type="button" class="btn-secondary" onclick="closeCartModal()">המשך קנייה</button>
             </div>
         </div>
     </div>
@@ -1512,6 +1644,8 @@
         </div>
     </footer>
 
+    <a href="#" class="whatsapp-float" aria-label="יצירת קשר בוואטסאפ" onclick="alert('מספר הוואטסאפ יעודכן בקרוב.'); return false;"><i class="fa-brands fa-whatsapp"></i></a>
+
     <!-- מערכת ה-Firebase המקורית כפי שביקשת -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js";
@@ -1563,7 +1697,10 @@
         let products = [
             { id: 1, type: 'סט', name: 'סט מהודר', desc: 'סט שלם לחג הכולל אתרוג נאה, לולב, הדסים וערבות - בחירה מצוינת למשפחה.', price: 150, badge: 'בחירה משתלמת', level: 'מהודר', variety: 'סט מלא', icon: 'fa-box-open' },
             { id: 2, type: 'סט', name: 'סט מהודר א׳', desc: 'סט מוקפד יותר עם פריטים נאים במיוחד, אריזה מסודרת ובדיקה קפדנית.', price: 180, badge: 'הכי נמכר', level: 'מהודר א׳', variety: 'סט מלא', icon: 'fa-star' },
-            { id: 3, type: 'סט', name: 'סט מפואר', desc: 'סט ברמת הידור גבוהה למבקשים מוצר מרשים ומכובד במיוחד לחג.', price: 220, badge: 'מפואר', level: 'מפואר', variety: 'סט מלא', icon: 'fa-crown' }
+            { id: 3, type: 'סט', name: 'סט מפואר', desc: 'סט ברמת הידור גבוהה למבקשים מוצר מרשים ומכובד במיוחד לחג.', price: 220, badge: 'מפואר', level: 'מפואר', variety: 'סט מלא', icon: 'fa-crown' },
+            { id: 4, type: 'בודד', name: 'אתרוג בנפרד', desc: 'אתרוג נאה ונקי לבחירה משלימה למי שכבר יש לו שאר המינים או מעוניין בשדרוג.', price: 60, badge: 'בודד', level: 'איכותי', variety: 'אתרוג', icon: 'fa-lemon' },
+            { id: 5, type: 'בודד', name: 'לולב בנפרד', desc: 'לולב ישר ורענן שנבחר בקפידה ומתאים להשלמת סט קיים.', price: 50, badge: 'בודד', level: 'איכותי', variety: 'לולב', icon: 'fa-seedling' },
+            { id: 6, type: 'בודד', name: 'הדסים בנפרד', desc: 'הדסים ירוקים ורעננים, ארוזים בצורה השומרת על טריות עד החג.', price: 40, badge: 'בודד', level: 'איכותי', variety: 'הדסים', icon: 'fa-leaf' }
         ];
 
         let cart = JSON.parse(localStorage.getItem('sukkot_cart')) || [];
@@ -1688,9 +1825,13 @@
             siblings.forEach(s => s.classList.remove('active'));
             btn.classList.add('active');
         }
-        function filterCatalog(mode) {
-            // מאפשר קישור ישיר מהתפריט העליון
-            activeType = mode === 'סט' ? 'סט' : 'all';
+        function filterCatalog(mode, btn) {
+            // מאפשר קישור ישיר מהתפריט העליון ומהטאבים בחנות
+            activeType = mode || 'all';
+            document.querySelectorAll('.catalog-tab').forEach(tab => {
+                tab.classList.toggle('active', tab.dataset.filter === activeType);
+            });
+            if (btn) btn.classList.add('active');
             renderProducts();
         }
 
@@ -1703,7 +1844,7 @@
                 const matchType = activeType === 'all' || p.type === activeType;
                 const matchLevel = activeLevel === 'all' || p.level === activeLevel;
                 const matchVariety = activeVariety === 'all' || p.variety === activeVariety;
-                return p.type === 'סט' && matchType && matchLevel && matchVariety;
+                return matchType && matchLevel && matchVariety;
             });
 
             if(filtered.length === 0) {
@@ -1716,6 +1857,7 @@
                 card.className = 'product-card reveal';
                 card.innerHTML = `
                     <div class="product-badge">${p.badge}</div>
+                    <div class="product-type-ribbon">${p.type === 'סט' ? 'סט מלא' : 'פריט בודד'}</div>
                     <div class="product-img-container">
                         <div class="placeholder-art">
                             <i class="fa-solid ${p.icon}"></i>
@@ -1727,7 +1869,7 @@
                     <div class="product-info">
                         <h3 class="product-title">${p.name}</h3>
                         <p class="product-desc">${p.desc}</p>
-                        <div class="product-meta">${p.level} · משלוח עד הבית ₪45</div>
+                        <div class="product-meta">${p.level} · ${p.variety} · משלוח באזור המרכז ₪45</div>
                         <div class="product-footer">
                             <span class="product-price">₪${p.price}</span>
                             <div style="display:flex; gap: 10px; align-items:center;">
