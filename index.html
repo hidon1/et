@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>שוק ארבעת המינים | סטים מהודרים ויחידים מובחרים</title>
+    <title>שוק ארבעת המינים | 3 סטים מהודרים</title>
 
     <!-- פונטים ואייקונים מהודרים -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -327,30 +327,6 @@
             transform: translateY(-3px);
         }
 
-        /* כפתור וואטסאפ צף */
-        .whatsapp-float {
-            position: fixed;
-            bottom: 30px;
-            left: 30px;
-            background-color: #25d366;
-            color: white;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 30px;
-            box-shadow: 2px 2px 15px rgba(0,0,0,0.2);
-            z-index: 999;
-            transition: var(--transition-smooth);
-            text-decoration: none;
-        }
-
-        .whatsapp-float:hover {
-            transform: scale(1.1) rotate(10deg);
-        }
-
         /* כותרות סקשנים */
         .section-title {
             text-align: center;
@@ -434,7 +410,7 @@
         /* קניות וסינונים */
         .shop-layout {
             display: grid;
-            grid-template-columns: 150px 1fr;
+            grid-template-columns: 1fr;
             gap: 22px;
             align-items: start;
             margin-bottom: 60px;
@@ -460,15 +436,7 @@
         }
 
         /* מסנן צדדי מעוצב */
-        .filter-sidebar {
-            background: rgba(249, 246, 240, 0.86);
-            padding: 14px 10px;
-            border-radius: 28px;
-            box-shadow: var(--shadow-elegant);
-            position: sticky;
-            top: 100px;
-            border: 1px solid rgba(212,175,55,0.22);
-        }
+        .filter-sidebar { display: none; }
 
         .filter-group {
             margin-bottom: 25px;
@@ -509,13 +477,13 @@
         /* גריד מוצרים */
         .products-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            grid-template-columns: repeat(3, minmax(240px, 1fr));
             gap: 25px;
         }
 
         /* כרטיסיית מוצר יוקרתית */
         .product-card {
-            background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(255,250,240,0.94));
+            background: linear-gradient(180deg, rgba(255,255,255,0.99), rgba(255,250,240,0.96));
             border-radius: 18px;
             box-shadow: var(--shadow-elegant);
             overflow: hidden;
@@ -527,7 +495,7 @@
         }
 
         .product-card:hover {
-            transform: translateY(-10px) scale(1.035);
+            transform: translateY(-8px) scale(1.02);
             box-shadow: var(--shadow-lifted);
             border-color: rgba(212,175,55,0.45);
         }
@@ -1247,6 +1215,9 @@
             .filter-sidebar {
                 position: static;
             }
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         @media (max-width: 768px) {
@@ -1270,7 +1241,8 @@
                 border-radius: 0;
             }
             .checkout-method-toggle,
-            .checkout-fields-grid {
+            .checkout-fields-grid,
+            .products-grid {
                 grid-template-columns: 1fr;
             }
         }
@@ -1286,11 +1258,8 @@
             </a>
             <ul class="nav-menu" id="navMenu">
                 <li><a href="#" class="active" onclick="toggleMenu()">ראשי</a></li>
-                <li><a href="#shop-section" onclick="filterCatalog('סט'); toggleMenu()">סטים מהודרים</a></li>
-                <li><a href="#shop-section" onclick="filterCatalog('נפרד'); toggleMenu()">קנייה בנפרד</a></li>
-                <li><a href="#gallery" onclick="toggleMenu()">גלריה</a></li>
+                <li><a href="#shop-section" onclick="filterCatalog('סט'); toggleMenu()">הסטים שלנו</a></li>
                 <li><a href="#faq" onclick="toggleMenu()">שאלות נפוצות</a></li>
-                <li><a href="#contact" onclick="toggleMenu()">צור קשר</a></li>
             </ul>
             <div style="display: flex; align-items: center; gap: 20px;">
                 <button class="cart-icon-btn" onclick="openCartModal()">
@@ -1307,12 +1276,9 @@
         <a href="#shop-section" class="hero-purchase-badge" aria-label="מעבר לרכישה"><i class="fa-solid fa-bag-shopping"></i><span>לרכישה</span></a>
         <div class="container hero-content animate-fade">
             <h1>שוק ארבעת המינים</h1>
-            <p>סטים מהודרים ויחידים מובחרים לחג הסוכות ברמת כשרות והידור ללא פשרות</p>
+            <p>שלושה סטים ברורים לבחירה, ארוזים בקפידה ומוכנים לחג</p>
             <div class="btn-group">
-                <a href="#shop-section" class="btn btn-primary" onclick="filterCatalog('סט')">לרכישת סטים מהודרים</a>
-                <a href="https://wa.me/972500000000?text=%D7%A9%D7%9C%D7%95%D7%9D%2C%20%D7%90%D7%A0%D7%99%20%D7%9E%D7%AA%D7%A2%D7%A0%D7%99%D7%99%D7%99%D7%9F%20%D7%91%D7%90%D7%A8%D7%91%D7%A2%D7%AA%20%D7%94%D7%9E%D7%99%D7%A0%D7%99%D7%9D" target="_blank" class="btn btn-secondary">
-                    <i class="fa-brands fa-whatsapp"></i> יצירת קשר בוואטסאפ
-                </a>
+                <a href="#shop-section" class="btn btn-primary" onclick="filterCatalog('סט')">לבחירת סט</a>
             </div>
         </div>
     </section>
@@ -1321,7 +1287,7 @@
     <section class="features">
         <div class="container">
             <h2 class="section-title">למה לבחור בנו?</h2>
-            <p class="section-subtitle">השירות והאיכות שלנו מובילים בכל הארץ</p>
+            <p class="section-subtitle">בחירה פשוטה, איכותית ונקייה</p>
             <div class="features-grid">
                 <div class="feature-card">
                     <i class="fa-solid fa-scroll"></i>
@@ -1349,54 +1315,14 @@
 
     <!-- אזור מכירות משולב עם סינון -->
     <section class="container" id="shop-section">
-        <h2 class="section-title">חנות המינים המקוונת</h2>
-        <p class="section-subtitle">בחר את הסט המושלם עבורך או הרכב באופן עצמאי</p>
+        <h2 class="section-title">בחרו את הסט המתאים</h2>
+        <p class="section-subtitle">3 אפשרויות בלבד: מהודר, מהודר א׳ ומפואר. משלוח עד הבית: ₪45</p>
 
         <div class="shop-layout">
-            <!-- מסנן צדדי -->
-            <aside class="filter-sidebar">
-                <div class="filter-group">
-                    <h4>סוג מוצר</h4>
-                    <div class="tag-cloud">
-                        <button class="tag-btn active" onclick="filterType('all', this)">הכל</button>
-                        <button class="tag-btn" onclick="filterType('סט', this)">סטים מלאים</button>
-                        <button class="tag-btn" onclick="filterType('אתרוג', this)">אתרוגים</button>
-                        <button class="tag-btn" onclick="filterType('לולב', this)">לולבים</button>
-                        <button class="tag-btn" onclick="filterType('הדס', this)">הדסים</button>
-                        <button class="tag-btn" onclick="filterType('ערבה', this)">ערבות</button>
-                    </div>
-                </div>
-
-            </aside>
-
             <!-- גריד מוצרים דינמי -->
             <main class="products-grid" id="productsGrid">
                 <!-- ירוסס דינמית על ידי JavaScript -->
             </main>
-        </div>
-    </section>
-
-    <!-- גלריית תמונות מהודרת -->
-    <section class="container" id="gallery">
-        <h2 class="section-title">גלריית הידור</h2>
-        <p class="section-subtitle">הצצה אל נקודות המיון, האריזה והסחורה המובחרת</p>
-        <div class="gallery-grid">
-            <div class="gallery-item">
-                <div class="placeholder-art"><i class="fa-solid fa-certificate"></i><span>אתרוגי פרימיום</span></div>
-                <div class="gallery-overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
-            </div>
-            <div class="gallery-item">
-                <div class="placeholder-art"><i class="fa-solid fa-box-open"></i><span>אריזות מוגנות</span></div>
-                <div class="gallery-overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
-            </div>
-            <div class="gallery-item">
-                <div class="placeholder-art"><i class="fa-solid fa-shop"></i><span>נקודת המכירה</span></div>
-                <div class="gallery-overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
-            </div>
-            <div class="gallery-item">
-                <div class="placeholder-art"><i class="fa-solid fa-warehouse"></i><span>מיון לולבים</span></div>
-                <div class="gallery-overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
-            </div>
         </div>
     </section>
 
@@ -1418,54 +1344,6 @@
                     <button class="faq-trigger" onclick="toggleFaq(this)">האם יש משלוחים לכל חלקי הארץ ואיך נשמרת הטריות? <i class="fa-solid fa-chevron-down"></i></button>
                     <div class="faq-content"><p>כן, אנו מבצעים משלוחים ממוזגים לערים המרכזיות. כל פריט, בדגש על הדסים וערבות, נארז בשקיות שומרות לחות ואטומות כדי להבטיח הגעה במצב רענן וטרי לחג.</p></div>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- צור קשר -->
-    <section class="container" id="contact" style="padding-top: 20px;">
-        <h2 class="section-title">צור קשר</h2>
-        <p class="section-subtitle">נשמח לעמוד לשירותכם לכל שאלה, ייעוץ או הזמנה מוסדית</p>
-        <div class="contact-layout">
-            <div class="contact-info">
-                <div class="info-block">
-                    <i class="fa-solid fa-phone"></i>
-                    <div class="info-text">
-                        <h4>טלפון למענה אנושי</h4>
-                        <p>073-1234567</p>
-                    </div>
-                </div>
-                <div class="info-block">
-                    <i class="fa-solid fa-location-dot"></i>
-                    <div class="info-text">
-                        <h4>נקודת איסוף מרכזית</h4>
-                        <p>רחוב חזון איש 10, בני ברק / רחוב מלכי ישראל, ירושלים</p>
-                    </div>
-                </div>
-                <div class="info-block">
-                    <i class="fa-solid fa-clock"></i>
-                    <div class="info-text">
-                        <h4>שעות פעילות בימי קדם-חג</h4>
-                        <p>א'-ה': 09:00 - 22:00 | יום ו': 08:30 - 13:30</p>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <form onsubmit="handleContactForm(event)" class="checkout-form" style="background: var(--accent-bg); padding: 25px; border-radius: 12px;">
-                    <div class="form-group">
-                        <label>שם מלא</label>
-                        <input type="text" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label>טלפון</label>
-                        <input type="tel" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label>תוכן ההודעה</label>
-                        <textarea class="form-control" rows="3" required></textarea>
-                    </div>
-                    <button type="submit" class="btn-submit-order" style="background-color: var(--primary-light); color: white;">שליחת הודעה</button>
-                </form>
             </div>
         </div>
     </section>
@@ -1495,7 +1373,7 @@
                 <h3>בחר אופן קבלת ההזמנה</h3>
                 <div class="checkout-method-toggle">
                     <label class="checkout-method-option"><input type="radio" name="shippingMethod" value="איסוף עצמי" checked onchange="toggleCheckoutFields()"> איסוף עצמי</label>
-                    <label class="checkout-method-option"><input type="radio" name="shippingMethod" value="משלוח" onchange="toggleCheckoutFields()"> משלוח (₪35)</label>
+                    <label class="checkout-method-option"><input type="radio" name="shippingMethod" value="משלוח" onchange="toggleCheckoutFields()"> משלוח (₪45)</label>
                 </div>
                 <div class="checkout-fields-grid">
                     <div class="form-group">
@@ -1562,16 +1440,11 @@
                 <p><strong>1. כללי והזמנות:</strong> האתר משמש כפלטפורמה להזמנה מראש של ארבעת המינים. התמונות והאייקונים באתר הם להמחשה בלבד, שכן כל מוצר מן הצומח הינו ייחודי ומטבעו שונה במראהו.</p><br>
                 <p><strong>2. רמת כשרות והידור:</strong> כל הסחורה מפוקחת ונבדקת, אך האחריות ההלכתית הסופית והבדיקה הסופית של סימני הכשרות הינה באחריות הקונה בלבד בעת קבלת המוצר.</p><br>
                 <p><strong>3. ביטולים ושינויים:</strong> בשל אופיו העונתי המובהק של המוצר ורגישותו הגבוהה, לא ניתן לבטל הזמנה או להחזיר מוצרים לאחר שחלפו 48 שעות ממועד ההזמנה או פחות מ-3 ימים לפני חג הסוכות.</p><br>
-                <p><strong>4. אספקה ומשלוחים:</strong> החברה תעשה את מירב המאמצים לספק את המוצרים הטריים ביותר במסגרת הזמן שנבחרה. במקרה של כוח עליון או חוסר בלתי צפוי בזן מסוים, יסופק זן שווה ערך או שיינתן זיכוי מלא לבחירת הלקוח.</p>
+                <p><strong>4. אספקה ומשלוחים:</strong> משלוח עד הבית בעלות ₪45. החברה תעשה את מירב המאמצים לספק את המוצרים הטריים ביותר במסגרת הזמן שנבחרה.</p>
             </div>
             <button class="btn-submit-order" style="margin-top: 20px; background-color: var(--primary-light); color: white;" onclick="closeTermsModal()">הבנתי ואישרתי</button>
         </div>
     </div>
-
-    <!-- כפתור וואטסאפ צף -->
-    <a href="https://wa.me/972500000000?text=%D7%A9%D7%9C%D7%95%D7%9D%2C%20%D7%90%D7%A0%D7%99%20%D7%9E%D7%AA%D7%A2%D7%A0%D7%99%D7%99%D7%99%D7%99%D7%9F%20%D7%91%D7%90%D7%A8%D7%91%D7%A2%D7%AA%20%D7%94%D7%9E%D7%99%D7%A0%D7%99%D7%9D" class="whatsapp-float" target="_blank">
-        <i class="fa-brands fa-whatsapp"></i>
-    </a>
 
     <!-- פוטר -->
     <footer>
@@ -1629,20 +1502,9 @@
     <script>
         // בסיס נתונים למוצרים - סטים מלאים ופריטים בנפרד
         let products = [
-            { id: 1, type: 'סט', name: 'סט מהודר רגיל', desc: 'סט שלם הכולל אתרוג יפה, לולב ישר, 3 הדסים ו-2 ערבות. כשר ומפוקח.', price: 120, badge: 'מומלץ', level: 'מהודר', variety: 'סטנדרט', icon: 'fa-box' },
-            { id: 2, type: 'סט', name: 'סט מהודר מן המהודר', desc: 'סט מובחר עם רמת נקיון גבוהה של האתרוג ולולב קנרי מהודר במיוחד.', price: 190, badge: 'הכי נמכר', level: 'מהודר', variety: 'סטנדרט', icon: 'fa-star' },
-            { id: 3, type: 'סט', name: 'סט פרימיום VIP', desc: 'פסגת ההידור. אתרוג מושלם ללא שום רבב, גידול סימטרי מרהיב לחובבי הידור.', price: 350, badge: 'מוגבל במלאי', level: 'פרימיום', variety: 'סטנדרט', icon: 'fa-crown' },
-            { id: 4, type: 'סט', name: 'סט אתרוג מרוקאי מהודר', desc: 'סט מושלם המבוסס על אתרוג מזן מרוקאי אותנטי בעל מראה ייחודי.', price: 240, badge: 'יוקרתי', level: 'מהודר', variety: 'מרוקאי', icon: 'fa-gem' },
-            { id: 5, type: 'סט', name: 'סט אתרוג תימני ענק', desc: 'סט מפואר הכולל אתרוג תימני מקורי, עב בשר ובעל ריח נפלא כמסורת אבות.', price: 290, badge: 'מסורתי', level: 'מהודר', variety: 'תימני', icon: 'fa-scroll' },
-            { id: 6, type: 'סט', name: 'סט חינוכי לילדים ונוער', desc: 'סט קל משקל, כשר לברכה, מותאם במיוחד לאחיזה נוחה של ילדים.', price: 60, badge: 'מחיר מיוחד', level: 'רגיל', variety: 'סטנדרט', icon: 'fa-child' },
-
-            { id: 7, type: 'אתרוג', name: 'אתרוג סטנדרט כשר', desc: 'אתרוג יחיד כשר לברכה ללא פיטם או עם פיטם טבעי.', price: 50, badge: 'נפרד', level: 'רגיל', variety: 'סטנדרט', icon: 'fa-lemon' },
-            { id: 8, type: 'אתרוג', name: 'אתרוג מרוקאי יחיד', desc: 'אתרוג מרוקאי נקי ומובחר לקנייה בנפרד.', price: 130, badge: 'מובחר', level: 'מהודר', variety: 'מרוקאי', icon: 'fa-lemon' },
-            { id: 9, type: 'אתרוג', name: 'אתרוג תימני יחיד', desc: 'אתרוג תימני מקורי רחב ידיים ומפואר.', price: 160, badge: 'מפואר', level: 'פרימיום', variety: 'תימני', icon: 'fa-lemon' },
-            { id: 10, type: 'לולב', name: 'לולב מובחר ישר', desc: 'לולב ישר, סגור היטב בראשו, טרי ורענן.', price: 40, badge: 'נפרד', level: 'מהודר', variety: 'סטנדרט', icon: 'fa-leaf' },
-            { id: 11, type: 'הדס', name: 'שלישיית הדסים משולשים', desc: 'הדסים משולשים עבותים כדין, ארוזים בשקית שומרת רעננות.', price: 25, badge: 'נפרד', level: 'מהודר', variety: 'סטנדרט', icon: 'fa-lines-leaning' },
-            { id: 12, type: 'ערבה', name: 'זוג ערבות נחל מובחרות', desc: 'ערבות טריות, עלים ארוכים ונקיים, ללא קטום.', price: 12, badge: 'נפרד', level: 'רגיל', variety: 'סטנדרט', icon: 'fa-spa' },
-            { id: 13, type: 'אביזרים', name: 'סט קוישיקלך מהודר', desc: 'סלסלת חבק עשויה עלי לולב איכותיים לקשירה יפה.', price: 10, badge: 'אביזרים', level: 'רגיל', variety: 'סטנדרט', icon: 'fa-bezier-curve' }
+            { id: 1, type: 'סט', name: 'סט מהודר', desc: 'סט שלם לחג הכולל אתרוג נאה, לולב, הדסים וערבות - בחירה מצוינת למשפחה.', price: 150, badge: 'בחירה משתלמת', level: 'מהודר', variety: 'סט מלא', icon: 'fa-box-open' },
+            { id: 2, type: 'סט', name: 'סט מהודר א׳', desc: 'סט מוקפד יותר עם פריטים נאים במיוחד, אריזה מסודרת ובדיקה קפדנית.', price: 180, badge: 'הכי נמכר', level: 'מהודר א׳', variety: 'סט מלא', icon: 'fa-star' },
+            { id: 3, type: 'סט', name: 'סט מפואר', desc: 'סט ברמת הידור גבוהה למבקשים מוצר מרשים ומכובד במיוחד לחג.', price: 220, badge: 'מפואר', level: 'מפואר', variety: 'סט מלא', icon: 'fa-crown' }
         ];
 
         let cart = JSON.parse(localStorage.getItem('sukkot_cart')) || [];
@@ -1656,7 +1518,8 @@
         document.addEventListener('DOMContentLoaded', () => {
             renderProducts();
             updateCartUI();
-            startFirebaseRealtimeUpdates();
+            // שומרים על קטלוג קבוע של שלושת הסטים בלבד.
+            // startFirebaseRealtimeUpdates();
         });
 
         // תפריט מובייל
@@ -1781,7 +1644,7 @@
                 const matchType = activeType === 'all' || p.type === activeType;
                 const matchLevel = activeLevel === 'all' || p.level === activeLevel;
                 const matchVariety = activeVariety === 'all' || p.variety === activeVariety;
-                return matchType && matchLevel && matchVariety;
+                return p.type === 'סט' && matchType && matchLevel && matchVariety;
             });
 
             if(filtered.length === 0) {
@@ -1805,7 +1668,7 @@
                     <div class="product-info">
                         <h3 class="product-title">${p.name}</h3>
                         <p class="product-desc">${p.desc}</p>
-                        <div class="product-meta">רמה: ${p.level} | סוג: ${p.variety === 'סטנדרט' ? 'רגיל' : p.variety}</div>
+                        <div class="product-meta">${p.level} · משלוח עד הבית ₪45</div>
                         <div class="product-footer">
                             <span class="product-price">₪${p.price}</span>
                             <div style="display:flex; gap: 10px; align-items:center;">
@@ -1967,7 +1830,7 @@
             const shipping = document.querySelector('input[name="shippingMethod"]:checked').value;
 
             let total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
-            if(shipping === 'משלוח') total += 35;
+            if(shipping === 'משלוח') total += 45;
 
             // בניית מבנה נתונים להזמנה
             const orderData = {
