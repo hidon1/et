@@ -8,7 +8,7 @@
     <!-- פונטים ואייקונים מהודרים -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700;800&family=Heebo:wght@300;400;500;700;900&family=Tinos:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700;800&family=Heebo:wght@300;400;500;700;900&family=Frank+Ruhl+Libre:wght@400;600;700;900&family=Tinos:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
@@ -350,15 +350,29 @@
             animation: heroTextBounce 1.05s cubic-bezier(0.2, 0.92, 0.22, 1.2) 0.35s both;
         }
 
-        .hero-title-line { display: block; }
+        .hero-title-line { display: block; font-family: 'Frank Ruhl Libre', 'Tinos', serif; font-weight: 900; letter-spacing: -0.035em; }
 
         .hero-title-accent {
             display: block;
             margin-top: 12px;
             font-size: 0.66em;
-            font-style: italic;
+            font-family: 'Frank Ruhl Libre', 'Tinos', serif;
+            font-weight: 600;
+            font-style: normal;
+            letter-spacing: 0.01em;
             color: #fff7d6;
             text-shadow: 0 4px 20px rgba(0,0,0,0.45);
+        }
+
+        .hero-home-line {
+            display: block;
+            margin-top: 10px;
+            font-family: 'Frank Ruhl Libre', 'Tinos', serif;
+            font-size: clamp(1.45rem, 3vw, 2.25rem);
+            font-weight: 700;
+            color: #fff7d6;
+            letter-spacing: 0.01em;
+            text-shadow: 0 3px 14px rgba(0,0,0,0.4);
         }
 
         .hero-content p {
@@ -1574,7 +1588,7 @@
         <a href="#shop-section" class="hero-purchase-badge" aria-label="למוצרים"><i class="fa-solid fa-store"></i><span>למוצרים</span></a>
         <div class="container hero-content animate-fade">
             <div class="hero-eyebrow"><i class="fa-solid fa-sparkles"></i> מתכוננים לחג בהידור</div>
-            <h1><span class="hero-title-line">שוק ארבעת המינים</span><span class="hero-title-accent">כמו שבאמת רציתם.</span></h1>
+            <h1><span class="hero-title-line">שוק ארבעת המינים</span><span class="hero-title-accent">כמו שבאמת רציתם.</span><span class="hero-home-line">מעכשיו קונים מהבית</span></h1>
             <p>בחירה מוקפדת של סטים מהודרים ופריטים בודדים — טריים, נאים וארוזים באהבה, כדי שתגיעו לחג בראש שקט.</p>
             <div class="btn-group">
                 <a href="#shop-section" class="btn btn-primary" onclick="filterCatalog('סט')">לבחירת סט</a>
