@@ -40,6 +40,7 @@
 
         body {
             color: var(--text-dark);
+            font-size: 18px;
             overflow-x: hidden;
             line-height: 1.6;
             background:
@@ -319,16 +320,51 @@
             padding-top: 80px;
         }
 
+        .hero-content {
+            max-width: 980px;
+            position: relative;
+        }
+
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 18px;
+            padding: 7px 18px;
+            border: 1px solid rgba(255,241,184,0.58);
+            border-radius: 999px;
+            background: rgba(18,53,36,0.38);
+            color: var(--gold-light);
+            font-size: 1rem;
+            font-weight: 800;
+            letter-spacing: 0.04em;
+            backdrop-filter: blur(8px);
+        }
+
         .hero-content h1 {
-            font-size: 3.5rem;
+            font-size: clamp(4.2rem, 9vw, 7.5rem);
+            line-height: 0.88;
             color: var(--gold);
-            margin-bottom: 15px;
+            margin-bottom: 26px;
             text-shadow: 0 8px 22px rgba(0,0,0,0.36);
             animation: heroTextBounce 1.05s cubic-bezier(0.2, 0.92, 0.22, 1.2) 0.35s both;
         }
 
+        .hero-title-line { display: block; }
+
+        .hero-title-accent {
+            display: block;
+            margin-top: 12px;
+            font-size: 0.66em;
+            font-style: italic;
+            color: #fff7d6;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.45);
+        }
+
         .hero-content p {
-            font-size: 1.5rem;
+            max-width: 750px;
+            margin-inline: auto;
+            font-size: clamp(1.25rem, 2.4vw, 1.65rem);
             margin-bottom: 30px;
             font-weight: 300;
             opacity: 0;
@@ -411,8 +447,9 @@
         /* כותרות סקשנים */
         .section-title {
             text-align: center;
+            font-weight: 700;
             margin: 60px 0 4px 0;
-            font-size: 2.5rem;
+            font-size: clamp(2.7rem, 5vw, 4rem);
             color: var(--primary-dark);
             position: relative;
         }
@@ -430,7 +467,8 @@
             text-align: center;
             color: #666;
             margin-bottom: 40px;
-            font-size: 1.1rem;
+            font-size: 1.25rem;
+            line-height: 1.75;
         }
 
         /* אזור יתרונות ואמינות */
@@ -558,8 +596,9 @@
         /* גריד מוצרים */
         .products-grid {
             display: grid;
-            grid-template-columns: repeat(3, minmax(240px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(3, minmax(220px, 285px));
+            justify-content: center;
+            gap: 20px;
         }
 
         /* כרטיסיית מוצר יוקרתית */
@@ -567,7 +606,7 @@
             background:
                 linear-gradient(180deg, rgba(255,255,255,0.90), rgba(255,250,240,0.84)),
                 url('2.png') center / cover;
-            border-radius: 18px;
+            border-radius: 16px;
             box-shadow: var(--shadow-elegant);
             overflow: hidden;
             transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.25, 1), box-shadow 0.35s ease, border-color 0.35s ease;
@@ -605,7 +644,7 @@
         }
 
         .product-img-container {
-            height: 220px;
+            height: 155px;
             background-color: #f5f5f5;
             position: relative;
             overflow: hidden;
@@ -670,21 +709,22 @@
         }
 
         .product-info {
-            padding: 20px;
+            padding: 15px 16px 16px;
             display: flex;
             flex-direction: column;
             flex-grow: 1;
         }
 
         .product-title {
-            font-size: 1.25rem;
+            font-size: 1.35rem;
             color: var(--primary-dark);
-            margin-bottom: 8px;
+            margin-bottom: 5px;
             font-weight: 700;
         }
 
         .product-desc {
-            font-size: 0.9rem;
+            font-size: 0.94rem;
+            line-height: 1.5;
             color: #666;
             margin-bottom: 15px;
             flex-grow: 1;
@@ -1255,6 +1295,53 @@
 
         .whatsapp-float:hover { transform: translateY(-4px) scale(1.06); }
 
+        /* תוכן שנותן עומק וסיפור למותג */
+        .trust-strip {
+            margin-top: -45px;
+            position: relative;
+            z-index: 5;
+        }
+
+        .trust-strip-inner {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            background: rgba(255,255,255,0.94);
+            border: 1px solid rgba(212,175,55,0.28);
+            border-radius: 24px;
+            box-shadow: var(--shadow-lifted);
+            overflow: hidden;
+            backdrop-filter: blur(14px);
+        }
+
+        .trust-stat { padding: 22px; text-align: center; }
+        .trust-stat + .trust-stat { border-inline-start: 1px solid rgba(18,53,36,0.12); }
+        .trust-stat strong { display: block; color: var(--primary-dark); font-size: 1.55rem; }
+        .trust-stat span { color: #66736c; font-size: 1rem; }
+
+        .story-section { padding: 70px 0; background: rgba(255,255,255,0.72); }
+        .story-layout { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 55px; align-items: center; }
+        .story-visual {
+            min-height: 430px;
+            border-radius: 32px;
+            background: linear-gradient(145deg, rgba(18,53,36,0.18), rgba(212,175,55,0.16)), url('1.png') center/cover;
+            box-shadow: var(--shadow-lifted);
+            position: relative;
+        }
+        .story-note {
+            position: absolute; inset-inline-end: -22px; bottom: 28px; max-width: 230px;
+            padding: 20px; border-radius: 18px; background: var(--primary-dark); color: white;
+            box-shadow: var(--shadow-lifted); font-weight: 700;
+        }
+        .story-note i { color: var(--gold); margin-inline-end: 7px; }
+        .story-copy .section-title { text-align: right; margin-top: 0; }
+        .story-copy .section-title::after { margin-inline-start: 0; margin-inline-end: 0; }
+        .story-copy > p { font-size: 1.18rem; line-height: 1.9; color: #4d5b53; margin-bottom: 24px; }
+        .process-list { display: grid; gap: 16px; }
+        .process-step { display: flex; gap: 15px; align-items: flex-start; }
+        .process-number { flex: 0 0 42px; height: 42px; border-radius: 50%; display: grid; place-items: center; background: var(--gold-light); color: var(--primary-dark); font-weight: 900; }
+        .process-step h3 { font-size: 1.28rem; color: var(--primary-dark); margin-bottom: 2px; }
+        .process-step p { color: #67736c; font-size: 1rem; }
+
         /* גלריה יפה */
         .gallery-grid {
             display: grid;
@@ -1418,7 +1505,9 @@
         }
 
         @media (max-width: 768px) {
-            .hero-content h1 { font-size: 2.5rem; }
+            body { font-size: 16px; }
+            .hero { min-height: 720px; height: auto; padding-block: 130px 90px; }
+            .hero-content h1 { font-size: clamp(3.5rem, 18vw, 5.2rem); }
             .hero-content p { font-size: 1.2rem; }
             .nav-menu {
                 display: none;
@@ -1437,6 +1526,15 @@
                 width: 100%;
                 border-radius: 0;
             }
+            .trust-strip { margin-top: -30px; }
+            .trust-strip-inner { grid-template-columns: 1fr; }
+            .trust-stat { padding: 15px; }
+            .trust-stat + .trust-stat { border-inline-start: 0; border-top: 1px solid rgba(18,53,36,0.1); }
+            .story-layout { grid-template-columns: 1fr; gap: 32px; }
+            .story-visual { min-height: 310px; }
+            .story-note { inset-inline-end: 14px; }
+            .story-copy .section-title { text-align: center; }
+            .story-copy .section-title::after { margin-inline: auto; }
             .terms-grid,
             .checkout-method-toggle,
             .checkout-fields-grid,
@@ -1475,14 +1573,23 @@
     <section class="hero">
         <a href="#shop-section" class="hero-purchase-badge" aria-label="נרתיק מתנה"><i class="fa-solid fa-gift"></i><span>נרתיק<br>מתנה</span></a>
         <div class="container hero-content animate-fade">
-            <h1>שוק ארבעת המינים</h1>
-            <p>סטים מהודרים לצד אפשרות לרכישת פריטים בודדים, באריזה חגיגית ומוכנה לחג</p>
+            <div class="hero-eyebrow"><i class="fa-solid fa-sparkles"></i> מתכוננים לחג בהידור</div>
+            <h1><span class="hero-title-line">ארבעת המינים</span><span class="hero-title-accent">כמו שבאמת רציתם.</span></h1>
+            <p>בחירה מוקפדת של סטים מהודרים ופריטים בודדים — טריים, נאים וארוזים באהבה, כדי שתגיעו לחג בראש שקט.</p>
             <div class="btn-group">
                 <a href="#shop-section" class="btn btn-primary" onclick="filterCatalog('סט')">לבחירת סט</a>
                 <a href="#shop-section" class="btn btn-secondary" onclick="filterCatalog('בודד')">לפריטים בודדים</a>
             </div>
         </div>
     </section>
+
+    <aside class="trust-strip" aria-label="היתרונות שלנו במספרים">
+        <div class="container trust-strip-inner">
+            <div class="trust-stat"><strong>3 רמות הידור</strong><span>בחירה מדויקת לכל תקציב</span></div>
+            <div class="trust-stat"><strong>בדיקה אישית</strong><span>כל סט עובר מיון לפני האריזה</span></div>
+            <div class="trust-stat"><strong>טרי עד החג</strong><span>איסוף או משלוח מתואם במרכז</span></div>
+        </div>
+    </aside>
 
     <!-- אזור אמינות ויתרונות -->
     <section class="features">
@@ -1529,6 +1636,23 @@
             <main class="products-grid" id="productsGrid">
                 <!-- ירוסס דינמית על ידי JavaScript -->
             </main>
+        </div>
+    </section>
+
+    <section class="story-section" id="our-story">
+        <div class="container story-layout">
+            <div class="story-visual" role="img" aria-label="ארבעת המינים שנבחרו לקראת חג הסוכות">
+                <div class="story-note"><i class="fa-solid fa-heart"></i> לא רק סט — ההכנה היפה שלכם למצווה</div>
+            </div>
+            <div class="story-copy">
+                <h2 class="section-title">מהמיון ועד לידיים שלכם</h2>
+                <p>אנחנו מאמינים שבחירת ארבעת המינים צריכה להיות חוויה נעימה, ברורה ומרגשת. לכן יצרנו תהליך פשוט שמחבר בין הקפדה, טריות ושירות אישי — בלי ללכת לאיבוד בין עשרות אפשרויות.</p>
+                <div class="process-list">
+                    <div class="process-step"><span class="process-number">1</span><div><h3>בוחרים את רמת ההידור</h3><p>מהודר, מהודר א׳ או מפואר — עם הסבר ברור ומחיר שקוף.</p></div></div>
+                    <div class="process-step"><span class="process-number">2</span><div><h3>אנחנו ממיינים ובודקים</h3><p>כל פריט נבחר בקפידה ונארז בצורה ששומרת עליו רענן ומכובד.</p></div></div>
+                    <div class="process-step"><span class="process-number">3</span><div><h3>מקבלים ומתכוננים לחג</h3><p>מתאמים איסוף או משלוח באזור המרכז ומקבלים סט מוכן למצווה.</p></div></div>
+                </div>
+            </div>
         </div>
     </section>
 
