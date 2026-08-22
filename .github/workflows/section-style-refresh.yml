@@ -187,3 +187,5 @@ jobs:
           git diff --cached --quiet && exit 0
           git commit -m "Refresh section banners and typography"
           git push
+
+# trigger refresh
