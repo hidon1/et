@@ -50,8 +50,7 @@
             position: relative;
         }
 
-        body::before,
-        body::after {
+        body::before {
             content: '';
             position: fixed;
             inset: 0;
@@ -59,9 +58,8 @@
             background-position: center;
             background-size: cover;
             background-repeat: no-repeat;
-            opacity: 0.32;
+            opacity: 0.5;
             z-index: 0;
-            animation: siteBackgroundSwap 18s ease-in-out infinite;
         }
 
         body > * {
@@ -71,15 +69,8 @@
 
         body::before {
             background-image:
-                linear-gradient(rgba(255,255,255,0.45), rgba(255,250,240,0.45)),
-                url('1.png');
-        }
-
-        body::after {
-            background-image:
-                linear-gradient(rgba(255,255,255,0.45), rgba(255,250,240,0.45)),
-                url('2.png');
-            animation-delay: -9s;
+                linear-gradient(rgba(255,255,255,0.28), rgba(255,250,240,0.28)),
+                url('sukkot-background.svg');
         }
 
         h1, h2, h3, .brand-logo {
