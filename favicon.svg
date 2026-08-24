@@ -1,32 +1,44 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" role="img" aria-label="לולב ואתרוג">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="לולב ואתרוג">
   <defs>
-    <linearGradient id="lulav" x1="48" y1="6" x2="48" y2="90" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#8fe0a1"/>
-      <stop offset="0.45" stop-color="#2f8f55"/>
-      <stop offset="1" stop-color="#123524"/>
+    <linearGradient id="lulavSpine" x1="80" y1="7" x2="80" y2="121" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#91d89b"/>
+      <stop offset="0.42" stop-color="#3d9a59"/>
+      <stop offset="1" stop-color="#15502e"/>
     </linearGradient>
-    <radialGradient id="etrog" cx="34%" cy="25%" r="74%">
-      <stop offset="0" stop-color="#fff9bf"/>
-      <stop offset="0.55" stop-color="#f2d548"/>
-      <stop offset="1" stop-color="#b88416"/>
+    <linearGradient id="lulavLeaf" x1="43" y1="26" x2="112" y2="92" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#64bd70"/>
+      <stop offset="1" stop-color="#1e6a3b"/>
+    </linearGradient>
+    <radialGradient id="etrogFruit" cx="35%" cy="24%" r="78%">
+      <stop offset="0" stop-color="#fffbd2"/>
+      <stop offset="0.34" stop-color="#f7df55"/>
+      <stop offset="0.72" stop-color="#e2b82d"/>
+      <stop offset="1" stop-color="#a8750d"/>
     </radialGradient>
   </defs>
 
-  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M50 88C50 66 50 34 51 8" stroke="#123524" stroke-width="11"/>
-    <path d="M50 88C50 66 50 34 51 8" stroke="url(#lulav)" stroke-width="7"/>
+  <g stroke-linejoin="round">
+    <!-- לולב: שדרה זקופה ועלעלים זוגיים מחודדים -->
+    <path d="M84 123C85 91 85 45 87 12C87 7 89 4 90 8C93 42 93 90 94 123Z" fill="url(#lulavSpine)" stroke="#154a2d" stroke-width="2.4"/>
+    <g fill="url(#lulavLeaf)" stroke="#1b6237" stroke-width="1.6">
+      <path d="M87 34Q72 25 58 14Q70 32 87 45Z"/>
+      <path d="M91 34Q103 23 112 12Q105 31 91 45Z"/>
+      <path d="M86 51Q70 41 56 29Q69 48 87 61Z"/>
+      <path d="M92 51Q105 39 115 27Q106 48 91 61Z"/>
+      <path d="M86 69Q70 57 58 46Q69 67 88 79Z"/>
+      <path d="M92 69Q104 56 114 44Q106 66 91 79Z"/>
+      <path d="M86 86Q73 74 62 64Q72 84 89 96Z"/>
+      <path d="M92 86Q103 73 111 62Q104 83 91 96Z"/>
+    </g>
+    <path d="M89 7L83 25L89 19L95 25L91 7Z" fill="#78c783" stroke="#1b6237" stroke-width="1.5"/>
 
-    <path d="M50 19C39 28 32 43 30 68" stroke="#1f6f43" stroke-width="5"/>
-    <path d="M52 20C64 29 71 45 72 69" stroke="#1f6f43" stroke-width="5"/>
-    <path d="M49 31C40 42 35 55 34 77" stroke="#4fb36b" stroke-width="4"/>
-    <path d="M53 31C63 42 68 55 69 77" stroke="#4fb36b" stroke-width="4"/>
-    <path d="M50 43C45 53 43 63 43 83" stroke="#7bd58c" stroke-width="3.5"/>
-    <path d="M52 43C58 53 61 64 60 83" stroke="#7bd58c" stroke-width="3.5"/>
+    <!-- אתרוג: גוף גבשושי, עוקץ ופיטם מובחנים -->
+    <path d="M32 55C37 50 48 49 55 54C63 60 67 73 67 87C68 102 60 116 47 121C34 125 22 118 18 106C13 94 18 78 22 67C24 61 27 58 32 55Z" fill="url(#etrogFruit)" stroke="#98680d" stroke-width="3"/>
+    <path d="M37 55C36 49 38 45 43 42" fill="none" stroke="#8b6215" stroke-width="4" stroke-linecap="round"/>
+    <path d="M40 43L36 39M41 43L43 37M43 43L49 40" fill="none" stroke="#6f4b0f" stroke-width="3" stroke-linecap="round"/>
+    <path d="M27 73C35 64 50 63 60 72" fill="none" stroke="#fff7ad" stroke-width="3.2" stroke-linecap="round" opacity="0.78"/>
+    <path d="M23 94C31 87 50 90 61 101" fill="none" stroke="#fced8b" stroke-width="2.4" stroke-linecap="round" opacity="0.5"/>
+    <circle cx="31" cy="84" r="1.7" fill="#bc8f18" opacity="0.65"/>
+    <circle cx="51" cy="105" r="1.5" fill="#bc8f18" opacity="0.55"/>
   </g>
-
-  <path d="M33 34C43 31 57 38 61 52C66 69 55 87 39 89C24 91 14 77 17 61C20 47 24 37 33 34Z" fill="url(#etrog)" stroke="#9c6c10" stroke-width="3"/>
-  <path d="M31 34C31 27 36 23 43 24" fill="none" stroke="#2f8f55" stroke-width="4" stroke-linecap="round"/>
-  <path d="M27 50C34 43 47 44 55 52" fill="none" stroke="#fff6a8" stroke-width="3" stroke-linecap="round" opacity="0.8"/>
-  <path d="M21 63C29 58 45 61 55 72" fill="none" stroke="#fff1a0" stroke-width="2.5" stroke-linecap="round" opacity="0.55"/>
-  <path d="M39 28C39 22 42 18 46 16" fill="none" stroke="#7a5310" stroke-width="3" stroke-linecap="round"/>
 </svg>
