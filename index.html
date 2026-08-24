@@ -87,7 +87,7 @@
             animation-delay: -9s;
         }
 
-        h1, h2, h3, .brand-logo {
+        h1, h2, h3 {
             font-family: 'Tinos', 'Heebo', serif;
             letter-spacing: -0.01em;
         }
@@ -218,23 +218,70 @@
 
         .brand-logo {
             color: var(--gold);
-            font-size: 1.8rem;
-            font-weight: bold;
+            font-size: 1.85rem;
+            font-weight: 900;
             text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 10px;
-            overflow: hidden;
+            gap: 12px;
+            overflow: visible;
         }
 
-        .brand-leaf {
+        .brand-sukkah {
+            position: relative;
+            width: 42px;
+            height: 36px;
+            flex: 0 0 42px;
+            display: inline-block;
             opacity: 0;
             animation: leafSpinLand 0.8s cubic-bezier(0.2, 0.9, 0.2, 1.35) 0.08s both;
+            filter: drop-shadow(0 6px 10px rgba(0,0,0,0.18));
         }
+
+        .brand-sukkah::before {
+            content: '';
+            position: absolute;
+            right: 2px;
+            top: 5px;
+            width: 38px;
+            height: 13px;
+            background: linear-gradient(135deg, #fff6c7, var(--gold));
+            clip-path: polygon(50% 0, 100% 100%, 0 100%);
+        }
+
+        .brand-sukkah::after {
+            content: '';
+            position: absolute;
+            right: 7px;
+            top: 17px;
+            width: 28px;
+            height: 17px;
+            border: 2px solid var(--gold-light);
+            border-top: 0;
+            border-radius: 0 0 5px 5px;
+            background: rgba(18,53,36,0.72);
+        }
+
+        .sukkah-branch {
+            position: absolute;
+            top: 14px;
+            width: 5px;
+            height: 18px;
+            border-radius: 999px;
+            background: linear-gradient(#fff7d6, var(--gold));
+            z-index: 1;
+        }
+
+        .sukkah-branch:nth-child(1) { right: 11px; }
+        .sukkah-branch:nth-child(2) { right: 19px; }
+        .sukkah-branch:nth-child(3) { right: 27px; }
 
         .brand-word {
             display: inline-block;
             opacity: 0;
+            font-family: 'Frank Ruhl Libre', 'Tinos', serif;
+            font-weight: 900;
+            letter-spacing: 0.01em;
             animation: logoWordDrop 0.78s cubic-bezier(0.2, 0.95, 0.2, 1.28) both;
         }
 
@@ -246,7 +293,7 @@
             animation: logoWordDrop 0.7s cubic-bezier(0.2, 0.95, 0.2, 1.28) both;
         }
 
-        .brand-logo:hover .brand-leaf {
+        .brand-logo:hover .brand-sukkah {
             animation: leafSpinLand 0.72s cubic-bezier(0.2, 0.9, 0.2, 1.35) both;
         }
 
@@ -459,16 +506,17 @@
         .btn-group {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 12px;
             flex-wrap: wrap;
+            margin-top: 8px;
             opacity: 0;
             animation: ctaRiseBounce 0.82s cubic-bezier(0.2, 0.9, 0.2, 1.2) 1s both;
         }
 
         .btn {
-            padding: 12px 30px;
+            padding: 10px 24px;
             border-radius: 30px;
-            font-size: 1.1rem;
+            font-size: 1.02rem;
             font-weight: 600;
             cursor: pointer;
             transition: var(--transition-smooth);
@@ -476,7 +524,7 @@
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            min-width: 175px;
+            min-width: 150px;
             justify-content: center;
             box-shadow: 0 12px 28px rgba(0,0,0,.18);
         }
@@ -1257,34 +1305,6 @@
 
 
 
-        .catalog-tabs {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            flex-wrap: wrap;
-            margin: -18px auto 30px;
-        }
-
-        .catalog-tab {
-            border: 1px solid rgba(45,106,79,0.20);
-            background: rgba(255,255,255,0.86);
-            color: var(--primary-dark);
-            border-radius: 999px;
-            padding: 10px 20px;
-            font-weight: 800;
-            cursor: pointer;
-            box-shadow: 0 10px 22px rgba(18,53,36,0.08);
-            transition: var(--transition-smooth);
-        }
-
-        .catalog-tab:hover,
-        .catalog-tab.active {
-            background: linear-gradient(135deg, var(--primary-light), var(--primary-dark));
-            color: #fff;
-            border-color: transparent;
-            transform: translateY(-2px);
-        }
-
         .product-type-ribbon {
             position: absolute;
             top: 15px;
@@ -1554,7 +1574,7 @@
 
         @media (max-width: 768px) {
             body { font-size: 16px; }
-            .hero { min-height: 720px; height: auto; padding-block: 130px 90px; }
+            .hero { min-height: 720px; height: auto; padding-block: 130px 130px; }
             .hero-content h1 { font-size: clamp(3.5rem, 18vw, 5.2rem); }
             .hero-content p { font-size: 1.2rem; }
             .nav-menu {
@@ -1594,12 +1614,12 @@
     <header>
         <div class="container nav-container">
             <a href="#" class="brand-logo">
-                <i class="fa-solid fa-leaf brand-leaf"></i><span class="brand-word">שוק</span><span class="brand-word">ארבעת</span><span class="brand-word">המינים</span>
+                <span class="brand-sukkah" aria-hidden="true"><span class="sukkah-branch"></span><span class="sukkah-branch"></span><span class="sukkah-branch"></span></span><span class="brand-word">שוק</span><span class="brand-word">ארבעת</span><span class="brand-word">המינים</span>
             </a>
             <ul class="nav-menu" id="navMenu">
                 <li><a href="#" class="active" onclick="toggleMenu()">ראשי</a></li>
-                <li><a href="#shop-section" onclick="filterCatalog('סט'); toggleMenu()">הסטים שלנו</a></li>
-                <li><a href="#shop-section" onclick="filterCatalog('בודד'); toggleMenu()">ארבעת המינים</a></li>
+                <li><a href="#shop-section" onclick="toggleMenu()">הסטים שלנו</a></li>
+                <li><a href="#shop-section" onclick="toggleMenu()">ארבעת המינים</a></li>
                 <li><a href="#terms-highlights" onclick="toggleMenu()">התנאים שלנו</a></li>
                 <li><a href="#faq" onclick="toggleMenu()">שאלות נפוצות</a></li>
             </ul>
@@ -1619,10 +1639,9 @@
         <div class="container hero-content animate-fade">
             <div class="hero-eyebrow"><i class="fa-solid fa-sparkles"></i> מתכוננים לחג בהידור</div>
             <h1><span class="hero-title-line">שוק ארבעת המינים</span><span class="hero-title-accent">כמו שבאמת רציתם.</span><span class="hero-home-line">מעכשיו קונים מהבית</span></h1>
-            <p>בחירה מוקפדת של סטים מהודרים ופריטים בודדים — טריים, נאים וארוזים באהבה, כדי שתגיעו לחג בראש שקט.</p>
+            <p>בחירה מוקפדת של סטים מהודרים וארבעת המינים — טריים, נאים וארוזים באהבה, כדי שתגיעו לחג בראש שקט.</p>
             <div class="btn-group">
-                <a href="#shop-section" class="btn btn-primary" onclick="filterCatalog('סט')">לבחירת סט</a>
-                <a href="#shop-section" class="btn btn-secondary" onclick="filterCatalog('בודד')">לפריטים בודדים</a>
+                <a href="#shop-section" class="btn btn-primary">לבחירת סט</a>
             </div>
         </div>
     </section>
@@ -1645,8 +1664,8 @@
                 </div>
                 <div class="feature-card">
                     <i class="fa-solid fa-truck-ramp-box"></i>
-                    <h3>משלוחים ואיסוף</h3>
-                    <p>אפשרות למשלוח מהיר עד פתח הבית או נקודות איסוף נוחות.</p>
+                    <h3>משלוחים</h3>
+                    <p>אפשרות למשלוח מהיר עד פתח הבית.</p>
                 </div>
                 <div class="feature-card">
                     <i class="fa-solid fa-star"></i>
@@ -1660,12 +1679,7 @@
     <!-- אזור מכירות משולב עם סינון -->
     <section class="container" id="shop-section">
         <h2 class="section-title">הסטים שלנו ולצידם ארבעת המינים</h2>
-        <p class="section-subtitle">בחרו סט מלא באחת משלוש רמות ההידור, או הוסיפו פריטים בודדים: אתרוג, לולב והדסים.</p>
-        <div class="catalog-tabs" aria-label="סינון מוצרים">
-            <button class="catalog-tab active" data-filter="all" onclick="filterCatalog('all', this)">הכול</button>
-            <button class="catalog-tab" data-filter="סט" onclick="filterCatalog('סט', this)">הסטים שלנו</button>
-            <button class="catalog-tab" data-filter="בודד" onclick="filterCatalog('בודד', this)">ארבעת המינים</button>
-        </div>
+        <p class="section-subtitle">כל המוצרים מוצגים כאן לפי הסדר, מהסטים המלאים ועד ארבעת המינים בנפרד.</p>
 
         <div class="shop-layout">
             <!-- גריד מוצרים דינמי -->
@@ -1677,16 +1691,13 @@
 
     <section class="story-section" id="our-story">
         <div class="container story-layout">
-            <div class="story-visual" role="img" aria-label="ארבעת המינים שנבחרו לקראת חג הסוכות">
-                <div class="story-note"><i class="fa-solid fa-heart"></i> לא רק סט — ההכנה היפה שלכם למצווה</div>
-            </div>
+            <div class="story-visual" role="img" aria-label="ארבעת המינים שנבחרו לקראת חג הסוכות"></div>
             <div class="story-copy">
                 <h2 class="section-title">מהמיון ועד לידיים שלכם</h2>
-                <p>אנחנו מאמינים שבחירת ארבעת המינים צריכה להיות חוויה נעימה, ברורה ומרגשת. לכן יצרנו תהליך פשוט שמחבר בין הקפדה, טריות ושירות אישי — בלי ללכת לאיבוד בין עשרות אפשרויות.</p>
                 <div class="process-list">
                     <div class="process-step"><span class="process-number">1</span><div><h3>בוחרים את רמת ההידור</h3><p>מהודר, מהודר א׳ או מפואר — עם הסבר ברור ומחיר שקוף.</p></div></div>
                     <div class="process-step"><span class="process-number">2</span><div><h3>אנחנו ממיינים ובודקים</h3><p>כל פריט נבחר בקפידה ונארז בצורה ששומרת עליו רענן ומכובד.</p></div></div>
-                    <div class="process-step"><span class="process-number">3</span><div><h3>מקבלים ומתכוננים לחג</h3><p>מתאמים איסוף או משלוח באזור המרכז ומקבלים סט מוכן למצווה.</p></div></div>
+                    <div class="process-step"><span class="process-number">3</span><div><h3>מקבלים ומתכוננים לחג</h3><p>מתאמים משלוח באזור המרכז ומקבלים סט מוכן למצווה.</p></div></div>
                 </div>
             </div>
         </div>
@@ -2035,12 +2046,9 @@
             btn.classList.add('active');
         }
         function filterCatalog(mode, btn) {
-            // מאפשר קישור ישיר מהתפריט העליון ומהטאבים בחנות
-            activeType = mode || 'all';
-            document.querySelectorAll('.catalog-tab').forEach(tab => {
-                tab.classList.toggle('active', tab.dataset.filter === activeType);
-            });
-            if (btn) btn.classList.add('active');
+            activeType = 'all';
+            activeLevel = 'all';
+            activeVariety = 'all';
             renderProducts();
         }
 
@@ -2049,12 +2057,7 @@
             const grid = document.getElementById('productsGrid');
             grid.innerHTML = '';
 
-            const filtered = products.filter(p => {
-                const matchType = activeType === 'all' || p.type === activeType;
-                const matchLevel = activeLevel === 'all' || p.level === activeLevel;
-                const matchVariety = activeVariety === 'all' || p.variety === activeVariety;
-                return matchType && matchLevel && matchVariety;
-            });
+            const filtered = [...products].sort((a, b) => Number(a.id) - Number(b.id));
 
             if(filtered.length === 0) {
                 grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 40px; color:#666;">לא נמצאו מוצרים העונים על סינון זה. נסה לשנות את הבחירה.</div>';
