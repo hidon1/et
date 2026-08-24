@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" role="img" aria-label="אתרוג ולולב">
+  <defs>
+    <linearGradient id="bg" x1="16" y1="10" x2="84" y2="88" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff7c9"/>
+      <stop offset="0.58" stop-color="#d4af37"/>
+      <stop offset="1" stop-color="#8a6415"/>
+    </linearGradient>
+    <linearGradient id="leaf" x1="42" y1="8" x2="58" y2="88" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#73c48b"/>
+      <stop offset="1" stop-color="#123524"/>
+    </linearGradient>
+    <radialGradient id="etrog" cx="34%" cy="30%" r="70%">
+      <stop offset="0" stop-color="#fff8b8"/>
+      <stop offset="0.56" stop-color="#f0cc3d"/>
+      <stop offset="1" stop-color="#b98918"/>
+    </radialGradient>
+  </defs>
+  <rect width="96" height="96" rx="22" fill="#123524"/>
+  <circle cx="48" cy="48" r="41" fill="url(#bg)" opacity="0.18"/>
+  <path d="M50 82C48 61 47 39 48 13" fill="none" stroke="#f8e7a3" stroke-width="5" stroke-linecap="round"/>
+  <path d="M49 82C50 60 51 37 52 11" fill="none" stroke="url(#leaf)" stroke-width="9" stroke-linecap="round"/>
+  <path d="M53 25C63 33 68 47 66 68" fill="none" stroke="#2d6a4f" stroke-width="5" stroke-linecap="round"/>
+  <path d="M47 25C37 34 32 50 34 71" fill="none" stroke="#2d6a4f" stroke-width="5" stroke-linecap="round"/>
+  <path d="M56 34C67 42 73 55 72 75" fill="none" stroke="#52b788" stroke-width="4" stroke-linecap="round"/>
+  <path d="M45 34C35 44 28 58 27 76" fill="none" stroke="#52b788" stroke-width="4" stroke-linecap="round"/>
+  <ellipse cx="34" cy="62" rx="19" ry="23" fill="url(#etrog)" stroke="#fff1b8" stroke-width="3" transform="rotate(-13 34 62)"/>
+  <path d="M31 37c1-5 5-8 10-8" fill="none" stroke="#73c48b" stroke-width="4" stroke-linecap="round"/>
+  <path d="M27 51c6-7 16-8 23-3" fill="none" stroke="#fff7c9" stroke-width="3" stroke-linecap="round" opacity="0.75"/>
+</svg>
