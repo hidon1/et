@@ -1,0 +1,50 @@
+name: Restore original design keep hero color
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/restore-design-keep-hero-color.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  restore:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Restore original layout and keep darker hero
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('index.html')
+          t = p.read_text(encoding='utf-8')
+          marker = '/* DESIGN-REFRESH-2026 */'
+          if marker in t:
+              before = t.split(marker, 1)[0]
+              after = t.split(marker, 1)[1]
+              if '</style>' in after:
+                  after = after.split('</style>', 1)[1]
+              minimal = '''
+        /* HERO-DARKER-ONLY-2026 */
+        .hero-background-one {
+            background-image: linear-gradient(120deg, rgba(7,31,19,.92), rgba(18,53,36,.84), rgba(118,91,20,.28), rgba(7,31,19,.91)), url('1.png');
+        }
+        .hero-background-two {
+            background-image: linear-gradient(120deg, rgba(7,31,19,.91), rgba(20,58,39,.82), rgba(122,93,19,.25), rgba(7,31,19,.93)), url('2.png');
+        }
+    </style>'''
+              t = before + minimal + after
+          p.write_text(t, encoding='utf-8')
+          PY
+          rm -f .github/workflows/restore-design-keep-hero-color.yml
+      - name: Commit restoration
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Restore original design and keep darker hero" || exit 0
+          git push
