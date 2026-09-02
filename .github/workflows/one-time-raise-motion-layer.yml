@@ -1,0 +1,25 @@
+name: One-time raise ET motion layer
+on:
+  push:
+    paths:
+      - '.github/workflows/one-time-raise-motion-layer.yml'
+permissions:
+  contents: write
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Raise animated background above section surfaces
+        run: python .github/scripts/raise_motion_layer.py
+      - name: Commit changes
+        run: |
+          git config user.name "OpenAI"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          rm -f .github/workflows/one-time-raise-motion-layer.yml
+          rm -f .github/scripts/raise_motion_layer.py
+          git add -A
+          git commit -m "Raise ET animated background above section layers"
+          git push origin main
