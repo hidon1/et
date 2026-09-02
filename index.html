@@ -2369,6 +2369,37 @@
             body::before { opacity: .22 !important; }
         }
 
+
+
+        /* STRONGER-PERSISTENT-BG-2026-09-03 */
+        body::before {
+            opacity: .62 !important;
+            filter: saturate(1.12) contrast(1.05) !important;
+        }
+
+        .site-content,
+        section:not(.hero),
+        .features,
+        .story-section,
+        .terms-highlights,
+        .faq-section {
+            background-color: rgba(247,252,244,.28) !important;
+        }
+
+        .shop-layout,
+        .feature-card,
+        .terms-card,
+        .faq-item,
+        .product-card,
+        .story-copy,
+        .process-step {
+            background-color: rgba(255,255,255,.84) !important;
+        }
+
+        @media (max-width: 820px) {
+            body::before { opacity: .52 !important; }
+        }
+
 </style>
 </head>
 <body>
