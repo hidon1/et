@@ -701,7 +701,7 @@
             overflow: hidden;
             background:
                 linear-gradient(rgba(249,252,247,0.92), rgba(237,246,234,0.86)),
-                url('2.png') center center / cover;
+                url('1.png') center center / cover;
             border: 1px solid rgba(45,106,79,0.12);
             box-shadow: 0 24px 55px rgba(27, 67, 50, 0.12);
         }
@@ -768,7 +768,7 @@
         .product-card {
             background:
                 linear-gradient(180deg, rgba(255,255,255,0.96), rgba(242,249,239,0.91)),
-                url('2.png') center / cover;
+                url('1.png') center / cover;
             border-radius: 20px;
             box-shadow: var(--shadow-elegant);
             overflow: hidden;
@@ -858,7 +858,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, rgba(27,67,50,0.58), rgba(45,106,79,0.48)), url('2.png') center / cover;
+            background: linear-gradient(135deg, rgba(27,67,50,0.58), rgba(45,106,79,0.48)), url('1.png') center / cover;
             color: var(--gold);
             font-size: 3rem;
             transition: opacity 0.45s ease, transform 0.45s ease;
@@ -972,6 +972,145 @@
             padding: 0;
             justify-content: center;
             font-size: 1.05rem;
+        }
+
+        .direct-checkout-btn {
+            min-height: 42px;
+            padding: 8px 16px;
+            border: 1px solid rgba(18,53,36,.16);
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--gold), #f3db82);
+            color: var(--primary-dark);
+            font-weight: 800;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            transition: var(--transition-smooth);
+            box-shadow: 0 8px 20px rgba(212,175,55,.18);
+        }
+
+        .direct-checkout-btn:hover {
+            transform: translateY(-2px);
+            background: var(--primary-dark);
+            color: #fff;
+        }
+
+        .product-card-clickable { cursor: pointer; }
+        .product-card-clickable:focus-visible {
+            outline: 3px solid rgba(82,183,136,.45);
+            outline-offset: 4px;
+        }
+
+        .product-details-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 3200;
+            background: rgba(4,23,14,.72);
+            backdrop-filter: blur(8px);
+            display: grid;
+            place-items: center;
+            padding: 20px;
+        }
+
+        .product-details-window {
+            width: min(94vw, 780px);
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            border-radius: 28px;
+            padding: clamp(24px, 5vw, 42px);
+            background: linear-gradient(145deg, #fffef8, #eef8eb);
+            border: 1px solid rgba(212,175,55,.35);
+            box-shadow: 0 28px 90px rgba(0,0,0,.38);
+        }
+
+        .product-details-window::before {
+            content: '';
+            display: block;
+            height: 8px;
+            width: 108px;
+            margin: 0 auto 22px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, var(--primary-dark), var(--gold), var(--primary-light));
+        }
+
+        .product-details-close {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            width: 42px;
+            height: 42px;
+            border: 0;
+            border-radius: 50%;
+            background: rgba(18,53,36,.08);
+            color: var(--primary-dark);
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .product-details-title {
+            text-align: center;
+            color: var(--primary-dark);
+            font-size: clamp(1.9rem, 5vw, 2.8rem);
+            margin-bottom: 10px;
+        }
+
+        .product-details-lead {
+            text-align: center;
+            color: #425248;
+            font-size: 1.08rem;
+            line-height: 1.8;
+            max-width: 620px;
+            margin: 0 auto 24px;
+        }
+
+        .product-details-highlights {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin: 22px 0;
+        }
+
+        .product-detail-chip {
+            padding: 16px 12px;
+            border-radius: 18px;
+            text-align: center;
+            background: rgba(255,255,255,.78);
+            border: 1px solid rgba(18,53,36,.10);
+            color: var(--primary-dark);
+            font-weight: 800;
+        }
+
+        .product-detail-chip i {
+            display: block;
+            color: var(--primary-light);
+            font-size: 1.35rem;
+            margin-bottom: 7px;
+        }
+
+        .product-details-copy {
+            background: #fff;
+            border-radius: 20px;
+            padding: 20px;
+            line-height: 1.9;
+            color: #34463b;
+            border-right: 4px solid var(--gold);
+        }
+
+        .product-details-actions {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 24px;
+        }
+
+        @media (max-width: 620px) {
+            .product-details-highlights { grid-template-columns: 1fr; }
+            .direct-checkout-btn { flex: 1 1 155px; }
+            .product-footer > div { flex-wrap: wrap; width: 100%; }
         }
 
         .success-window {
@@ -1889,7 +2028,7 @@
             background-image: linear-gradient(120deg, rgba(7,31,19,.92), rgba(18,53,36,.84), rgba(118,91,20,.28), rgba(7,31,19,.91)), url('1.png');
         }
         .hero-background-two {
-            background-image: linear-gradient(120deg, rgba(7,31,19,.91), rgba(20,58,39,.82), rgba(122,93,19,.25), rgba(7,31,19,.93)), url('2.png');
+            background-image: linear-gradient(120deg, rgba(7,31,19,.91), rgba(20,58,39,.82), rgba(122,93,19,.25), rgba(7,31,19,.93)), url('1.png');
         }
         .hero::before {
             background: linear-gradient(180deg, rgba(3,18,11,.12), rgba(3,18,11,.34)), radial-gradient(circle at 18% 24%, rgba(255,241,184,.22) 0 2px, transparent 3px), radial-gradient(circle at 82% 34%, rgba(255,255,255,.18) 0 1px, transparent 3px), radial-gradient(circle at 72% 80%, rgba(212,175,55,.18), transparent 24%);
@@ -2590,7 +2729,19 @@
 
             filtered.forEach(p => {
                 const card = document.createElement('div');
-                card.className = 'product-card reveal';
+                card.className = 'product-card reveal product-card-clickable';
+                card.setAttribute('role', 'button');
+                card.setAttribute('tabindex', '0');
+                card.setAttribute('aria-label', `פרטים נוספים על ${p.name}`);
+                card.onclick = (event) => {
+                    if (!event.target.closest('button, .quantity-selector')) openProductDetails(p.id);
+                };
+                card.onkeydown = (event) => {
+                    if ((event.key === 'Enter' || event.key === ' ') && !event.target.closest('button')) {
+                        event.preventDefault();
+                        openProductDetails(p.id);
+                    }
+                };
                 card.innerHTML = `
                     <div class="product-badge">${p.badge}</div>
                     <div class="product-type-ribbon">${p.type === 'סט' ? 'סט מלא' : 'פריט בודד'}</div>
@@ -2599,8 +2750,8 @@
                             <i class="fa-solid ${p.icon}"></i>
                             <span>${p.name}</span>
                         </div>
-                        <div class="product-hover-image" style="background-image: linear-gradient(rgba(27,67,50,0.16), rgba(212,175,55,0.18)), url('2.png');"></div>
-                        <div class="product-hover-image alt" style="background-image: radial-gradient(circle at 72% 28%, rgba(243,229,171,0.55), transparent 24%), linear-gradient(135deg, rgba(255,255,255,0.16), rgba(27,67,50,0.38)), url('2.png');"></div>
+                        <div class="product-hover-image" style="background-image: linear-gradient(rgba(27,67,50,0.16), rgba(212,175,55,0.18)), url('1.png');"></div>
+                        <div class="product-hover-image alt" style="background-image: radial-gradient(circle at 72% 28%, rgba(243,229,171,0.55), transparent 24%), linear-gradient(135deg, rgba(255,255,255,0.16), rgba(27,67,50,0.38)), url('1.png');"></div>
                     </div>
                     <div class="product-info">
                         <h3 class="product-title">${p.name}</h3>
@@ -2614,8 +2765,11 @@
                                     <span class="qty-val" id="qty-${p.id}">1</span>
                                     <button class="qty-btn" onclick="changeProductQty(${p.id}, 1, this)">+</button>
                                 </div>
-                                <button class="add-to-cart-btn icon-only" onclick="addToCart(${p.id})" title="אישור והוספה לסל" aria-label="אישור והוספה לסל">
-                                    <i class="fa-solid fa-cart-plus"></i><span>אישור והוספה לסל</span>
+                                <button class="add-to-cart-btn icon-only" onclick="event.stopPropagation(); addToCart(${p.id})" title="הוספה לסל" aria-label="הוספה לסל">
+                                    <i class="fa-solid fa-cart-plus"></i>
+                                </button>
+                                <button class="direct-checkout-btn" onclick="event.stopPropagation(); buyNow(${p.id})">
+                                    <i class="fa-solid fa-credit-card"></i> מעבר לתשלום
                                 </button>
                             </div>
                         </div>
@@ -2634,6 +2788,45 @@
         }
 
         // ניהול סל הקניות הלוקאלי
+        function openProductDetails(id) {
+            const p = products.find(product => product.id === id);
+            if (!p) return;
+            document.querySelector('.product-details-overlay')?.remove();
+
+            const overlay = document.createElement('div');
+            overlay.className = 'product-details-overlay';
+            overlay.onclick = (event) => { if (event.target === overlay) overlay.remove(); };
+            overlay.innerHTML = `
+                <div class="product-details-window" role="dialog" aria-modal="true" aria-label="פרטי ${p.name}">
+                    <button class="product-details-close" onclick="this.closest('.product-details-overlay').remove()" aria-label="סגירה"><i class="fa-solid fa-xmark"></i></button>
+                    <h2 class="product-details-title">${p.name}</h2>
+                    <p class="product-details-lead">סט מלא שנבחר ונבדק בקפידה, כדי לקבל את ארבעת המינים לחג בצורה נאה, מסודרת ומכובדת.</p>
+                    <div class="product-details-highlights">
+                        <div class="product-detail-chip"><i class="fa-solid fa-magnifying-glass"></i>נבחר ונבדק בקפידה</div>
+                        <div class="product-detail-chip"><i class="fa-solid fa-ribbon"></i>ארוז בסרט מעוטר ויפה</div>
+                        <div class="product-detail-chip"><i class="fa-solid fa-house"></i>אפשרות משלוח עד פתח הבית</div>
+                    </div>
+                    <div class="product-details-copy">
+                        הסט כולל אתרוג, לולב, הדסים וערבות, ונועד למי שמחפש רכישה פשוטה ונוחה בלי לוותר על מראה מכובד ועל בחירה מוקפדת. כל סט נארז בצורה מסודרת לקראת החג, עם גימור חגיגי וסרט מעוטר, כך שהוא מגיע מוכן ונעים לקבלה. ניתן לבחור איסוף עצמי, ובאזור המרכז קיימת גם אפשרות למשלוח עד פתח הבית בתוספת תשלום.
+                    </div>
+                    <div class="product-details-actions">
+                        <button class="add-to-cart-btn" onclick="addToCart(${p.id}); this.closest('.product-details-overlay').remove();"><i class="fa-solid fa-cart-plus"></i> הוספה לסל</button>
+                        <button class="direct-checkout-btn" onclick="this.closest('.product-details-overlay').remove(); buyNow(${p.id});"><i class="fa-solid fa-credit-card"></i> מעבר לתשלום</button>
+                    </div>
+                </div>`;
+            document.body.appendChild(overlay);
+        }
+
+        function buyNow(id) {
+            const qty = parseInt(document.getElementById(`qty-${id}`)?.innerText || '1');
+            const product = products.find(p => p.id === id);
+            if (!product) return;
+            cart = [{ ...product, qty }];
+            saveCart();
+            updateCartUI();
+            openCheckoutPage();
+        }
+
         function addToCart(id) {
             const qty = parseInt(document.getElementById(`qty-${id}`).innerText);
             const product = products.find(p => p.id === id);
