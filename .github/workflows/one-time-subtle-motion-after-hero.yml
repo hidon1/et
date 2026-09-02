@@ -1,0 +1,22 @@
+name: One-time subtle ET background after hero
+on:
+  push:
+    paths:
+      - '.github/workflows/one-time-subtle-motion-after-hero.yml'
+permissions:
+  contents: write
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Apply subtle background styling
+        run: python .github/scripts/subtle-motion-after-hero.py
+      - name: Commit changes and clean up
+        run: |
+          rm -f .github/workflows/one-time-subtle-motion-after-hero.yml .github/scripts/subtle-motion-after-hero.py
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Make ET background subtle outside hero" || exit 0
+          git push
