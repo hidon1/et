@@ -15,8 +15,8 @@ jobs:
         with:
           ref: main
       - name: Apply persistent animated background
-        shell: python
         run: |
+          python - <<'PY'
           from pathlib import Path
           p = Path('index.html')
           s = p.read_text(encoding='utf-8')
@@ -76,9 +76,9 @@ jobs:
           if 'PERSISTENT-HERO-MOTION-2026-09-02' not in s:
               s = s[:idx] + css + '\n' + s[idx:]
           wf = Path('.github/workflows/one-time-persistent-motion-bg.yml')
-          if wf.exists():
-              wf.unlink()
+          if wf.exists(): wf.unlink()
           p.write_text(s, encoding='utf-8')
+          PY
       - name: Commit changes
         run: |
           git config user.name "OpenAI"
