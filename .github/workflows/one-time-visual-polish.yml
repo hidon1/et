@@ -12,103 +12,14 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: main
-      - name: Apply visual changes
-        run: |
-          python - <<'PY'
-          from pathlib import Path
-          p=Path('index.html')
-          s=p.read_text(encoding='utf-8')
-
-          s=s.replace("url('1.png');\"></div>\n                        <div class=\"product-hover-image alt\"", "url('8.png');\"></div>\n                        <div class=\"product-hover-image alt\"", 1)
-          # Ensure both product visual layers use 8.png.
-          pos=s.find('class="product-hover-image alt"')
-          if pos!=-1:
-              end=s.find('</div>', pos)
-              chunk=s[pos:end]
-              chunk=chunk.replace("url('1.png')", "url('8.png')")
-              s=s[:pos]+chunk+s[end:]
-
-          old_start='            overlay.innerHTML = `\n                <div class="product-details-window"'
-          start=s.find(old_start)
-          if start==-1:
-              raise SystemExit('details start not found')
-          end=s.find('                </div>`;', start)
-          if end==-1:
-              raise SystemExit('details end not found')
-          end += len('                </div>`;')
-          new='''            overlay.innerHTML = `
-                <div class="product-details-window product-details-banner" role="dialog" aria-modal="true" aria-label="פרטי ${p.name}">
-                    <button class="product-details-close" onclick="this.closest('.product-details-overlay').remove()" aria-label="סגירה"><i class="fa-solid fa-xmark"></i></button>
-                    <div class="product-details-image"><img src="8.png" alt=""><span class="product-details-image-badge">כשר לכתחילה</span></div>
-                    <div class="product-details-content">
-                        <div class="product-details-kicker">סט ארבעת המינים לחג</div>
-                        <h2 class="product-details-title">${p.name}</h2>
-                        <p class="product-details-lead">סט מלא שנבחר ונבדק בקפידה, עם אתרוג, לולב, הדסים וערבות — מסודר ומוכן לחג בצורה מכובדת ונוחה.</p>
-                        <div class="product-details-highlights">
-                            <div class="product-detail-chip"><i class="fa-solid fa-magnifying-glass"></i><span>נבחר ונבדק בקפידה</span></div>
-                            <div class="product-detail-chip"><i class="fa-solid fa-ribbon"></i><span>אריזה חגיגית עם סרט מעוטר</span></div>
-                            <div class="product-detail-chip"><i class="fa-solid fa-house"></i><span>אפשרות משלוח עד פתח הבית</span></div>
-                        </div>
-                        <div class="product-details-copy">הסט מיועד למי שרוצה לקנות ארבעת המינים בצורה פשוטה ונוחה בלי לוותר על בחירה מוקפדת ועל מראה מכובד. כל סט נארז בצורה מסודרת לקראת החג, עם גימור חגיגי וסרט מעוטר. ניתן לבחור איסוף עצמי, ובאזור המרכז קיימת גם אפשרות למשלוח עד פתח הבית בתוספת תשלום.</div>
-                        <div class="product-details-bottom">
-                            <div class="product-details-price">₪${p.price}</div>
-                            <div class="product-details-actions">
-                                <button class="add-to-cart-btn" onclick="addToCart(${p.id}); this.closest('.product-details-overlay').remove();"><i class="fa-solid fa-cart-plus"></i> הוספה לסל</button>
-                                <button class="direct-checkout-btn" onclick="this.closest('.product-details-overlay').remove(); buyNow(${p.id});"><i class="fa-solid fa-credit-card"></i> מעבר לתשלום</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>`;'''
-          s=s[:start]+new+s[end:]
-
-          polish='''
-        /* VISUAL-POLISH-2026-09-02 */
-        body{background:linear-gradient(rgba(241,251,237,.88),rgba(232,247,226,.92)),url('1.png') center/cover fixed no-repeat;}
-        body::before{background:url('1.png') center/cover no-repeat;opacity:.10;mix-blend-mode:multiply;}
-        section:not(.hero),.features,.story-section,.terms-highlights,.faq-section{background-color:rgba(247,252,244,.78)!important;backdrop-filter:blur(4px);}
-        .shop-layout{background:rgba(255,255,255,.9);box-shadow:0 24px 70px rgba(18,53,36,.14);border:1px solid rgba(212,175,55,.18);}
-        .product-card{overflow:hidden;border:1px solid rgba(18,53,36,.10);box-shadow:0 18px 45px rgba(18,53,36,.13);}
-        .product-card:hover{transform:translateY(-6px);box-shadow:0 28px 60px rgba(18,53,36,.20);}
-        .product-img-container{min-height:245px;background:#edf5e8;}
-        .product-hover-image{background-size:cover!important;background-position:center!important;opacity:1!important;}
-        .placeholder-art{opacity:0;}
-        .product-details-overlay{padding:clamp(12px,2.5vw,28px);}
-        .product-details-window.product-details-banner{width:min(96vw,1120px);max-width:1120px;max-height:none;overflow:visible;padding:0;display:grid;grid-template-columns:minmax(360px,.92fr) minmax(0,1.28fr);direction:ltr;border-radius:32px;background:#fbfff8;border:1px solid rgba(212,175,55,.32);box-shadow:0 34px 110px rgba(0,0,0,.42);}
-        .product-details-window.product-details-banner::before{display:none;}
-        .product-details-image{position:relative;min-height:520px;overflow:hidden;border-radius:32px 0 0 32px;background:#dfeeda;}
-        .product-details-image img{width:100%;height:100%;min-height:520px;object-fit:cover;display:block;}
-        .product-details-image::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 58%,rgba(9,39,24,.30));}
-        .product-details-image-badge{position:absolute;z-index:2;left:22px;bottom:22px;padding:9px 15px;border-radius:999px;background:rgba(18,53,36,.92);color:var(--gold-light);font-weight:800;}
-        .product-details-content{direction:rtl;padding:clamp(28px,4vw,48px);display:flex;flex-direction:column;justify-content:center;}
-        .product-details-kicker{color:var(--primary-light);font-size:.9rem;font-weight:900;margin-bottom:5px;}
-        .product-details-title{text-align:right;font-size:clamp(2rem,3.7vw,3.2rem);margin-bottom:10px;line-height:1.04;}
-        .product-details-lead{text-align:right;max-width:none;margin:0 0 16px;font-size:1.02rem;line-height:1.65;}
-        .product-details-highlights{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:10px 0 15px;}
-        .product-detail-chip{padding:11px 8px;border-radius:15px;font-size:.84rem;line-height:1.35;background:rgba(235,246,231,.82);}
-        .product-detail-chip i{font-size:1.08rem;margin-bottom:4px;}
-        .product-details-copy{padding:14px 16px;border-radius:16px;line-height:1.65;font-size:.93rem;background:rgba(255,255,255,.76);border-right:4px solid var(--gold);}
-        .product-details-bottom{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:17px;padding-top:15px;border-top:1px solid rgba(18,53,36,.10);}
-        .product-details-price{font-size:2rem;font-weight:900;color:var(--primary-dark);white-space:nowrap;}
-        .product-details-actions{margin-top:0;justify-content:flex-start;}
-        .product-details-close{z-index:6;background:rgba(255,255,255,.92);box-shadow:0 5px 18px rgba(0,0,0,.14);}
-        @media(max-width:820px){body{background-attachment:scroll}.product-details-window.product-details-banner{grid-template-columns:1fr;width:min(96vw,660px);max-height:94dvh;overflow-y:auto;border-radius:26px}.product-details-image{min-height:220px;height:28vh;max-height:280px;border-radius:26px 26px 0 0}.product-details-image img{min-height:100%}.product-details-content{padding:20px 17px 22px}.product-details-highlights{grid-template-columns:repeat(3,1fr)}.product-detail-chip{font-size:.76rem;padding:8px 6px}.product-details-bottom{flex-wrap:wrap}.product-details-actions{width:100%}.product-details-actions>button{flex:1 1 145px}}
-        @media(max-width:520px){.product-details-title{font-size:1.7rem}.product-details-lead{font-size:.9rem;line-height:1.5}.product-details-copy{font-size:.84rem;line-height:1.5}.product-details-highlights{grid-template-columns:1fr;gap:5px}.product-detail-chip{display:flex;align-items:center;gap:8px;text-align:right}.product-detail-chip i{margin:0}.product-details-price{font-size:1.6rem}}
-'''
-          marker='</style>'
-          idx=s.rfind(marker)
-          if idx==-1:
-              raise SystemExit('style tag not found')
-          if 'VISUAL-POLISH-2026-09-02' not in s:
-              s=s[:idx]+polish+'\n'+s[idx:]
-
-          wf=Path('.github/workflows/one-time-visual-polish.yml')
-          if wf.exists(): wf.unlink()
-          p.write_text(s,encoding='utf-8')
-          PY
-      - name: Commit
+      - name: Apply visual polish
+        run: python .github/scripts/visual_polish.py
+      - name: Commit changes
         run: |
           git config user.name "OpenAI"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          rm -f .github/workflows/one-time-visual-polish.yml
+          rm -f .github/scripts/visual_polish.py
           git add -A
           git commit -m "Polish ET background and product banner"
           git push origin main
