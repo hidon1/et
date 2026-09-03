@@ -1,0 +1,35 @@
+name: One-time split ET frontend files
+on:
+  push:
+    paths:
+      - '.github/workflows/one-time-split-frontend.yml'
+permissions:
+  contents: write
+jobs:
+  split:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Split frontend files
+        run: python .github/scripts/split_frontend_files.py
+      - name: Verify external files
+        run: |
+          test -s styles.css
+          test -s app.js
+          test -s firebase.js
+          grep -q 'styles.css?v=20260903' index.html
+          grep -q 'app.js?v=20260903' index.html
+          grep -q 'firebase.js?v=20260903' index.html
+      - name: Cleanup and commit
+        run: |
+          rm -f .github/workflows/one-time-split-frontend.yml .github/scripts/split_frontend_files.py
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html styles.css app.js firebase.js .github
+          git commit -m "Split ET frontend into HTML CSS and JavaScript files"
+          git push origin main
