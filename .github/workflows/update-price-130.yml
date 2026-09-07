@@ -1,0 +1,47 @@
+name: Update price to 130
+
+on:
+  push:
+    paths:
+      - '.github/workflows/update-price-130.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Update storefront price everywhere
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          p = Path('index.html')
+          s = p.read_text(encoding='utf-8')
+          replacements = {
+              'ארבעת המינים ב־120 ₪': 'ארבעת המינים ב־130 ₪',
+              'ב־120 ₪': 'ב־130 ₪',
+              'במחיר קבוע של 120 ₪': 'במחיר קבוע של 130 ₪',
+              'במחיר 120 ₪': 'במחיר 130 ₪',
+              '120 ₪ · כשר לכתחילה': '130 ₪ · כשר לכתחילה',
+              'להזמנת סט ב־120 ₪': 'להזמנת סט ב־130 ₪',
+          }
+          for old, new in replacements.items():
+              s = s.replace(old, new)
+          p.write_text(s, encoding='utf-8')
+
+          p = Path('app.js')
+          s = p.read_text(encoding='utf-8')
+          s = s.replace("price: 120, badge: 'כשר לכתחילה'", "price: 130, badge: 'כשר לכתחילה'")
+          p.write_text(s, encoding='utf-8')
+          PY
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html app.js
+          git diff --cached --quiet && exit 0
+          git commit -m "Change four species set price to 130"
+          git push
