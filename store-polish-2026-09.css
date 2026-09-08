@@ -1,22 +1,24 @@
 /* Store polish — September 2026 */
 :root{
-  --store-bg:#f8fbf6;
-  --store-bg-soft:#f2f8ef;
+  --store-bg:#f3f9ef;
+  --store-bg-soft:#edf6e9;
   --store-green:#163f2b;
   --store-green-2:#285c42;
   --store-gold:#d4af37;
 }
 
-/* רקע כללי כמעט לבן, עם נגיעה ירקרקה עדינה */
+/* רקע כללי: תמונת/טקסטורת הרקע נשארת נראית בעדינות, עם שיקוף ירקרק מעט יותר */
 body{
-  background:
-    radial-gradient(circle at 12% 8%,rgba(212,175,55,.055),transparent 25rem),
-    radial-gradient(circle at 88% 48%,rgba(45,106,79,.045),transparent 28rem),
-    linear-gradient(180deg,#fbfdf9 0%,var(--store-bg) 50%,#f7faf5 100%) !important;
+  background-color:#f1f8ed !important;
+  background-image:
+    linear-gradient(rgba(232,244,226,.72),rgba(239,247,235,.72)),
+    radial-gradient(circle at 12% 8%,rgba(212,175,55,.045),transparent 25rem),
+    radial-gradient(circle at 88% 48%,rgba(45,106,79,.075),transparent 28rem) !important;
+  background-attachment:fixed;
 }
 body::before{
-  opacity:.035 !important;
-  filter:saturate(.75) contrast(.96) !important;
+  opacity:.10 !important;
+  filter:saturate(.88) contrast(.97) !important;
 }
 .site-content,
 .site-content > section,
@@ -24,140 +26,26 @@ section:not(.hero),.features,.story-section,.terms-highlights,.faq-section{
   background:transparent !important;
 }
 
-/* הפרדת אזורים כמו חנות מודרנית */
 .features,.story-section,.terms-highlights,.faq-section,#shop-section,.quality-section{
   border-top:1px solid rgba(18,53,36,.055);
 }
-.features,.terms-highlights,.faq-section{
-  background:rgba(248,251,246,.72) !important;
-}
-.story-section,.quality-section{
-  background:rgba(255,255,255,.70) !important;
-}
+.features,.terms-highlights,.faq-section{background:rgba(239,247,235,.68) !important;}
+.story-section,.quality-section{background:rgba(250,253,249,.66) !important;}
 
-/* כותרות */
-.section-title{
-  color:#143824 !important;
-  font-weight:800 !important;
-  letter-spacing:-.025em !important;
-}
-.section-title::after{
-  height:4px !important;
-  width:78px !important;
-  background:linear-gradient(90deg,#c59b23,#efd879) !important;
-  box-shadow:0 4px 12px rgba(212,175,55,.16);
-}
+.section-title{color:#143824 !important;font-weight:800 !important;letter-spacing:-.025em !important;}
+.section-title::after{height:4px !important;width:78px !important;background:linear-gradient(90deg,#c59b23,#efd879) !important;box-shadow:0 4px 12px rgba(212,175,55,.16);}
 .section-subtitle{color:#667168 !important;}
 
-/* אזור המכירה */
-#shop-section{
-  background:
-    radial-gradient(circle at 10% 20%,rgba(212,175,55,.045),transparent 22rem),
-    linear-gradient(180deg,#f8fbf6,#f3f8f1) !important;
-}
-.shop-layout{
-  background:#fff !important;
-  border:1px solid rgba(18,53,36,.08) !important;
-  box-shadow:0 22px 60px rgba(18,53,36,.10) !important;
-  border-radius:32px !important;
-  padding:clamp(16px,2.6vw,30px) !important;
-}
-.product-card{
-  background:#fff !important;
-  border:1px solid rgba(18,53,36,.09) !important;
-  box-shadow:0 18px 48px rgba(18,53,36,.11) !important;
-  border-radius:28px !important;
-}
-.product-card:hover{
-  transform:translateY(-7px) !important;
-  box-shadow:0 28px 66px rgba(18,53,36,.16) !important;
-  border-color:rgba(212,175,55,.38) !important;
-}
-.product-img-container{
-  background:linear-gradient(145deg,#edf5e9,#f7faf5) !important;
-  border-bottom:1px solid rgba(18,53,36,.06);
-}
-.product-info{background:#fff;}
-.product-title{color:#123524 !important;font-weight:800 !important;}
-.product-desc{color:#657168 !important;line-height:1.7 !important;}
-.product-price{
-  color:#123524 !important;
-  font-size:1.65rem !important;
-  font-weight:900 !important;
-}
-.product-footer{border-top:1px solid #edf1ed !important;padding-top:18px !important;}
-.quantity-selector{
-  border:1px solid rgba(18,53,36,.13) !important;
-  background:#f8faf8 !important;
-  box-shadow:inset 0 1px 2px rgba(18,53,36,.03);
-}
-.qty-btn:hover{background:#eaf3e6 !important;}
-.add-to-cart-btn{
-  background:linear-gradient(135deg,#24573d,#123524) !important;
-  box-shadow:0 9px 22px rgba(18,53,36,.16);
-}
-.add-to-cart-btn:hover{
-  background:linear-gradient(135deg,#d4af37,#efda82) !important;
-  color:#123524 !important;
-}
-.direct-checkout-btn{
-  background:linear-gradient(135deg,#efd879,#cda530) !important;
-  border:1px solid rgba(139,105,16,.17) !important;
-  box-shadow:0 10px 24px rgba(212,175,55,.20) !important;
-}
-
-/* כרטיסי יתרונות/מידע */
-.feature-card,.terms-card,.quality-card,.faq-item,.story-copy,.process-step{
-  background:#fff !important;
-  border:1px solid rgba(18,53,36,.075) !important;
-  box-shadow:0 13px 34px rgba(18,53,36,.075) !important;
-}
-.feature-card:hover,.terms-card:hover,.quality-card:hover{
-  box-shadow:0 20px 46px rgba(18,53,36,.115) !important;
-}
-.feature-card i,.terms-card i{
-  box-shadow:0 9px 20px rgba(212,175,55,.12) !important;
-}
-.process-step{background:#fafcf9 !important;}
-
-/* ניווט — נקי ומסחרי יותר */
-header{
-  background:linear-gradient(90deg,rgba(13,44,28,.985),rgba(18,53,36,.98),rgba(38,81,58,.97)) !important;
-  box-shadow:0 8px 28px rgba(6,30,18,.16) !important;
-}
-.nav-menu a{font-weight:700 !important;}
-.cart-icon-btn{
-  border-radius:14px !important;
-  border:1px solid rgba(212,175,55,.55) !important;
-  box-shadow:0 7px 20px rgba(0,0,0,.14) !important;
-}
-
-/* Hero — לשמור מרשים אבל לא עמוס */
-.hero-content{
-  border:1px solid rgba(255,255,255,.08);
-  box-shadow:0 22px 60px rgba(0,0,0,.10);
-}
-.hero-choice-orb{
-  box-shadow:0 0 0 8px rgba(231,196,77,.08),0 18px 44px rgba(0,0,0,.29),inset 0 2px 9px rgba(255,255,255,.55) !important;
-}
-
-/* חלונות קנייה */
-.modal-window,.product-details-window.product-details-banner{
-  border:1px solid rgba(18,53,36,.10) !important;
-  box-shadow:0 30px 90px rgba(0,0,0,.30) !important;
-}
-.form-control{
-  background:#fcfdfc;
-  border-color:rgba(18,53,36,.12) !important;
-}
-.form-control:focus{
-  background:#fff;
-  box-shadow:0 0 0 4px rgba(45,106,79,.10) !important;
-}
-
-@media(max-width:820px){
-  body::before{opacity:.02 !important;}
-  .shop-layout{border-radius:24px !important;padding:12px !important;}
-  .product-card{border-radius:22px !important;}
-  .feature-card,.terms-card,.quality-card{box-shadow:0 10px 26px rgba(18,53,36,.065) !important;}
-}
+#shop-section{background:linear-gradient(180deg,rgba(241,248,237,.76),rgba(235,245,231,.78)) !important;}
+.shop-layout{background:rgba(255,255,255,.94) !important;border:1px solid rgba(18,53,36,.08) !important;box-shadow:0 22px 60px rgba(18,53,36,.10) !important;border-radius:32px !important;padding:clamp(16px,2.6vw,30px) !important;}
+.product-card{background:#fff !important;border:1px solid rgba(18,53,36,.09) !important;box-shadow:0 18px 48px rgba(18,53,36,.11) !important;border-radius:28px !important;}
+.product-card:hover{transform:translateY(-7px) !important;box-shadow:0 28px 66px rgba(18,53,36,.16) !important;border-color:rgba(212,175,55,.38) !important;}
+.product-img-container{background:linear-gradient(145deg,#edf5e9,#f7faf5) !important;border-bottom:1px solid rgba(18,53,36,.06);}
+.product-info{background:#fff;}.product-title{color:#123524 !important;font-weight:800 !important;}.product-desc{color:#657168 !important;line-height:1.7 !important;}.product-price{color:#123524 !important;font-size:1.65rem !important;font-weight:900 !important;}.product-footer{border-top:1px solid #edf1ed !important;padding-top:18px !important;}
+.quantity-selector{border:1px solid rgba(18,53,36,.13) !important;background:#f8faf8 !important;box-shadow:inset 0 1px 2px rgba(18,53,36,.03);}.qty-btn:hover{background:#eaf3e6 !important;}
+.add-to-cart-btn{background:linear-gradient(135deg,#24573d,#123524) !important;box-shadow:0 9px 22px rgba(18,53,36,.16);}.add-to-cart-btn:hover{background:linear-gradient(135deg,#d4af37,#efda82) !important;color:#123524 !important;}.direct-checkout-btn{background:linear-gradient(135deg,#efd879,#cda530) !important;border:1px solid rgba(139,105,16,.17) !important;box-shadow:0 10px 24px rgba(212,175,55,.20) !important;}
+.feature-card,.terms-card,.quality-card,.faq-item,.story-copy,.process-step{background:rgba(255,255,255,.94) !important;border:1px solid rgba(18,53,36,.075) !important;box-shadow:0 13px 34px rgba(18,53,36,.075) !important;}.feature-card:hover,.terms-card:hover,.quality-card:hover{box-shadow:0 20px 46px rgba(18,53,36,.115) !important;}.feature-card i,.terms-card i{box-shadow:0 9px 20px rgba(212,175,55,.12) !important;}.process-step{background:rgba(250,252,249,.94) !important;}
+header{background:linear-gradient(90deg,rgba(13,44,28,.985),rgba(18,53,36,.98),rgba(38,81,58,.97)) !important;box-shadow:0 8px 28px rgba(6,30,18,.16) !important;}.nav-menu a{font-weight:700 !important;}.cart-icon-btn{border-radius:14px !important;border:1px solid rgba(212,175,55,.55) !important;box-shadow:0 7px 20px rgba(0,0,0,.14) !important;}
+.hero-content{border:1px solid rgba(255,255,255,.08);box-shadow:0 22px 60px rgba(0,0,0,.10);}.hero-choice-orb{box-shadow:0 0 0 8px rgba(231,196,77,.08),0 18px 44px rgba(0,0,0,.29),inset 0 2px 9px rgba(255,255,255,.55) !important;}
+.modal-window,.product-details-window.product-details-banner{border:1px solid rgba(18,53,36,.10) !important;box-shadow:0 30px 90px rgba(0,0,0,.30) !important;}.form-control{background:#fcfdfc;border-color:rgba(18,53,36,.12) !important;}.form-control:focus{background:#fff;box-shadow:0 0 0 4px rgba(45,106,79,.10) !important;}
+@media(max-width:820px){body::before{opacity:.075 !important;}.shop-layout{border-radius:24px !important;padding:12px !important;}.product-card{border-radius:22px !important;}.feature-card,.terms-card,.quality-card{box-shadow:0 10px 26px rgba(18,53,36,.065) !important;}}
