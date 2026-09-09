@@ -1,16 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="אתרוג">
-  <defs>
-    <radialGradient id="fruit" cx="34%" cy="24%" r="78%">
-      <stop offset="0" stop-color="#fffbd2"/>
-      <stop offset="0.34" stop-color="#f7df55"/>
-      <stop offset="0.72" stop-color="#e2b82d"/>
-      <stop offset="1" stop-color="#a8750d"/>
-    </radialGradient>
-  </defs>
-  <path d="M56 30C54 21 58 15 66 10" fill="none" stroke="#76500f" stroke-width="7" stroke-linecap="round"/>
-  <path d="M64 12L57 7M65 12L67 4M67 13L75 8" fill="none" stroke="#5f4010" stroke-width="5" stroke-linecap="round"/>
-  <path d="M47 31C58 24 75 25 85 34C99 47 104 67 101 88C98 109 83 123 63 124C43 124 26 111 23 91C20 72 27 48 39 37C42 34 44 32 47 31Z" fill="url(#fruit)" stroke="#8f620b" stroke-width="5"/>
-  <path d="M35 55C49 42 76 40 91 55" fill="none" stroke="#fff7ad" stroke-width="5" stroke-linecap="round" opacity=".8"/>
-  <path d="M31 84C44 74 75 77 94 94" fill="none" stroke="#fced8b" stroke-width="4" stroke-linecap="round" opacity=".48"/>
-  <g fill="#b78715" opacity=".6"><circle cx="39" cy="69" r="2.3"/><circle cx="72" cy="57" r="2"/><circle cx="54" cy="100" r="2.2"/><circle cx="82" cy="89" r="1.8"/></g>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 128 128" role="img" aria-label="סט ארבעת המינים">
+  <rect width="128" height="128" rx="24" fill="#eef7ea"/>
+  <image href="https://4minim.click/8.png" xlink:href="https://4minim.click/8.png" x="0" y="0" width="128" height="128" preserveAspectRatio="xMidYMid slice"/>
 </svg>
