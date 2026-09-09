@@ -1,4 +1,19 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 128 128" role="img" aria-label="סט ארבעת המינים">
-  <rect width="128" height="128" rx="24" fill="#eef7ea"/>
-  <image href="https://4minim.click/8.png" xlink:href="https://4minim.click/8.png" x="0" y="0" width="128" height="128" preserveAspectRatio="xMidYMid slice"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 58" role="img" aria-label="סוכה">
+  <rect width="72" height="58" rx="10" fill="#eef7ea"/>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 22V53M60 20V53M9 53H63" stroke="#b88a18" stroke-width="3"/>
+    <path d="M14 24H58V52H14Z" fill="#174a31" stroke="#d4af37" stroke-width="1.5"/>
+    <path d="M25 30H49V52H25Z" fill="#0d2f1e" stroke="#f2df97" stroke-width="1.4"/>
+    <path d="M37 31V52" stroke="#2d6a4f" stroke-width="1.2"/>
+    <g class="schach" stroke="#65ae64">
+      <path d="M6 11L64 7M8 16L67 12" stroke-width="2.2"/>
+      <path d="M11 9L14 18M19 8L22 17M27 8L30 16M35 7L38 15M43 6L46 14M51 6L54 13M59 5L62 12" stroke="#8bcf78" stroke-width="1.25"/>
+    </g>
+    <path d="M44 47V33M44 36L39 40M44 38L49 42" stroke="#8fd28d" stroke-width="2"/>
+  </g>
+  <ellipse cx="33" cy="45" rx="4.5" ry="5.5" fill="#f3d84d" stroke="#9d7112" stroke-width="1"/>
+  <style>
+    .schach{transform-origin:36px 12px;animation:wind .55s ease-in-out infinite alternate}
+    @keyframes wind{from{transform:translateX(-1.3px) rotate(-2deg)}to{transform:translateX(1.5px) rotate(2.2deg)}}
+  </style>
 </svg>
