@@ -1,3 +1,5 @@
+const productPolishLink=document.createElement('link');productPolishLink.rel='stylesheet';productPolishLink.href='product-polish.css?v=20260910-1';document.head.appendChild(productPolishLink);
+
 // קטלוג שלושת הסטים. המחירים ניתנים לעדכון כאן לאחר קביעת המחיר הסופי.
 let products = [
   {
