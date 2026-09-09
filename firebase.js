@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-analytics.js";
-import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, doc, updateDoc } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
+import { getFirestore, collection, addDoc, setDoc, onSnapshot, query, orderBy, doc, updateDoc } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyBG8ZiYOdVdI45AsKnMcbX6QaVlkU4dXhM",
@@ -21,16 +21,20 @@ const PENDING_DOC_KEY = 'grow_pending_firebase_doc_id';
 const PENDING_ORDER_KEY = 'grow_pending_order_id';
 
 window.saveOrderToFirebase = async function(orderData) {
+    const stableDocId = orderData?.orderId || `order-${Date.now()}-${Math.random().toString(36).slice(2,8)}`;
+
+    // שומרים את המזהים מיד, לפני כל המתנה ל-Firebase, כדי שהמעבר ל-Grow יהיה מיידי.
+    localStorage.setItem(PENDING_DOC_KEY, stableDocId);
+    if (orderData?.orderId) localStorage.setItem(PENDING_ORDER_KEY, orderData.orderId);
+
     try {
-        const docRef = await addDoc(collection(db, "orders"), {
+        await setDoc(doc(db, "orders", stableDocId), {
             ...orderData,
             paid: false,
             paymentStatus: orderData.paymentStatus || 'waiting_for_payment',
             orderStatus: orderData.orderStatus || 'waiting_for_payment'
-        });
-        localStorage.setItem(PENDING_DOC_KEY, docRef.id);
-        if (orderData?.orderId) localStorage.setItem(PENDING_ORDER_KEY, orderData.orderId);
-        return docRef.id;
+        }, { merge: true });
+        return stableDocId;
     } catch (e) {
         console.error("שגיאה ברישום ל-Firebase: ", e);
         return null;
@@ -70,22 +74,17 @@ function setSuccessModalContent(type, orderId) {
         if (title) title.textContent = 'התשלום הצליח!';
         if (text) text.textContent = 'ההזמנה בוצעה בהצלחה. ארבעת המינים שלך בדרך אליך.';
         if (number) number.textContent = orderId ? `מספר הזמנה: ${orderId}` : 'ההזמנה התקבלה';
-        if (button) { button.textContent = 'מעולה, תודה'; button.onclick = () => window.closeSuccessModal?.(); }
+        if (button) { button.textContent = 'מעולה, תודה'; button.onclick = () => window.closeSuccessModal?.(); button.disabled = false; }
     } else if (type === 'failed') {
         if (icon) icon.className = 'fa-solid fa-circle-xmark';
         if (title) title.textContent = 'התשלום לא הושלם';
         if (text) text.textContent = 'לא בוצע חיוב ולא הושלמה הזמנה. אפשר לנסות שוב עכשיו ולהשלים את הרכישה.';
         if (number) number.textContent = orderId ? `מספר הזמנה ממתינה: ${orderId}` : 'ההזמנה ממתינה לתשלום';
         if (button) {
+            button.disabled = false;
             button.innerHTML = '<i class="fa-solid fa-credit-card"></i> נסו שוב לתשלום';
             button.onclick = () => { window.location.href = GROW_PAYMENT_URL; };
         }
-    } else {
-        if (icon) icon.className = 'fa-solid fa-shield-halved';
-        if (title) title.textContent = 'מעבירים אותך לתשלום מאובטח';
-        if (text) text.textContent = 'הפרטים נשמרו. מיד תועבר לעמוד התשלום של Grow.';
-        if (number) number.textContent = orderId ? `מספר הזמנה: ${orderId}` : '';
-        if (button) { button.textContent = 'מעביר לתשלום...'; button.disabled = true; }
     }
     modal.classList.add('active');
 }
@@ -114,6 +113,7 @@ async function handleGrowReturn() {
         setSuccessModalContent('paid', orderId);
         localStorage.removeItem(PENDING_DOC_KEY);
         localStorage.removeItem(PENDING_ORDER_KEY);
+        localStorage.removeItem('sukkot_cart');
     } else {
         if (docId) await window.updateOrderPaymentStatus(docId, {
             paid: false,
@@ -132,23 +132,11 @@ async function handleGrowReturn() {
 }
 
 window.addEventListener('load', () => {
-    const originalOpenSuccessModal = window.openSuccessModal;
+    // app.js שומר את ההזמנה ברקע ואז קורא לפונקציה הזאת.
+    // כאן לא מחכים לקבל שום תשובה מ-Firebase: עוברים ל-Grow מיד.
     window.openSuccessModal = function(orderId) {
-        localStorage.setItem(PENDING_ORDER_KEY, orderId || '');
-        setSuccessModalContent('redirecting', orderId);
-        const started = Date.now();
-        const waitForSave = setInterval(() => {
-            const docId = localStorage.getItem(PENDING_DOC_KEY);
-            if (docId || Date.now() - started > 6500) {
-                clearInterval(waitForSave);
-                if (!docId) {
-                    if (typeof originalOpenSuccessModal === 'function') originalOpenSuccessModal(orderId);
-                    alert('לא הצלחנו לשמור את ההזמנה לפני המעבר לתשלום. נסה שוב בעוד רגע.');
-                    return;
-                }
-                window.location.href = GROW_PAYMENT_URL;
-            }
-        }, 120);
+        if (orderId) localStorage.setItem(PENDING_ORDER_KEY, orderId);
+        window.location.href = GROW_PAYMENT_URL;
     };
 
     handleGrowReturn().catch(console.error);
