@@ -1,0 +1,75 @@
+name: Update Spanish set copy
+
+on:
+  push:
+    paths:
+      - '.github/workflows/update-spanish-set-copy.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Update address and storefront wording
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          files = [Path('index.html'), Path('app.js'), Path('arbaat-haminim.html')]
+          for p in files:
+              if not p.exists():
+                  continue
+              s = p.read_text(encoding='utf-8')
+
+              # Remove the exact street address everywhere while keeping pickup location.
+              address_replacements = {
+                  'מיד בנימין, רחוב עגור 9, בתיאום מראש': 'מיד בנימין, בתיאום מראש',
+                  'ביד בנימין, רחוב עגור 9, בתיאום מראש': 'ביד בנימין, בתיאום מראש',
+                  'האיסוף מתבצע ברחוב עגור 9, יד בנימין, בתיאום מראש': 'האיסוף מתבצע ביד בנימין, בתיאום מראש',
+                  'יד בנימין, רחוב עגור 9, בתיאום מראש': 'יד בנימין, בתיאום מראש',
+                  'יד בנימין, עגור 9 (בתיאום מראש)': 'יד בנימין (בתיאום מראש)',
+                  'יד בנימין, עגור 9': 'יד בנימין',
+                  'רחוב עגור 9, יד בנימין': 'יד בנימין',
+                  'רחוב עגור 9': 'יד בנימין',
+                  'עגור 9': 'יד בנימין',
+              }
+              for old, new in address_replacements.items():
+                  s = s.replace(old, new)
+
+              # Customer-facing quality wording.
+              s = s.replace('כשר לכתחילה', 'מהודר א׳ א׳')
+
+              # Emphasize that this is a Spanish-style set in several prominent places.
+              replacements = {
+                  'סט ארבעת המינים מהודר א׳ א׳': 'סט ארבעת המינים ספרדי מהודר א׳ א׳',
+                  'סט ארבעת המינים ברמה גבוהה': 'סט ארבעת המינים ספרדי ברמה גבוהה',
+                  'סט ארבעת המינים לחג': 'סט ארבעת המינים ספרדי לחג',
+                  'סט מלא הכולל אתרוג, לולב, הדסים וערבות': 'סט ספרדי מלא הכולל אתרוג, לולב, הדסים וערבות',
+                  'סט מלא ומכובד לחג': 'סט ספרדי מלא ומכובד לחג',
+                  'סט מלא שנבחר ונבדק בקפידה': 'סט ספרדי מלא שנבחר ונבדק בקפידה',
+                  'סט מלא ב־130 ₪': 'סט ספרדי מלא ב־130 ₪',
+                  'סט מלא': 'סט ספרדי מלא',
+              }
+              for old, new in replacements.items():
+                  s = s.replace(old, new)
+
+              # Keep the short badge/value crisp and avoid accidental duplicate words.
+              s = s.replace("badge: 'מהודר א׳ א׳', level: 'מהודר א׳ א׳', variety: 'סט ספרדי מלא'",
+                            "badge: 'מהודר א׳ א׳', level: 'מהודר א׳ א׳', variety: 'סט ספרדי'" )
+              s = s.replace('סט ספרדי ספרדי', 'סט ספרדי')
+              s = s.replace('ספרדי ספרדי', 'ספרדי')
+
+              p.write_text(s, encoding='utf-8')
+          PY
+      - name: Commit storefront changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html app.js arbaat-haminim.html
+          git diff --cached --quiet && exit 0
+          git commit -m "Update pickup address and Spanish set wording"
+          git push
