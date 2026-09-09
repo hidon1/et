@@ -1,6 +1,6 @@
 // מוצר יחיד וקבוע. המק״ט נשמר ברשומת ההזמנה ואינו מוצג ללקוח בשלב הבחירה.
         let products = [
-            { id: 1, sku: 'AM-001', type: 'סט', name: 'סט ארבעת המינים ספרדי מהודר א׳ א׳', desc: 'סט ספרדי מלא הכולל אתרוג, לולב, הדסים וערבות — נבחר, נבדק ונארז בקפידה לקראת החג.', price: 130, badge: 'מהודר א׳ א׳', level: 'מהודר א׳ א׳', variety: 'סט ספרדי', icon: 'fa-leaf' }
+            { id: 1, sku: 'AM-001', type: 'סט', name: 'סט ארבעת המינים מהודר א׳ א׳ לפי נוסח הספרדים', desc: 'סט מהודר א׳ א׳ לפי נוסח הספרדים, הכולל אתרוג, לולב, הדסים וערבות — נבחר, נבדק ונארז בקפידה לקראת החג.', price: 130, badge: 'מהודר א׳ א׳', level: 'מהודר א׳ א׳', variety: 'לפי נוסח הספרדים', icon: 'fa-leaf' }
         ];
 
         let cart = JSON.parse(localStorage.getItem('sukkot_cart')) || [];
@@ -191,7 +191,7 @@
                 };
                 card.innerHTML = `
                     <div class="product-badge">${p.badge}</div>
-                    <div class="product-type-ribbon">${p.type === 'סט' ? 'סט ספרדי מלא' : 'פריט בודד'}</div>
+                    <div class="product-type-ribbon">${p.type === 'סט' ? 'סט מהודר לפי נוסח הספרדים' : 'פריט בודד'}</div>
                     <div class="product-img-container">
                         <div class="placeholder-art">
                             <i class="fa-solid ${p.icon}"></i>
@@ -248,9 +248,9 @@
                     <button class="product-details-close" onclick="this.closest('.product-details-overlay').remove()" aria-label="סגירה"><i class="fa-solid fa-xmark"></i></button>
                     <div class="product-details-image"><img src="8.png" alt=""><span class="product-details-image-badge">מהודר א׳ א׳</span></div>
                     <div class="product-details-content">
-                        <div class="product-details-kicker">סט ארבעת המינים ספרדי לחג</div>
+                        <div class="product-details-kicker">סט ארבעת המינים מהודר לפי נוסח הספרדים</div>
                         <h2 class="product-details-title">${p.name}</h2>
-                        <p class="product-details-lead">סט ספרדי מלא שנבחר ונבדק בקפידה, עם אתרוג, לולב, הדסים וערבות — מסודר ומוכן לחג בצורה מכובדת ונוחה.</p>
+                        <p class="product-details-lead">סט מהודר א׳ א׳ לפי נוסח הספרדים, שנבחר ונבדק בקפידה, עם אתרוג, לולב, הדסים וערבות — מסודר ומוכן לחג בצורה מכובדת ונוחה.</p>
                         <div class="product-details-highlights">
                             <div class="product-detail-chip"><i class="fa-solid fa-magnifying-glass"></i><span>נבחר ונבדק בקפידה</span></div>
                             <div class="product-detail-chip"><i class="fa-solid fa-ribbon"></i><span>אריזה חגיגית עם סרט מעוטר</span></div>
