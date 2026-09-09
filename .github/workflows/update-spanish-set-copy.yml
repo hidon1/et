@@ -17,7 +17,6 @@ jobs:
         run: |
           python3 - <<'PY'
           from pathlib import Path
-          import re
 
           files = [Path('index.html'), Path('app.js'), Path('arbaat-haminim.html')]
           for p in files:
@@ -25,7 +24,6 @@ jobs:
                   continue
               s = p.read_text(encoding='utf-8')
 
-              # Remove the exact street address everywhere while keeping pickup location.
               address_replacements = {
                   'מיד בנימין, רחוב עגור 9, בתיאום מראש': 'מיד בנימין, בתיאום מראש',
                   'ביד בנימין, רחוב עגור 9, בתיאום מראש': 'ביד בנימין, בתיאום מראש',
@@ -40,10 +38,8 @@ jobs:
               for old, new in address_replacements.items():
                   s = s.replace(old, new)
 
-              # Customer-facing quality wording.
               s = s.replace('כשר לכתחילה', 'מהודר א׳ א׳')
 
-              # Emphasize that this is a Spanish-style set in several prominent places.
               replacements = {
                   'סט ארבעת המינים מהודר א׳ א׳': 'סט ארבעת המינים ספרדי מהודר א׳ א׳',
                   'סט ארבעת המינים ברמה גבוהה': 'סט ארבעת המינים ספרדי ברמה גבוהה',
@@ -52,12 +48,14 @@ jobs:
                   'סט מלא ומכובד לחג': 'סט ספרדי מלא ומכובד לחג',
                   'סט מלא שנבחר ונבדק בקפידה': 'סט ספרדי מלא שנבחר ונבדק בקפידה',
                   'סט מלא ב־130 ₪': 'סט ספרדי מלא ב־130 ₪',
+                  '130 ₪ · מהודר א׳ א׳': '130 ₪ · סט ספרדי · מהודר א׳ א׳',
+                  'בחירה מוקפדת של סטים מהודרים': 'בחירה מוקפדת של סטים ספרדיים מהודרים',
+                  '<h3>סט ברמה גבוהה</h3>': '<h3>סט ספרדי ברמה גבוהה</h3>',
                   'סט מלא': 'סט ספרדי מלא',
               }
               for old, new in replacements.items():
                   s = s.replace(old, new)
 
-              # Keep the short badge/value crisp and avoid accidental duplicate words.
               s = s.replace("badge: 'מהודר א׳ א׳', level: 'מהודר א׳ א׳', variety: 'סט ספרדי מלא'",
                             "badge: 'מהודר א׳ א׳', level: 'מהודר א׳ א׳', variety: 'סט ספרדי'" )
               s = s.replace('סט ספרדי ספרדי', 'סט ספרדי')
