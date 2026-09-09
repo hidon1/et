@@ -1,8 +1,26 @@
 // קטלוג שלושת הסטים. המחירים ניתנים לעדכון כאן לאחר קביעת המחיר הסופי.
 let products = [
- {id:1,sku:'SEF-001',type:'סט',name:'סט ספרדי מהודר',desc:'סט ארבעת המינים מהודר בנוסח הספרדים — אתרוג, לולב, הדסים וערבות, נבחר ונארז בקפידה.',price:130,badge:'ספרדי מהודר',level:'מהודר',variety:'ספרדי',icon:'fa-leaf'},
- {id:2,sku:'ASH-001',type:'סט',name:'סט אשכנזי מהודר',desc:'סט ארבעת המינים מהודר בנוסח אשכנז — אתרוג, לולב, הדסים וערבות, נבחר ונארז בקפידה.',price:130,badge:'אשכנזי מהודר',level:'מהודר',variety:'אשכנזי',icon:'fa-leaf'},
- {id:3,sku:'YEM-001',type:'סט',name:'סט ספרדי עם אתרוג תימני',desc:'סט ספרדי מהודר עם אתרוג תימני, לולב, הדסים וערבות — נבחר ונארז בקפידה.',price:130,badge:'אתרוג תימני',level:'מהודר',variety:'ספרדי · אתרוג תימני',icon:'fa-leaf'}
+  {
+    id:1, sku:'SEF-001', type:'סט', name:'סט ספרדי מהודר',
+    desc:'סט ארבעת המינים מסודר ומוקפד למי שמחפש סט בנוסח הספרדים, עם בחירה נאה ואריזה מכובדת לקראת החג.',
+    price:130, badge:'בחירה ספרדית', level:'מהודר', variety:'ספרדי', icon:'fa-leaf',
+    kicker:'לפי נוסח הספרדים',
+    features:['אתרוג נבחר בקפידה','לולב, הדסים וערבות בסט מלא','אריזה מסודרת ומוכנה לחג']
+  },
+  {
+    id:2, sku:'ASH-001', type:'סט', name:'סט אשכנזי מהודר',
+    desc:'סט ארבעת המינים מהודר למי שמחפש בחירה בנוסח אשכנז, עם כל ארבעת המינים יחד בצורה מסודרת ונוחה.',
+    price:130, badge:'בחירה אשכנזית', level:'מהודר', variety:'אשכנזי', icon:'fa-leaf',
+    kicker:'לפי נוסח אשכנז',
+    features:['סט מלא של ארבעת המינים','בחירה מוקפדת ומראה מכובד','אריזה מסודרת לקראת החג']
+  },
+  {
+    id:3, sku:'YEM-001', type:'סט', name:'סט ספרדי עם אתרוג תימני',
+    desc:'סט ספרדי מהודר עם אתרוג מהזן התימני, יחד עם לולב, הדסים וערבות — למי שמעדיף את הסגנון התימני באתרוג.',
+    price:130, badge:'אתרוג תימני', level:'מהודר', variety:'ספרדי · אתרוג תימני', icon:'fa-leaf',
+    kicker:'ספרדי · אתרוג מזן תימני',
+    features:['אתרוג מהזן התימני','סט מלא: לולב, הדסים וערבות','נבחר ונארז בצורה מסודרת']
+  }
 ];
 let cart=JSON.parse(localStorage.getItem('sukkot_cart'))||[];
 const ORDER_SEQUENCE_KEY='sukkot_order_sequence';
@@ -21,8 +39,72 @@ function closeSuccessModal(){document.getElementById('successModal')?.classList.
 function toggleFaq(button){button.parentElement.classList.toggle('active');}
 function filterType(){renderProducts();} function filterLevel(){renderProducts();} function filterVariety(){renderProducts();} function filterCatalog(){renderProducts();}
 
-function addSpecialOrderBanner(){const grid=document.getElementById('productsGrid');if(!grid||document.getElementById('specialOrderBanner'))return;const b=document.createElement('div');b.id='specialOrderBanner';b.style.cssText='grid-column:1/-1;text-align:center;padding:18px 22px;margin:8px 0 20px;border:1px solid #d8b657;border-radius:16px;background:linear-gradient(135deg,#fffdf5,#f4ead0);color:#244b37;font-weight:700;box-shadow:0 8px 24px rgba(79,61,22,.10)';b.innerHTML='רוצים סט בהרכב מיוחד או בקשה אחרת? <a href="https://wa.me/972552809503" target="_blank" rel="noopener" style="color:#176b43;text-decoration:underline">פנו אלינו בוואטסאפ</a>';grid.parentElement.insertBefore(b,grid);}
-function renderProducts(){const grid=document.getElementById('productsGrid');if(!grid)return;grid.innerHTML='';products.forEach(p=>{const card=document.createElement('div');card.className='product-card reveal product-card-clickable';card.innerHTML=`<div class="product-badge">${p.badge}</div><div class="product-type-ribbon">${p.name}</div><div class="product-img-container"><div class="placeholder-art"><i class="fa-solid ${p.icon}"></i><span>${p.name}</span></div><div class="product-hover-image" style="background-image:linear-gradient(rgba(27,67,50,.10),rgba(18,53,36,.12)),url('8.png')"></div></div><div class="product-info"><h3 class="product-title">${p.name}</h3><p class="product-desc">${p.desc}</p><div class="product-meta">${p.level} · ${p.variety} · משלוח באזור המרכז ₪45</div><div class="product-footer"><span class="product-price">₪${p.price}</span><div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap"><div class="quantity-selector"><button class="qty-btn" onclick="changeProductQty(${p.id},-1,this)">-</button><span class="qty-val" id="qty-${p.id}">1</span><button class="qty-btn" onclick="changeProductQty(${p.id},1,this)">+</button></div><button class="add-to-cart-btn" onclick="addToCart(${p.id})"><i class="fa-solid fa-cart-plus"></i> הוספה לסל</button><button class="direct-checkout-btn" onclick="buyNow(${p.id})"><i class="fa-solid fa-credit-card"></i> מעבר לתשלום</button></div></div></div>`;grid.appendChild(card);});}
+function addSpecialOrderBanner(){
+  const grid=document.getElementById('productsGrid');
+  if(!grid||document.getElementById('specialOrderBanner'))return;
+  const b=document.createElement('div');
+  b.id='specialOrderBanner';
+  b.className='special-order-banner';
+  b.innerHTML=`
+    <div class="special-order-icon"><i class="fa-brands fa-whatsapp"></i></div>
+    <div class="special-order-copy">
+      <strong>מחפשים משהו קצת אחר?</strong>
+      <span>סט בהרכב מיוחד, בקשה מסוימת או שאלה לפני ההזמנה — דברו איתנו ישירות.</span>
+    </div>
+    <a href="https://wa.me/972552809503" target="_blank" rel="noopener" class="special-order-link">פנייה בוואטסאפ <i class="fa-solid fa-arrow-left"></i></a>`;
+  grid.parentElement.insertBefore(b,grid);
+}
+
+function renderProducts(){
+  const grid=document.getElementById('productsGrid');
+  if(!grid)return;
+  grid.innerHTML='';
+  products.forEach((p,index)=>{
+    const card=document.createElement('article');
+    card.className='product-card reveal product-card-premium';
+    card.style.setProperty('--card-delay',`${index*80}ms`);
+    const featureRows=(p.features||[]).map(f=>`<li><i class="fa-solid fa-circle-check"></i><span>${f}</span></li>`).join('');
+    card.innerHTML=`
+      <div class="product-visual">
+        <div class="product-badge">${p.badge}</div>
+        <div class="product-img-container">
+          <div class="product-image-shade"></div>
+          <img src="8.png" alt="${p.name}" class="product-main-image" loading="lazy">
+          <div class="product-image-caption"><i class="fa-solid fa-seedling"></i> ארבעת המינים לחג הסוכות</div>
+        </div>
+      </div>
+      <div class="product-info">
+        <div class="product-kicker">${p.kicker}</div>
+        <h3 class="product-title">${p.name}</h3>
+        <p class="product-desc">${p.desc}</p>
+        <ul class="product-benefits">${featureRows}</ul>
+        <div class="product-service-row">
+          <span><i class="fa-solid fa-shield-heart"></i> רכישה מאובטחת</span>
+          <span><i class="fa-solid fa-truck-fast"></i> משלוח ₪45</span>
+        </div>
+        <div class="product-purchase-zone">
+          <div class="product-price-wrap">
+            <small>מחיר לסט</small>
+            <span class="product-price">₪${p.price}</span>
+          </div>
+          <div class="product-actions">
+            <div class="quantity-block">
+              <span class="quantity-label">כמות</span>
+              <div class="quantity-selector">
+                <button class="qty-btn" onclick="changeProductQty(${p.id},-1,this)" aria-label="הפחתת כמות">−</button>
+                <span class="qty-val" id="qty-${p.id}">1</span>
+                <button class="qty-btn" onclick="changeProductQty(${p.id},1,this)" aria-label="הוספת כמות">+</button>
+              </div>
+            </div>
+            <button class="add-to-cart-btn" onclick="addToCart(${p.id})"><i class="fa-solid fa-cart-plus"></i> הוספה לסל</button>
+            <button class="direct-checkout-btn" onclick="buyNow(${p.id})"><i class="fa-solid fa-bolt"></i> להזמנה עכשיו</button>
+          </div>
+        </div>
+      </div>`;
+    grid.appendChild(card);
+  });
+}
+
 function changeProductQty(id,change,btn){const el=btn.parentElement.querySelector('.qty-val');el.innerText=Math.max(1,parseInt(el.innerText||'1')+change);}
 function buyNow(id){const p=products.find(x=>x.id===id);if(!p)return;const qty=parseInt(document.getElementById(`qty-${id}`)?.innerText||'1');cart=[{...p,qty}];saveCart();updateCartUI();openCheckoutPage();}
 function addToCart(id){const p=products.find(x=>x.id===id);if(!p)return;const qty=parseInt(document.getElementById(`qty-${id}`)?.innerText||'1');const e=cart.find(x=>x.id===id);if(e)e.qty+=qty;else cart.push({...p,qty});saveCart();updateCartUI();}
