@@ -1,4 +1,4 @@
-const productPolishLink=document.createElement('link');productPolishLink.rel='stylesheet';productPolishLink.href='product-polish.css?v=20260910-3';document.head.appendChild(productPolishLink);
+const productPolishLink=document.createElement('link');productPolishLink.rel='stylesheet';productPolishLink.href='product-polish.css?v=20260910-4';document.head.appendChild(productPolishLink);
 
 const SECURE_PAYMENT_URL='https://pay.grow.link/d3929ec59413daf95a7263982ca7fa2f-MTk2MzUzOQ';
 
@@ -7,7 +7,7 @@ let products = [
   {
     id:1, sku:'SEF-001', type:'סט', name:'סט ספרדי מהודר',
     desc:'סט מלא לפי מנהגי הספרדים, עם לולב נאה, סגור ועם קורא, אתרוג מוקפד, הדסים וערבות.',
-    price:130, badge:'בחירה ספרדית', level:'מהודר', variety:'ספרדי', icon:'fa-leaf',
+    price:130, badge:'סט ספרדי', level:'מהודר', variety:'ספרדי', icon:'fa-leaf',
     kicker:'לפי נוסח הספרדים',
     features:['לולב סגור ועם קורא','אתרוג נאה שנבחר בקפידה','הדסים וערבות בסט מלא'],
     detailBadge:'נוסח ספרדי',
@@ -18,7 +18,7 @@ let products = [
   {
     id:2, sku:'ASH-001', type:'סט', name:'סט אשכנזי מהודר',
     desc:'סט מלא לפי מנהגי אשכנז, עם אתרוג מזן חזון איש, לולב נאה, הדסים וערבות שנבחרו בקפידה.',
-    price:130, badge:'בחירה אשכנזית', level:'מהודר', variety:'אשכנזי', icon:'fa-leaf',
+    price:130, badge:'סט אשכנזי', level:'מהודר', variety:'אשכנזי', icon:'fa-leaf',
     kicker:'לפי נוסח אשכנז',
     features:['אתרוג מזן חזון איש','לולב נאה ומוקפד','הדסים וערבות בסט מלא'],
     detailBadge:'נוסח אשכנז',
