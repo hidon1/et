@@ -197,6 +197,15 @@ async function handleCheckout(event){
   const deliveryNotes=val('custDeliveryNotes');
   const address=[street,house&&`בית ${house}`,entrance&&`כניסה ${entrance}`,apartment&&`דירה ${apartment}`,city].filter(Boolean).join(', ');
   const total=cart.reduce((sum,item)=>sum+item.price*item.qty,0)+(shipping==='משלוח'?45:0);
+  const orderItems=cart.map(item=>({
+    id:item.id,
+    sku:item.sku,
+    name:item.name,
+    productType:item.name,
+    qty:item.qty,
+    price:item.price,
+    lineTotal:item.qty*item.price
+  }));
   const orderData={
     orderId,
     customer:{
@@ -211,7 +220,10 @@ async function handleCheckout(event){
       deliveryNotes,
       address
     },
-    items:cart.map(item=>({id:item.id,sku:item.sku,name:item.name,qty:item.qty,price:item.price,lineTotal:item.qty*item.price})),
+    items:orderItems,
+    productTypes:orderItems.map(item=>item.name),
+    productSummary:orderItems.map(item=>({sku:item.sku,name:item.name,qty:item.qty})),
+    totalUnits:orderItems.reduce((sum,item)=>sum+item.qty,0),
     paid:false,
     paymentStatus:'waiting_for_payment',
     orderStatus:'waiting_for_payment',
@@ -222,16 +234,17 @@ async function handleCheckout(event){
   localStorage.setItem('grow_pending_order_id',orderId);
   localStorage.setItem('grow_pending_summary',JSON.stringify({orderId,items:orderData.items,shipping,total}));
   try{
-    const savePromise=window.saveOrderToFirebase?.(orderData);
-    if(savePromise&&typeof savePromise.then==='function')await Promise.race([savePromise,new Promise(resolve=>setTimeout(resolve,1400))]);
+    if(typeof window.saveOrderToFirebase!=='function')throw new Error('Firebase order saver is unavailable');
+    const savedDocumentId=await window.saveOrderToFirebase(orderData);
+    if(!savedDocumentId)throw new Error('Order was not saved');
     closeCheckoutPage();
     window.location.assign(SECURE_PAYMENT_URL);
   }catch(error){
     console.error('שגיאה בשמירת ההזמנה לפני התשלום:',error);
-    closeCheckoutPage();
-    window.location.assign(SECURE_PAYMENT_URL);
+    alert('לא הצלחנו לשמור את ההזמנה. לא בוצע מעבר לתשלום. בדקו את החיבור לאינטרנט ונסו שוב.');
   }finally{
-    setTimeout(()=>{isSubmittingOrder=false;setCheckoutLoading(false);},2500);
+    isSubmittingOrder=false;
+    setCheckoutLoading(false);
   }
 }
 function handleContactForm(e){e.preventDefault();alert('תודה על פנייתך! נציג יחזור אליך בהקדם.');e.target.reset();}

@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-analytics.js";
-import { getFirestore, collection, addDoc, setDoc, onSnapshot, query, orderBy, doc, updateDoc } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
+import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, doc, updateDoc } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyBG8ZiYOdVdI45AsKnMcbX6QaVlkU4dXhM",
@@ -21,23 +21,23 @@ const PENDING_DOC_KEY = 'grow_pending_firebase_doc_id';
 const PENDING_ORDER_KEY = 'grow_pending_order_id';
 
 window.saveOrderToFirebase = async function(orderData) {
-    const stableDocId = orderData?.orderId || `order-${Date.now()}-${Math.random().toString(36).slice(2,8)}`;
-
-    // שומרים את המזהים מיד, לפני כל המתנה ל-Firebase, כדי שהמעבר ל-Grow יהיה מיידי.
-    localStorage.setItem(PENDING_DOC_KEY, stableDocId);
+    // מספר המסמך נוצר על ידי Firestore כדי למנוע דריסה בין הזמנות ממכשירים שונים.
+    localStorage.removeItem(PENDING_DOC_KEY);
     if (orderData?.orderId) localStorage.setItem(PENDING_ORDER_KEY, orderData.orderId);
 
     try {
-        await setDoc(doc(db, "orders", stableDocId), {
+        const savedOrder = await addDoc(collection(db, "orders"), {
             ...orderData,
             paid: false,
             paymentStatus: orderData.paymentStatus || 'waiting_for_payment',
-            orderStatus: orderData.orderStatus || 'waiting_for_payment'
-        }, { merge: true });
-        return stableDocId;
+            orderStatus: orderData.orderStatus || 'waiting_for_payment',
+            createdAt: orderData.date || new Date().toISOString()
+        });
+        localStorage.setItem(PENDING_DOC_KEY, savedOrder.id);
+        return savedOrder.id;
     } catch (e) {
         console.error("שגיאה ברישום ל-Firebase: ", e);
-        return null;
+        throw e;
     }
 };
 
@@ -78,7 +78,7 @@ function setSuccessModalContent(type, orderId) {
     } else if (type === 'failed') {
         if (icon) icon.className = 'fa-solid fa-circle-xmark';
         if (title) title.textContent = 'התשלום לא הושלם';
-        if (text) text.textContent = 'לא בוצע חיוב ולא הושלמה הזמנה. אפשר לנסות שוב עכשיו ולהשלים את הרכישה.';
+        if (text) text.textContent = 'ההזמנה נשמרה וממתינה לתשלום. לא בוצע חיוב, ואפשר לנסות שוב עכשיו ולהשלים את הרכישה.';
         if (number) number.textContent = orderId ? `מספר הזמנה ממתינה: ${orderId}` : 'ההזמנה ממתינה לתשלום';
         if (button) {
             button.disabled = false;
@@ -106,6 +106,7 @@ async function handleGrowReturn() {
             paid: true,
             paymentStatus: 'paid_client_return',
             orderStatus: 'completed',
+            lastPaymentAttemptStatus: 'paid',
             paymentReportedSuccess: true,
             paymentReturnSource: 'grow',
             paidUpdatedAt: now
@@ -117,8 +118,9 @@ async function handleGrowReturn() {
     } else {
         if (docId) await window.updateOrderPaymentStatus(docId, {
             paid: false,
-            paymentStatus: 'payment_failed',
-            orderStatus: 'not_completed',
+            paymentStatus: 'waiting_for_payment',
+            orderStatus: 'waiting_for_payment',
+            lastPaymentAttemptStatus: 'failed',
             paymentReportedSuccess: false,
             paymentReturnSource: 'grow',
             paymentFailedAt: now
