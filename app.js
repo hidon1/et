@@ -1,6 +1,8 @@
 const productPolishLink=document.createElement('link');productPolishLink.rel='stylesheet';productPolishLink.href='product-polish.css?v=20260910-4';document.head.appendChild(productPolishLink);
 
-const SECURE_PAYMENT_URL='https://pay.grow.link/d3929ec59413daf95a7263982ca7fa2f-MTk2MzUzOQ';
+const GROW_PAYMENT_LINKS={
+  130:'https://pay.grow.link/ODQ4NDA~04d37a2d8ee42223c57867f0bffad0bb-Mzk4MTU0Mw'
+};
 
 // קטלוג שלושת הסטים. המחירים ניתנים לעדכון כאן לאחר קביעת המחיר הסופי.
 let products = [
@@ -231,14 +233,22 @@ async function handleCheckout(event){
     totalPrice:total,
     date:new Date().toISOString()
   };
+  const paymentUrl=orderData.totalUnits===1&&shipping==='איסוף עצמי'?GROW_PAYMENT_LINKS[130]:'';
+  orderData.paymentLinkConfigured=Boolean(paymentUrl);
   localStorage.setItem('grow_pending_order_id',orderId);
   localStorage.setItem('grow_pending_summary',JSON.stringify({orderId,items:orderData.items,shipping,total}));
+  if(paymentUrl)localStorage.setItem('grow_pending_payment_url',paymentUrl);
+  else localStorage.removeItem('grow_pending_payment_url');
   try{
     if(typeof window.saveOrderToFirebase!=='function')throw new Error('Firebase order saver is unavailable');
     const savedDocumentId=await window.saveOrderToFirebase(orderData);
     if(!savedDocumentId)throw new Error('Order was not saved');
     closeCheckoutPage();
-    window.location.assign(SECURE_PAYMENT_URL);
+    if(paymentUrl){
+      window.location.assign(paymentUrl);
+    }else{
+      alert(`ההזמנה נשמרה וממתינה לתשלום. קישור תשלום לסכום ₪${total} יתווסף בקרוב.`);
+    }
   }catch(error){
     console.error('שגיאה בשמירת ההזמנה לפני התשלום:',error);
     alert('לא הצלחנו לשמור את ההזמנה. לא בוצע מעבר לתשלום. בדקו את החיבור לאינטרנט ונסו שוב.');

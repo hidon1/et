@@ -16,9 +16,10 @@ const app = initializeApp(firebaseConfig);
 getAnalytics(app);
 const db = getFirestore(app);
 
-const GROW_PAYMENT_URL = 'https://pay.grow.link/d3929ec59413daf95a7263982ca7fa2f-MTk2MzUzOQ';
+const GROW_PAYMENT_URL = 'https://pay.grow.link/ODQ4NDA~04d37a2d8ee42223c57867f0bffad0bb-Mzk4MTU0Mw';
 const PENDING_DOC_KEY = 'grow_pending_firebase_doc_id';
 const PENDING_ORDER_KEY = 'grow_pending_order_id';
+const PENDING_PAYMENT_URL_KEY = 'grow_pending_payment_url';
 
 window.saveOrderToFirebase = async function(orderData) {
     // מספר המסמך נוצר על ידי Firestore כדי למנוע דריסה בין הזמנות ממכשירים שונים.
@@ -83,7 +84,7 @@ function setSuccessModalContent(type, orderId) {
         if (button) {
             button.disabled = false;
             button.innerHTML = '<i class="fa-solid fa-credit-card"></i> נסו שוב לתשלום';
-            button.onclick = () => { window.location.href = GROW_PAYMENT_URL; };
+            button.onclick = () => { window.location.href = localStorage.getItem(PENDING_PAYMENT_URL_KEY) || GROW_PAYMENT_URL; };
         }
     }
     modal.classList.add('active');
@@ -138,7 +139,7 @@ window.addEventListener('load', () => {
     // כאן לא מחכים לקבל שום תשובה מ-Firebase: עוברים ל-Grow מיד.
     window.openSuccessModal = function(orderId) {
         if (orderId) localStorage.setItem(PENDING_ORDER_KEY, orderId);
-        window.location.href = GROW_PAYMENT_URL;
+        window.location.href = localStorage.getItem(PENDING_PAYMENT_URL_KEY) || GROW_PAYMENT_URL;
     };
 
     handleGrowReturn().catch(console.error);
