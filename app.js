@@ -1,4 +1,4 @@
-const productPolishLink=document.createElement('link');productPolishLink.rel='stylesheet';productPolishLink.href='product-polish.css?v=20260910-2';document.head.appendChild(productPolishLink);
+const productPolishLink=document.createElement('link');productPolishLink.rel='stylesheet';productPolishLink.href='product-polish.css?v=20260910-3';document.head.appendChild(productPolishLink);
 
 const SECURE_PAYMENT_URL='https://pay.grow.link/d3929ec59413daf95a7263982ca7fa2f-MTk2MzUzOQ';
 
@@ -42,7 +42,7 @@ let cart=JSON.parse(localStorage.getItem('sukkot_cart'))||[];
 const ORDER_SEQUENCE_KEY='sukkot_order_sequence';
 let isSubmittingOrder=false;
 
-document.addEventListener('DOMContentLoaded',()=>{renderProducts();updateCartUI();addSpecialOrderBanner();});
+document.addEventListener('DOMContentLoaded',()=>{renderProducts();updateCartUI();addSpecialOrderBanner();initShopCartAccess();});
 function toggleMenu(){document.getElementById('navMenu')?.classList.toggle('mobile-open');}
 function openCartModal(){document.getElementById('cartModal')?.classList.add('active');renderCartItems();}
 function closeCartModal(){document.getElementById('cartModal')?.classList.remove('active');}
@@ -69,6 +69,20 @@ function addSpecialOrderBanner(){
     </div>
     <a href="https://wa.me/972552809503" target="_blank" rel="noopener" class="special-order-link">פנייה בוואטסאפ <i class="fa-solid fa-arrow-left"></i></a>`;
   grid.parentElement.insertBefore(b,grid);
+}
+
+function initShopCartAccess(){
+  const shopSection=document.getElementById('shop-section');
+  const cartButton=document.getElementById('floatingCartAccess');
+  if(!shopSection||!cartButton)return;
+  if(!('IntersectionObserver' in window)){
+    cartButton.classList.add('is-visible');
+    return;
+  }
+  const observer=new IntersectionObserver(entries=>{
+    cartButton.classList.toggle('is-visible',entries.some(entry=>entry.isIntersecting));
+  },{threshold:.06,rootMargin:'-8% 0px -8% 0px'});
+  observer.observe(shopSection);
 }
 
 function renderProducts(){
@@ -166,5 +180,58 @@ function updateCheckoutSummary(){const form=document.getElementById('checkoutFor
 function toggleCheckoutFields(){const shipping=document.querySelector('input[name="shippingMethod"]:checked')?.value||'איסוף עצמי',delivery=shipping==='משלוח',form=document.getElementById('checkoutForm');form?.classList.toggle('delivery-selected',delivery);form?.classList.toggle('pickup-selected',!delivery);['custCity','custStreet','custHouse'].forEach(id=>{const e=document.getElementById(id);if(e)e.required=delivery;});updateCheckoutSummary();}
 function setCheckoutLoading(v){const b=document.getElementById('submitOrderBtn');if(b){b.disabled=v;b.innerHTML=v?'שומר ומעביר לתשלום... <i class="fa-solid fa-circle-notch submit-spinner"></i>':'אישור הפרטים ומעבר לתשלום מאובטח <i class="fa-solid fa-credit-card"></i>';}}
 function createSequentialOrderId(){const n=(Number(localStorage.getItem(ORDER_SEQUENCE_KEY))||0)+1;localStorage.setItem(ORDER_SEQUENCE_KEY,String(n));return `SUKKOT-${String(n).padStart(6,'0')}`;}
-async function handleCheckout(event){event.preventDefault();if(isSubmittingOrder||!cart.length)return;isSubmittingOrder=true;setCheckoutLoading(true);const orderId=createSequentialOrderId();const val=id=>document.getElementById(id)?.value.trim()||'';const shipping=document.querySelector('input[name="shippingMethod"]:checked')?.value||'איסוף עצמי';const city=val('custCity'),street=val('custStreet'),house=val('custHouse'),entrance=val('custEntrance'),apt=val('custApartment'),floor=val('custFloor'),postalCode=val('custPostalCode'),deliveryNotes=val('custDeliveryNotes'),address=[street,house&&`בית ${house}`,entrance&&`כניסה ${entrance}`,apt&&`דירה ${apt}`,floor&&`קומה ${floor}`,city,postalCode&&`מיקוד ${postalCode}`].filter(Boolean).join(', ');const total=cart.reduce((s,i)=>s+i.price*i.qty,0)+(shipping==='משלוח'?45:0);const orderData={orderId,customer:{name:val('custName'),phone:val('custPhone'),email:val('custEmail'),notes:val('custNotes'),city,street,houseNumber:house,entrance,apartmentNumber:apt,floor,postalCode,deliveryNotes,address},items:cart.map(i=>({id:i.id,sku:i.sku,name:i.name,qty:i.qty,price:i.price,lineTotal:i.qty*i.price})),paid:false,paymentStatus:'waiting_for_payment',orderStatus:'waiting_for_payment',shippingMethod:shipping,totalPrice:total,date:new Date().toISOString()};localStorage.setItem('grow_pending_order_id',orderId);localStorage.setItem('grow_pending_summary',JSON.stringify({orderId,items:orderData.items,shipping,total}));try{const savePromise=window.saveOrderToFirebase?.(orderData);if(savePromise&&typeof savePromise.then==='function')await Promise.race([savePromise,new Promise(resolve=>setTimeout(resolve,1400))]);closeCheckoutPage();window.location.assign(SECURE_PAYMENT_URL);}catch(error){console.error('שגיאה בשמירת ההזמנה לפני התשלום:',error);closeCheckoutPage();window.location.assign(SECURE_PAYMENT_URL);}finally{setTimeout(()=>{isSubmittingOrder=false;setCheckoutLoading(false);},2500);}}
+async function handleCheckout(event){
+  event.preventDefault();
+  if(isSubmittingOrder||!cart.length)return;
+  isSubmittingOrder=true;
+  setCheckoutLoading(true);
+
+  const orderId=createSequentialOrderId();
+  const val=id=>document.getElementById(id)?.value.trim()||'';
+  const shipping=document.querySelector('input[name="shippingMethod"]:checked')?.value||'איסוף עצמי';
+  const city=val('custCity');
+  const street=val('custStreet');
+  const house=val('custHouse');
+  const entrance=val('custEntrance');
+  const apartment=val('custApartment');
+  const deliveryNotes=val('custDeliveryNotes');
+  const address=[street,house&&`בית ${house}`,entrance&&`כניסה ${entrance}`,apartment&&`דירה ${apartment}`,city].filter(Boolean).join(', ');
+  const total=cart.reduce((sum,item)=>sum+item.price*item.qty,0)+(shipping==='משלוח'?45:0);
+  const orderData={
+    orderId,
+    customer:{
+      name:val('custName'),
+      phone:val('custPhone'),
+      email:val('custEmail'),
+      city,
+      street,
+      houseNumber:house,
+      entrance,
+      apartmentNumber:apartment,
+      deliveryNotes,
+      address
+    },
+    items:cart.map(item=>({id:item.id,sku:item.sku,name:item.name,qty:item.qty,price:item.price,lineTotal:item.qty*item.price})),
+    paid:false,
+    paymentStatus:'waiting_for_payment',
+    orderStatus:'waiting_for_payment',
+    shippingMethod:shipping,
+    totalPrice:total,
+    date:new Date().toISOString()
+  };
+  localStorage.setItem('grow_pending_order_id',orderId);
+  localStorage.setItem('grow_pending_summary',JSON.stringify({orderId,items:orderData.items,shipping,total}));
+  try{
+    const savePromise=window.saveOrderToFirebase?.(orderData);
+    if(savePromise&&typeof savePromise.then==='function')await Promise.race([savePromise,new Promise(resolve=>setTimeout(resolve,1400))]);
+    closeCheckoutPage();
+    window.location.assign(SECURE_PAYMENT_URL);
+  }catch(error){
+    console.error('שגיאה בשמירת ההזמנה לפני התשלום:',error);
+    closeCheckoutPage();
+    window.location.assign(SECURE_PAYMENT_URL);
+  }finally{
+    setTimeout(()=>{isSubmittingOrder=false;setCheckoutLoading(false);},2500);
+  }
+}
 function handleContactForm(e){e.preventDefault();alert('תודה על פנייתך! נציג יחזור אליך בהקדם.');e.target.reset();}
