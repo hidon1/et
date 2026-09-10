@@ -91,6 +91,23 @@ body.product-details-open{overflow:hidden!important}
 .hero-case-note strong{font-family:'Frank Ruhl Libre',serif;font-size:1.3rem;line-height:1.15;font-weight:900}
 .hero-case-note small{font-size:.83rem;line-height:1.45;font-weight:700;color:#47604f}
 
+/* Desktop-only diagonal case tag */
+@keyframes desktopCaseWiggle{
+  0%,70%,100%{transform:rotate(7deg) translate3d(0,0,0) scale(1)}
+  74%{transform:rotate(3deg) translate3d(-3px,-1px,0) scale(1.035)}
+  78%{transform:rotate(11deg) translate3d(3px,1px,0) scale(1.035)}
+  82%{transform:rotate(5deg) translate3d(-2px,0,0) scale(1.02)}
+  86%{transform:rotate(7deg) translate3d(0,0,0) scale(1)}
+}
+@media(min-width:901px){
+  .hero-content>.hero-case-note{position:absolute!important;top:58%!important;right:clamp(-260px,calc((820px - 100vw)/2 + 24px),-92px)!important;width:218px!important;max-width:218px!important;margin:0!important;padding:15px 15px 14px!important;gap:10px!important;border:3px solid #fff4b2!important;border-radius:19px 8px 19px 8px!important;background:linear-gradient(135deg,#ffe987 0%,#dcae2e 52%,#fff0a8 100%)!important;box-shadow:0 8px 0 #95690d,0 18px 34px rgba(71,48,4,.28),inset 0 2px 0 rgba(255,255,255,.82)!important;outline:2px dashed rgba(83,54,3,.42)!important;outline-offset:-8px!important;text-align:center!important;z-index:9!important;animation:desktopCaseWiggle 6.4s ease-in-out infinite!important;will-change:transform}
+  .hero-content>.hero-case-note::before,.hero-content>.hero-case-note::after{content:"✦";position:absolute;top:5px;color:#fff8cf;font-size:.72rem;text-shadow:0 1px 3px rgba(73,48,2,.5)}
+  .hero-content>.hero-case-note::before{right:9px}.hero-content>.hero-case-note::after{left:9px}
+  .hero-content>.hero-case-note .hero-case-icon{width:39px;height:39px;border-radius:50%;background:#143d29;color:#ffe783;box-shadow:0 5px 0 rgba(8,39,24,.23)!important}
+  .hero-content>.hero-case-note strong{font-size:1.42rem!important;line-height:1!important;color:#123824!important;text-shadow:0 1px 0 rgba(255,255,255,.72)}
+  .hero-content>.hero-case-note small{margin-top:4px;font-size:.78rem!important;line-height:1.35!important;color:#3e3a20!important;font-weight:900!important}
+}
+
 /* Side cart access appears while the product area is visible */
 #floatingCartAccess{display:flex!important;position:fixed!important;left:16px!important;right:auto!important;top:50%!important;bottom:auto!important;z-index:4500!important;align-items:center!important;gap:8px!important;padding:11px 13px!important;border:1px solid rgba(239,216,121,.72)!important;border-radius:16px!important;background:linear-gradient(145deg,#173f2b,#0f3020)!important;color:#fff!important;box-shadow:0 16px 36px rgba(12,43,28,.28),inset 0 1px 0 rgba(255,255,255,.12)!important;font-family:'Heebo','Assistant',sans-serif!important;font-weight:900!important;cursor:pointer!important;opacity:0!important;visibility:hidden!important;pointer-events:none!important;transform:translate(-14px,-50%)!important;transition:opacity .22s ease,transform .22s ease,visibility .22s ease,box-shadow .22s ease!important}
 #floatingCartAccess.is-visible{opacity:1!important;visibility:visible!important;pointer-events:auto!important;transform:translate(0,-50%)!important}
@@ -142,7 +159,7 @@ body.product-details-open{overflow:hidden!important}
   .product-card-premium .product-title{font-size:1.2rem!important}
   .product-benefits{grid-template-columns:1fr!important}
 }
-@media(prefers-reduced-motion:reduce){#floatingCartAccess{transition:none!important}}
+@media(prefers-reduced-motion:reduce){#floatingCartAccess{transition:none!important}.hero-content>.hero-case-note{animation:none!important}}
 
 /* Mobile hero: compact gold selector and full-width message cards */
 @keyframes mobileGoldPulse{

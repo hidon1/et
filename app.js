@@ -1,4 +1,4 @@
-const productPolishLink=document.createElement('link');productPolishLink.rel='stylesheet';productPolishLink.href='product-polish.css?v=20260910-4';document.head.appendChild(productPolishLink);
+const productPolishLink=document.createElement('link');productPolishLink.rel='stylesheet';productPolishLink.href='product-polish.css?v=20260910-5';document.head.appendChild(productPolishLink);
 
 const GROW_PAYMENT_LINKS={
   130:'https://pay.grow.link/ODQ4NDA~04d37a2d8ee42223c57867f0bffad0bb-Mzk4MTU0Mw'
