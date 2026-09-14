@@ -1,8 +1,9 @@
-const productPolishLink=document.createElement('link');productPolishLink.rel='stylesheet';productPolishLink.href='product-polish.css?v=20260910-5';document.head.appendChild(productPolishLink);
+const productPolishLink=document.createElement('link');productPolishLink.rel='stylesheet';productPolishLink.href='product-polish.css?v=20260914-1';document.head.appendChild(productPolishLink);
 
 const GROW_PAYMENT_LINKS={
   130:'https://pay.grow.link/ODQ4NDA~04d37a2d8ee42223c57867f0bffad0bb-Mzk4MTU0Mw'
 };
+const GROW_GENERAL_PAYMENT_URL='https://pay.grow.link/d3929ec59413daf95a7263982ca7fa2f-MTk2MzUzOQ';
 
 // קטלוג שלושת הסטים. המחירים ניתנים לעדכון כאן לאחר קביעת המחיר הסופי.
 let products = [
@@ -53,7 +54,7 @@ function closeCheckoutPage(){document.getElementById('checkoutModal')?.classList
 function openTermsModal(){document.getElementById('termsModal')?.classList.add('active');}
 function closeTermsModal(){document.getElementById('termsModal')?.classList.remove('active');}
 function openSuccessModal(orderId){const n=document.getElementById('successOrderNumber');if(n)n.innerText=`מספר הזמנה: ${orderId}`;document.getElementById('successModal')?.classList.add('active');}
-function closeSuccessModal(){document.getElementById('successModal')?.classList.remove('active');}
+function closeSuccessModal(){const modal=document.getElementById('successModal');modal?.classList.remove('active');modal?.classList.remove('payment-amount-prompt');}
 function toggleFaq(button){button.parentElement.classList.toggle('active');}
 function filterType(){renderProducts();} function filterLevel(){renderProducts();} function filterVariety(){renderProducts();} function filterCatalog(){renderProducts();}
 
@@ -182,6 +183,22 @@ function updateCheckoutSummary(){const form=document.getElementById('checkoutFor
 function toggleCheckoutFields(){const shipping=document.querySelector('input[name="shippingMethod"]:checked')?.value||'איסוף עצמי',delivery=shipping==='משלוח',form=document.getElementById('checkoutForm');form?.classList.toggle('delivery-selected',delivery);form?.classList.toggle('pickup-selected',!delivery);['custCity','custStreet','custHouse'].forEach(id=>{const e=document.getElementById(id);if(e)e.required=delivery;});updateCheckoutSummary();}
 function setCheckoutLoading(v){const b=document.getElementById('submitOrderBtn');if(b){b.disabled=v;b.innerHTML=v?'שומר ומעביר לתשלום... <i class="fa-solid fa-circle-notch submit-spinner"></i>':'אישור הפרטים ומעבר לתשלום מאובטח <i class="fa-solid fa-credit-card"></i>';}}
 function createSequentialOrderId(){const n=(Number(localStorage.getItem(ORDER_SEQUENCE_KEY))||0)+1;localStorage.setItem(ORDER_SEQUENCE_KEY,String(n));return `SUKKOT-${String(n).padStart(6,'0')}`;}
+function showOpenAmountPaymentPrompt(orderId,total,paymentUrl){
+  const modal=document.getElementById('successModal');
+  if(!modal){window.location.assign(paymentUrl);return;}
+  modal.classList.add('payment-amount-prompt');
+  const icon=modal.querySelector('.success-icon i');
+  const title=modal.querySelector('.cart-title');
+  const text=modal.querySelector('p');
+  const number=document.getElementById('successOrderNumber');
+  const button=modal.querySelector('.btn-submit-order');
+  if(icon)icon.className='fa-solid fa-shekel-sign';
+  if(title)title.textContent=`בדף התשלום יש להזין ₪${total}`;
+  if(text)text.textContent=`ההזמנה נשמרה. בקישור Grow שייפתח יש להזין בשדה “סכום לתשלום” בדיוק ₪${total}, ולאחר מכן להשלים את התשלום המאובטח.`;
+  if(number)number.textContent=`מספר הזמנה: ${orderId}`;
+  if(button){button.disabled=false;button.innerHTML='<i class="fa-solid fa-arrow-up-right-from-square"></i> הבנתי, מעבר לתשלום';button.onclick=()=>window.location.assign(paymentUrl);}
+  modal.classList.add('active');
+}
 async function handleCheckout(event){
   event.preventDefault();
   if(isSubmittingOrder||!cart.length)return;
@@ -233,21 +250,25 @@ async function handleCheckout(event){
     totalPrice:total,
     date:new Date().toISOString()
   };
-  const paymentUrl=orderData.totalUnits===1&&shipping==='איסוף עצמי'?GROW_PAYMENT_LINKS[130]:'';
-  orderData.paymentLinkConfigured=Boolean(paymentUrl);
+  const fixedPaymentUrl=GROW_PAYMENT_LINKS[total]||'';
+  const paymentUrl=fixedPaymentUrl||GROW_GENERAL_PAYMENT_URL;
+  const usesOpenAmount=!fixedPaymentUrl;
+  orderData.paymentLinkConfigured=Boolean(fixedPaymentUrl);
+  orderData.paymentLinkType=usesOpenAmount?'open_amount':'fixed_amount';
+  orderData.expectedPaymentAmount=total;
   localStorage.setItem('grow_pending_order_id',orderId);
   localStorage.setItem('grow_pending_summary',JSON.stringify({orderId,items:orderData.items,shipping,total}));
-  if(paymentUrl)localStorage.setItem('grow_pending_payment_url',paymentUrl);
-  else localStorage.removeItem('grow_pending_payment_url');
+  localStorage.setItem('grow_pending_payment_url',paymentUrl);
+  localStorage.setItem('grow_pending_expected_amount',String(total));
   try{
     if(typeof window.saveOrderToFirebase!=='function')throw new Error('Firebase order saver is unavailable');
     const savedDocumentId=await window.saveOrderToFirebase(orderData);
     if(!savedDocumentId)throw new Error('Order was not saved');
     closeCheckoutPage();
-    if(paymentUrl){
-      window.location.assign(paymentUrl);
+    if(usesOpenAmount){
+      showOpenAmountPaymentPrompt(orderId,total,paymentUrl);
     }else{
-      alert(`ההזמנה נשמרה וממתינה לתשלום. קישור תשלום לסכום ₪${total} יתווסף בקרוב.`);
+      window.location.assign(paymentUrl);
     }
   }catch(error){
     console.error('שגיאה בשמירת ההזמנה לפני התשלום:',error);

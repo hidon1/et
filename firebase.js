@@ -17,9 +17,20 @@ getAnalytics(app);
 const db = getFirestore(app);
 
 const GROW_PAYMENT_URL = 'https://pay.grow.link/ODQ4NDA~04d37a2d8ee42223c57867f0bffad0bb-Mzk4MTU0Mw';
+const GROW_GENERAL_PAYMENT_URL = 'https://pay.grow.link/d3929ec59413daf95a7263982ca7fa2f-MTk2MzUzOQ';
 const PENDING_DOC_KEY = 'grow_pending_firebase_doc_id';
 const PENDING_ORDER_KEY = 'grow_pending_order_id';
 const PENDING_PAYMENT_URL_KEY = 'grow_pending_payment_url';
+const PENDING_EXPECTED_AMOUNT_KEY = 'grow_pending_expected_amount';
+
+function retryPendingPayment() {
+    const paymentUrl = localStorage.getItem(PENDING_PAYMENT_URL_KEY) || GROW_PAYMENT_URL;
+    const expectedAmount = localStorage.getItem(PENDING_EXPECTED_AMOUNT_KEY) || '';
+    if (paymentUrl === GROW_GENERAL_PAYMENT_URL && expectedAmount) {
+        alert(`בדף התשלום יש להזין בדיוק ₪${expectedAmount}.`);
+    }
+    window.location.href = paymentUrl;
+}
 
 window.saveOrderToFirebase = async function(orderData) {
     // מספר המסמך נוצר על ידי Firestore כדי למנוע דריסה בין הזמנות ממכשירים שונים.
@@ -64,6 +75,7 @@ window.listenToProductsFromFirebase = function(onProductsUpdate) {
 function setSuccessModalContent(type, orderId) {
     const modal = document.getElementById('successModal');
     if (!modal) return;
+    modal.classList.remove('payment-amount-prompt');
     const icon = modal.querySelector('.success-icon i');
     const title = modal.querySelector('.cart-title');
     const text = modal.querySelector('p');
@@ -84,7 +96,7 @@ function setSuccessModalContent(type, orderId) {
         if (button) {
             button.disabled = false;
             button.innerHTML = '<i class="fa-solid fa-credit-card"></i> נסו שוב לתשלום';
-            button.onclick = () => { window.location.href = localStorage.getItem(PENDING_PAYMENT_URL_KEY) || GROW_PAYMENT_URL; };
+            button.onclick = retryPendingPayment;
         }
     }
     modal.classList.add('active');
@@ -115,6 +127,8 @@ async function handleGrowReturn() {
         setSuccessModalContent('paid', orderId);
         localStorage.removeItem(PENDING_DOC_KEY);
         localStorage.removeItem(PENDING_ORDER_KEY);
+        localStorage.removeItem(PENDING_PAYMENT_URL_KEY);
+        localStorage.removeItem(PENDING_EXPECTED_AMOUNT_KEY);
         localStorage.removeItem('sukkot_cart');
     } else {
         if (docId) await window.updateOrderPaymentStatus(docId, {
@@ -139,7 +153,7 @@ window.addEventListener('load', () => {
     // כאן לא מחכים לקבל שום תשובה מ-Firebase: עוברים ל-Grow מיד.
     window.openSuccessModal = function(orderId) {
         if (orderId) localStorage.setItem(PENDING_ORDER_KEY, orderId);
-        window.location.href = localStorage.getItem(PENDING_PAYMENT_URL_KEY) || GROW_PAYMENT_URL;
+        retryPendingPayment();
     };
 
     handleGrowReturn().catch(console.error);

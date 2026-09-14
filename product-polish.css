@@ -143,6 +143,10 @@ body.product-details-open{overflow:hidden!important}
 .product-card-premium .qty-btn{width:27px!important;height:34px!important}
 .product-card-premium .add-to-cart-btn,.product-card-premium .direct-checkout-btn{min-height:35px!important;padding:6px 8px!important;border-radius:10px!important;font-size:.875rem!important}
 .terms-donation-item{background:linear-gradient(135deg,#eef7ea,#fff8d8)!important;border:1px solid rgba(180,138,27,.25)!important;border-radius:14px!important;padding:13px 15px!important;color:#173f2b!important}
+.association-revenue-banner{display:flex;align-items:center;justify-content:center;gap:13px;width:min(720px,100%);margin:24px auto 0;padding:15px 20px;border:1px solid rgba(188,145,32,.38);border-radius:18px;background:linear-gradient(135deg,#123d29,#276044);box-shadow:0 14px 32px rgba(13,54,35,.17);color:#fff;text-align:right}
+.association-revenue-icon{display:grid;place-items:center;width:48px;height:48px;flex:0 0 auto;border-radius:15px;background:linear-gradient(145deg,#ffe999,#cda532);color:#173d29;font-size:1.25rem}
+.association-revenue-banner>span:last-child{display:flex;flex-direction:column;gap:2px}.association-revenue-banner strong{font-family:'Frank Ruhl Libre',serif;font-size:1.28rem;line-height:1.2;color:#ffe998}.association-revenue-banner small{font-size:.9rem;line-height:1.5;font-weight:700;color:#f7f8ef}
+#successModal.payment-amount-prompt .success-window{border:2px solid rgba(205,165,50,.55)!important;background:linear-gradient(180deg,#fffef7,#fff7d5)!important}#successModal.payment-amount-prompt .success-icon{background:linear-gradient(145deg,#efd879,#c99d2a)!important;color:#143b28!important}#successModal.payment-amount-prompt .cart-title{color:#143b28!important}#successModal.payment-amount-prompt p{font-size:1rem!important;line-height:1.75!important;color:#34483b!important}#successModal.payment-amount-prompt .success-order-number{background:#eef6ea!important;color:#173f2b!important}
 
 @media(max-width:980px){#shop-section .products-grid{max-width:650px!important;gap:13px!important}}
 @media(max-width:650px){
@@ -158,6 +162,7 @@ body.product-details-open{overflow:hidden!important}
   .product-card-premium .product-info{padding:11px 12px 12px!important}
   .product-card-premium .product-title{font-size:1.2rem!important}
   .product-benefits{grid-template-columns:1fr!important}
+  .association-revenue-banner{align-items:flex-start;margin-top:18px;padding:13px 14px;gap:10px;border-radius:15px}.association-revenue-icon{width:42px;height:42px;border-radius:12px;font-size:1.05rem}.association-revenue-banner strong{font-size:1.12rem}.association-revenue-banner small{font-size:.8rem}
 }
 @media(prefers-reduced-motion:reduce){#floatingCartAccess{transition:none!important}.hero-content>.hero-case-note{animation:none!important}}
 
