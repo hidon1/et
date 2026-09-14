@@ -1,7 +1,14 @@
 const productPolishLink=document.createElement('link');productPolishLink.rel='stylesheet';productPolishLink.href='product-polish.css?v=20260914-1';document.head.appendChild(productPolishLink);
 
 const GROW_PAYMENT_LINKS={
-  130:'https://pay.grow.link/ODQ4NDA~04d37a2d8ee42223c57867f0bffad0bb-Mzk4MTU0Mw'
+  130:'https://pay.grow.link/ODQ4NDA~04d37a2d8ee42223c57867f0bffad0bb-Mzk4MTU0Mw',
+  175:'https://pay.grow.link/ODQ4NDA~eafab34b556cd1d28e02a8b638f0fd65-Mzk5MjI5Nw',
+  260:'https://pay.grow.link/ODQ4NDA~1c3f38e12f024c75b9f69e1763725459-Mzk5MjMxMQ',
+  305:'https://pay.grow.link/ODQ4NDA~7dfbddf7e2fc5e8d3bb47f0add18596a-Mzk5MjU3NQ',
+  390:'https://pay.grow.link/ODQ4NDA~ac8b2dda9d4968cae31ec6699209201e-Mzk5MjU4MQ',
+  435:'https://pay.grow.link/ODQ4NDA~f6a44602e92b32edcdf3ef41d5f18938-Mzk5MjU4NQ',
+  520:'https://pay.grow.link/ODQ4NDA~3bd4e5491d11328215b0aabe1d54b020-Mzk5MjU4OQ',
+  565:'https://pay.grow.link/ODQ4NDA~671732e50f0f9e863ac97dea559ce44d-Mzk5MjU5Ng'
 };
 const GROW_GENERAL_PAYMENT_URL='https://pay.grow.link/d3929ec59413daf95a7263982ca7fa2f-MTk2MzUzOQ';
 
