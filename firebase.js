@@ -2,6 +2,23 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/12.14.0/fireba
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-analytics.js";
 import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, doc, updateDoc } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
 
+// Keep the quantity control on product cards compact while always showing minus, value and plus.
+const quantityFixStyle = document.createElement('style');
+quantityFixStyle.textContent = `
+html body #shop-section .product-card-premium .product-actions{grid-template-columns:76px minmax(0,1fr)!important;gap:7px!important}
+html body #shop-section .product-card-premium .quantity-block{width:76px!important;min-width:76px!important;max-width:76px!important;min-inline-size:76px!important}
+html body #shop-section .product-card-premium .quantity-selector{display:grid!important;grid-template-columns:22px 32px 22px!important;width:76px!important;min-width:76px!important;max-width:76px!important;min-height:36px!important;height:36px!important;overflow:visible!important;box-sizing:border-box!important}
+html body #shop-section .product-card-premium .quantity-selector .qty-btn{display:flex!important;align-items:center!important;justify-content:center!important;width:22px!important;min-width:22px!important;max-width:22px!important;height:34px!important;min-height:34px!important;padding:0!important;margin:0!important;line-height:1!important;font-size:1rem!important;box-sizing:border-box!important;visibility:visible!important;opacity:1!important}
+html body #shop-section .product-card-premium .quantity-selector .qty-val{display:flex!important;align-items:center!important;justify-content:center!important;width:32px!important;min-width:32px!important;max-width:32px!important;height:34px!important;overflow:visible!important;text-align:center!important}
+@media(max-width:650px){
+html body #shop-section .product-card-premium .product-actions{grid-template-columns:72px minmax(0,1fr)!important}
+html body #shop-section .product-card-premium .quantity-block{width:72px!important;min-width:72px!important;max-width:72px!important;min-inline-size:72px!important}
+html body #shop-section .product-card-premium .quantity-selector{grid-template-columns:21px 30px 21px!important;width:72px!important;min-width:72px!important;max-width:72px!important}
+html body #shop-section .product-card-premium .quantity-selector .qty-btn{width:21px!important;min-width:21px!important;max-width:21px!important;font-size:.95rem!important}
+html body #shop-section .product-card-premium .quantity-selector .qty-val{width:30px!important;min-width:30px!important;max-width:30px!important}
+}`;
+document.head.appendChild(quantityFixStyle);
+
 const firebaseConfig = {
     apiKey: "AIzaSyBG8ZiYOdVdI45AsKnMcbX6QaVlkU4dXhM",
     authDomain: "etrog-d0bcb.firebaseapp.com",
