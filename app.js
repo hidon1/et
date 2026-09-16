@@ -13,7 +13,7 @@
 
   const mobileCss=document.createElement('link');
   mobileCss.rel='stylesheet';
-  mobileCss.href='mobile-shop-first.css?v=20260917-5';
+  mobileCss.href='mobile-shop-first.css?v=20260917-6';
   document.head.appendChild(mobileCss);
 
   function loadStore(){
