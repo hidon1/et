@@ -1,14 +1,15 @@
-/* Mobile storefront — compact opening and all three products above the fold */
-@media (max-width: 560px) {
+/* Mobile storefront — compact 2+1 product grid with full product copy */
+@media (max-width:560px){
   body{overflow-x:hidden!important}
 
-  /* The mobile opening starts immediately with the store message. */
+  /* Keep the opening high, large and uncluttered. */
   header{display:none!important}
   .hero{
     display:block!important;
     min-height:0!important;
     height:auto!important;
-    padding:6px 10px 4px!important;
+    margin:0!important;
+    padding:1px 8px 2px!important;
     background:none!important
   }
   .hero::after,
@@ -18,63 +19,66 @@
   .hero-content::after,
   .hero-content .btn-group,
   .hero-set-banner{display:none!important}
-
   .hero-content{
     display:block!important;
     width:100%!important;
     margin:0!important;
     padding:0!important;
-    text-align:center!important
+    text-align:center!important;
+    transform:translateY(-1px)!important
   }
   .hero-content h1{
     display:block!important;
+    max-width:none!important;
     margin:0!important;
     padding:0!important;
-    text-shadow:none!important;
-    line-height:1!important
+    line-height:.96!important;
+    text-shadow:none!important
   }
   .hero-title-line{
     display:block!important;
     color:#123524!important;
-    font-size:1.48rem!important;
-    line-height:1!important
+    font-family:'Frank Ruhl Libre','Tinos',serif!important;
+    font-size:2.15rem!important;
+    font-weight:900!important;
+    line-height:.96!important;
+    letter-spacing:-.035em!important
   }
   .hero-title-accent{display:none!important}
   .hero-home-line{
     display:block!important;
-    margin:3px 0 0!important;
-    color:#31523f!important;
-    font-size:.86rem!important;
-    font-weight:800!important;
-    line-height:1.1!important
+    margin:2px 0 0!important;
+    color:#254b36!important;
+    font-size:1.04rem!important;
+    font-weight:900!important;
+    line-height:1.05!important
   }
 
-  /* Keep only the compact “case included” promise below the title. */
   .hero-case-note{
     display:flex!important;
     width:max-content!important;
-    max-width:92vw!important;
+    max-width:94vw!important;
     min-height:0!important;
-    margin:6px auto 3px!important;
-    padding:5px 11px!important;
+    margin:4px auto 1px!important;
+    padding:5px 12px!important;
     gap:7px!important;
-    border-radius:12px!important
+    border-radius:11px!important
   }
   .hero-case-icon{
-    width:29px!important;
-    height:29px!important;
-    min-width:29px!important;
-    border-radius:9px!important;
-    font-size:.78rem!important
+    width:30px!important;
+    height:30px!important;
+    min-width:30px!important;
+    border-radius:8px!important;
+    font-size:.8rem!important
   }
   .hero-case-note strong{
     display:block!important;
-    font-size:.9rem!important;
+    font-size:1rem!important;
     line-height:1!important
   }
   .hero-case-note small{display:none!important}
 
-  /* No explanatory blocks before the products. */
+  /* Products begin immediately after the case banner. */
   .features{display:none!important}
   #shop-section{
     display:block!important;
@@ -89,15 +93,13 @@
     display:block!important;
     width:100%!important;
     margin:0!important;
-    padding:4px 7px!important;
+    padding:3px 6px!important;
     border-radius:0!important
   }
-
-  /* Two products in the first row, the third centered underneath. */
   #shop-section .products-grid{
     display:grid!important;
     grid-template-columns:repeat(2,minmax(0,1fr))!important;
-    gap:7px!important;
+    gap:6px!important;
     width:100%!important;
     max-width:430px!important;
     margin:0 auto!important;
@@ -112,7 +114,8 @@
     min-height:0!important;
     width:100%!important;
     margin:0!important;
-    border-radius:14px!important;
+    overflow:hidden!important;
+    border-radius:13px!important;
     visibility:visible!important;
     opacity:1!important;
     transform:none!important;
@@ -120,54 +123,113 @@
   }
   #shop-section .product-card:nth-child(3){
     grid-column:1 / -1!important;
-    width:calc(50% - 3.5px)!important;
+    width:calc(50% - 3px)!important;
     justify-self:center!important
   }
 
   #shop-section .product-visual{min-height:0!important}
   #shop-section .product-card-premium .product-img-container{
-    height:78px!important;
-    min-height:78px!important;
-    max-height:78px!important
+    height:86px!important;
+    min-height:86px!important;
+    max-height:86px!important
   }
   #shop-section .product-main-image{
     width:100%!important;
     height:100%!important;
     object-fit:cover!important
   }
-  #shop-section .product-badge,
-  #shop-section .product-image-caption,
-  #shop-section .product-kicker,
-  #shop-section .product-desc,
-  #shop-section .product-benefits,
-  #shop-section .product-service-row,
-  #shop-section .product-details-link{display:none!important}
+  #shop-section .product-image-caption{display:none!important}
+  #shop-section .product-badge{
+    display:block!important;
+    top:5px!important;
+    right:5px!important;
+    padding:3px 6px!important;
+    border-radius:7px!important;
+    font-size:.54rem!important;
+    line-height:1!important
+  }
 
+  /* Restore the desktop product information, scaled for the compact cards. */
   #shop-section .product-card-premium .product-info{
     display:flex!important;
     flex-direction:column!important;
     flex:1!important;
     min-height:0!important;
-    padding:7px!important
+    padding:6px 7px 7px!important
+  }
+  #shop-section .product-kicker{
+    display:block!important;
+    margin:0 0 2px!important;
+    font-size:.55rem!important;
+    line-height:1.1!important;
+    text-align:center!important
   }
   #shop-section .product-card-premium .product-title{
-    display:-webkit-box!important;
-    min-height:2.05em!important;
+    display:block!important;
+    min-height:0!important;
     margin:0 0 3px!important;
-    overflow:hidden!important;
+    overflow:visible!important;
     color:#123524!important;
     font-size:.78rem!important;
     font-weight:900!important;
-    line-height:1.05!important;
+    line-height:1.12!important;
     text-align:center!important;
-    -webkit-box-orient:vertical!important;
-    -webkit-line-clamp:2!important
+    -webkit-line-clamp:unset!important
+  }
+  #shop-section .product-desc{
+    display:block!important;
+    min-height:0!important;
+    margin:0 0 4px!important;
+    overflow:visible!important;
+    color:#526057!important;
+    font-size:.61rem!important;
+    line-height:1.28!important;
+    text-align:right!important;
+    -webkit-line-clamp:unset!important
+  }
+  #shop-section .product-benefits{
+    display:grid!important;
+    gap:2px!important;
+    margin:0 0 4px!important;
+    padding:0!important
+  }
+  #shop-section .product-benefits li{
+    display:flex!important;
+    align-items:flex-start!important;
+    gap:3px!important;
+    margin:0!important;
+    font-size:.56rem!important;
+    line-height:1.2!important
+  }
+  #shop-section .product-benefits i{
+    margin-top:1px!important;
+    font-size:.52rem!important
+  }
+  #shop-section .product-details-link{
+    display:inline-flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    min-height:22px!important;
+    margin:0 0 4px!important;
+    padding:2px 3px!important;
+    font-size:.56rem!important;
+    line-height:1.1!important
+  }
+  #shop-section .product-service-row{
+    display:flex!important;
+    flex-wrap:wrap!important;
+    justify-content:center!important;
+    gap:3px 6px!important;
+    margin:0 0 3px!important;
+    padding:0!important;
+    font-size:.5rem!important;
+    line-height:1.1!important
   }
 
   #shop-section .product-purchase-zone{
     display:block!important;
     margin:auto 0 0!important;
-    padding:3px 0 0!important
+    padding:4px 0 0!important
   }
   #shop-section .product-price-wrap{
     display:flex!important;
@@ -178,7 +240,7 @@
   }
   #shop-section .product-price-wrap small{
     margin:0!important;
-    font-size:.57rem!important
+    font-size:.56rem!important
   }
   #shop-section .product-card-premium .product-price{
     font-size:1.08rem!important;
@@ -203,7 +265,7 @@
     width:100%!important;
     min-height:28px!important;
     height:28px!important;
-    border-radius:9px!important
+    border-radius:8px!important
   }
   #shop-section .qty-btn{
     width:31px!important;
@@ -217,7 +279,7 @@
     place-items:center!important;
     width:auto!important;
     min-width:24px!important;
-    font-size:.77rem!important
+    font-size:.76rem!important
   }
   #shop-section .product-card-premium .add-to-cart-btn,
   #shop-section .product-card-premium .direct-checkout-btn{
@@ -227,26 +289,24 @@
     min-height:34px!important;
     margin:0!important;
     padding:4px 3px!important;
-    border-radius:9px!important;
+    border-radius:8px!important;
     justify-content:center!important;
     gap:3px!important;
-    font-size:.6rem!important;
-    line-height:1.05!important;
+    font-size:.59rem!important;
+    line-height:1.08!important;
     white-space:normal!important
   }
   #shop-section .product-card-premium .add-to-cart-btn i,
   #shop-section .product-card-premium .direct-checkout-btn i{
-    font-size:.66rem!important
+    font-size:.64rem!important
   }
 
-  /* Normal content remains below the first-screen product area. */
   .story-section,
   .terms-highlights,
   .quality-section,
   .faq-section,
   footer{display:block!important}
 
-  /* Small persistent cart at bottom-left. */
   #floatingCartAccess{
     position:fixed!important;
     left:10px!important;
