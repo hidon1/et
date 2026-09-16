@@ -1,64 +1,46 @@
-/* Mobile storefront: products first, compact header/cart */
+/* Mobile storefront — products immediately after a compact opening */
 @media (max-width: 560px) {
-  header { position: relative !important; min-height: 46px !important; }
-  .nav-container { min-height: 46px !important; padding-block: 4px !important; }
-  header .brand-logo { transform: scale(.72) !important; transform-origin: right center !important; }
-  header .nav-menu, header .hamburger { display: none !important; }
-  header .cart-icon-btn { display: none !important; }
+  header{position:relative!important;min-height:44px!important}
+  .nav-container{min-height:44px!important;padding:3px 0!important}
+  header .brand-logo{transform:scale(.70)!important;transform-origin:right center!important}
+  header .nav-menu,header .hamburger{display:none!important}
+  header .cart-icon-btn{display:none!important}
 
-  .hero { display: none !important; }
-  .features { display: none !important; }
+  /* Keep only a tiny opening message; remove the large desktop hero content. */
+  .hero{display:block!important;min-height:0!important;height:auto!important;padding:10px 14px 8px!important;background:none!important}
+  .hero::after,.hero-background,.hero-choice-orb,.hero-content>p,.hero-content::after,.hero-content .btn-group,.hero-set-banner{display:none!important}
+  .hero-content{display:block!important;width:100%!important;margin:0!important;padding:0!important;text-align:center!important}
+  .hero-content h1{display:block!important;margin:0!important;padding:0!important;text-shadow:none!important;line-height:1.05!important}
+  .hero-title-line{display:block!important;font-size:1.55rem!important;line-height:1.05!important;color:#123524!important}
+  .hero-title-accent{display:none!important}
+  .hero-home-line{display:block!important;margin:4px 0 0!important;font-size:.9rem!important;line-height:1.2!important;color:#31523f!important;font-weight:700!important}
 
-  #shop-section {
-    padding-top: 10px !important;
-    padding-bottom: 42px !important;
-  }
-  #shop-section > .section-title {
-    font-size: 1.35rem !important;
-    margin: 4px 0 5px !important;
-    line-height: 1.2 !important;
-  }
-  #shop-section > .section-subtitle {
-    font-size: .82rem !important;
-    line-height: 1.35 !important;
-    margin: 0 0 10px !important;
-  }
-  .products-grid { gap: 12px !important; }
-  .product-card { margin: 0 !important; }
-  .product-img-container { min-height: 155px !important; max-height: 190px !important; }
-  .product-main-image { object-fit: cover !important; }
-  .product-info { padding: 14px !important; }
-  .product-kicker { font-size: .72rem !important; }
-  .product-title { font-size: 1.18rem !important; margin-bottom: 5px !important; }
-  .product-desc { font-size: .82rem !important; line-height: 1.4 !important; margin-bottom: 8px !important; }
-  .product-benefits, .product-service-row, .product-details-link { display: none !important; }
-  .product-purchase-zone { margin-top: 8px !important; padding-top: 8px !important; }
-  .product-price { font-size: 1.35rem !important; }
+  /* Products are the first real content on mobile. */
+  .features{display:none!important}
+  #shop-section{display:block!important;padding:4px 0 34px!important;margin:0!important}
+  #shop-section .container{width:min(100% - 20px,430px)!important}
+  #shop-section .section-title{font-size:1.18rem!important;margin:2px 0 3px!important;line-height:1.2!important}
+  #shop-section .section-subtitle{font-size:.78rem!important;line-height:1.3!important;margin:0 0 8px!important}
+  #shop-section .shop-layout{display:block!important;padding:8px!important;margin:0!important}
+  #shop-section .products-grid{display:grid!important;grid-template-columns:1fr!important;gap:11px!important;max-width:100%!important;visibility:visible!important;opacity:1!important}
+  #shop-section .product-card,#shop-section .product-card-premium{display:flex!important;visibility:visible!important;opacity:1!important;transform:none!important;margin:0!important;animation:none!important}
+  .product-card-premium .product-img-container{height:150px!important;min-height:150px!important;max-height:150px!important}
+  .product-card-premium .product-info{padding:12px 13px!important}
+  .product-card-premium .product-title{font-size:1.17rem!important;margin-bottom:4px!important}
+  .product-card-premium .product-desc{font-size:.79rem!important;line-height:1.35!important;min-height:0!important;-webkit-line-clamp:2!important;margin:0!important}
+  .product-benefits,.product-service-row,.product-details-link{display:none!important}
+  .product-purchase-zone{padding-top:7px!important;margin-top:6px!important}
+  .product-price-wrap{margin-bottom:7px!important}
+  .product-card-premium .product-price{font-size:1.35rem!important}
+  .product-actions{grid-template-columns:76px 1fr!important;gap:6px!important}
+  .product-card-premium .add-to-cart-btn,.product-card-premium .direct-checkout-btn{min-height:36px!important;font-size:.74rem!important;padding:6px!important}
 
-  #floatingCartAccess {
-    position: fixed !important;
-    left: 12px !important;
-    right: auto !important;
-    bottom: 12px !important;
-    top: auto !important;
-    z-index: 2200 !important;
-    width: 52px !important;
-    height: 52px !important;
-    min-width: 52px !important;
-    border-radius: 50% !important;
-    padding: 0 !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-    transform: none !important;
-  }
-  #floatingCartAccess .float-cart-label { display: none !important; }
-  #floatingCartAccess .float-cart-count {
-    position: absolute !important;
-    top: -5px !important;
-    right: -5px !important;
-  }
-  .whatsapp-float { bottom: 76px !important; }
+  /* All regular informational content remains below the products. */
+  .story-section,.terms-highlights,.quality-section,.faq-section,footer{display:block!important}
+
+  /* Small persistent cart at bottom-left. */
+  #floatingCartAccess{position:fixed!important;left:10px!important;right:auto!important;bottom:10px!important;top:auto!important;z-index:2200!important;width:50px!important;height:50px!important;min-width:50px!important;border-radius:50%!important;padding:0!important;display:flex!important;align-items:center!important;justify-content:center!important;opacity:1!important;visibility:visible!important;transform:none!important}
+  #floatingCartAccess .float-cart-label{display:none!important}
+  #floatingCartAccess .float-cart-count{position:absolute!important;top:-5px!important;right:-5px!important}
+  .whatsapp-float{bottom:70px!important}
 }
