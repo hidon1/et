@@ -271,8 +271,12 @@ async function handleCheckout(event){
     if(typeof window.saveOrderToFirebase!=='function')throw new Error('Firebase order saver is unavailable');
     const savedDocumentId=await window.saveOrderToFirebase(orderData);
     if(!savedDocumentId)throw new Error('Order was not saved');
-    // חסימה זמנית של המעבר לסליקה: שומרים את ההזמנה, אך לא פותחים את Grow.
-    alert('תקלה זמנית במערכת התשלום. אנא נסו שוב במועד מאוחר יותר.');
+    closeCheckoutPage();
+    if(usesOpenAmount){
+      showOpenAmountPaymentPrompt(orderId,total,paymentUrl);
+    }else{
+      window.location.assign(paymentUrl);
+    }
   }catch(error){
     console.error('שגיאה בשמירת ההזמנה לפני התשלום:',error);
     alert('לא הצלחנו לשמור את ההזמנה. לא בוצע מעבר לתשלום. בדקו את החיבור לאינטרנט ונסו שוב.');
